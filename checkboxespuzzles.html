@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+<head>
+    {% block title %}
+    checkBoxes puzzles
+    {% endblock %}
+</head>
+<body>
+    {% block content %}
+    <p><b>checkBoxes</b></p>
+    <p>The checkBoxes method finds all the missing numbers in a box. 
+        If there is only one open cell that could contain one of these missing numbers, that number is put into the cell. This process is then repeated for all boxes in the sudoku grid.</p>
+    <div style = "position:absolute; left:70px">
+        <font size="2">1</font>
+        </div>
+        <div style = "position:absolute; left:120px">
+          <font size="2">2</font>
+          </div>
+          <div style = "position:absolute; left:170px">
+            <font size="2">3</font>
+            </div>
+            <div style = "position:absolute; left:220px">
+              <font size="2">4</font>
+              </div>
+              <div style = "position:absolute; left:270px">
+                <font size="2">5</font>
+                </div>
+                <div style = "position:absolute; left:320px">
+                  <font size="2">6</font>
+                  </div>
+                  <div style = "position:absolute; left:370px">
+                    <font size="2">7</font>
+                    </div>
+                    <div style = "position:absolute; left:420px">
+                      <font size="2">8</font>
+                      </div>
+                      <div style = "position:absolute; left:470px">
+                        <font size="2">9</font>
+                        </div>
+                        <br>
+    {% for i in range(nums.size) %}
+            {% if (i+1) % 9 == 1 %}
+            <div style = "position:absolute; left:20px">
+            <font size="4">{{lets[(i+1)//9]}}</font>
+            </div>
+            {% endif %}
+            {% if (i+1) % 9 == 1 %}
+                <div class="square" style = "position:absolute; left:55px"></div>
+                {% if nums[i] != 0 %}
+                    <div style = "position:absolute; left:70px">
+                    <font size="5">{{nums[i]}}</font>
+                    </div>
+                {% endif %}
+            {% endif %}
+            {% if (i+1) % 9 == 2 %}
+                <div class="square" style = "position:absolute; left:105px"></div>
+                {% if nums[i] != 0 %}
+                    <div style = "position:absolute; left:120px">
+                    <font size="5">{{nums[i]}}</font>
+                    </div>
+                {% endif %}  
+            {% endif %}
+            {% if (i+1) % 9 == 3 %}
+                <div class="square" style = "position:absolute; left:155px"></div>
+                {% if nums[i] != 0 %}
+                    <div style = "position:absolute; left:170px">
+                    <font size="5">{{nums[i]}}</font>
+                    </div>
+                {% endif %}    
+            {% endif %}
+            {% if (i+1) % 9 == 4 %}
+                <div class="square" style = "position:absolute; left:205px"></div>
+                {% if nums[i] != 0 %}
+                    <div style = "position:absolute; left:220px">
+                    <font size="5">{{nums[i]}}</font>
+                    </div>
+                {% endif %}  
+            {% endif %}
+            {% if (i+1) % 9 == 5 %}
+                <div class="square" style = "position:absolute; left:255px"></div>
+                {% if nums[i] != 0 %}
+                    <div style = "position:absolute; left:270px">
+                    <font size="5">{{nums[i]}}</font>
+                    </div>
+                {% endif %}  
+            {% endif %}
+            {% if (i+1) % 9 == 6 %}
+                <div class="square" style = "position:absolute; left:305px"></div>
+                {% if nums[i] != 0 %}
+                    <div style = "position:absolute; left:320px">
+                    <font size="5">{{nums[i]}}</font>
+                    </div>
+                {% endif %}  
+            {% endif %}
+            {% if (i+1) % 9 == 7 %}
+                <div class="square" style = "position:absolute; left:355px"></div>
+                {% if nums[i] != 0 %}
+                    <div style = "position:absolute; left:370px">
+                    <font size="5">{{nums[i]}}</font>
+                    </div>
+                {% endif %} 
+            {% endif %}
+            {% if (i+1) % 9 == 8 %}
+                <div class="square" style = "position:absolute; left:405px"></div>
+                {% if nums[i] != 0 %}
+                    <div style = "position:absolute; left:420px">
+                    <font size="5">{{nums[i]}}</font>
+                    </div>
+                {% endif %}     
+            {% endif %}
+            {% if (i+1) % 9 == 0 %}
+                <div class="square" style = "position:absolute; left:455px"></div>
+                {% if nums[i] != 0 %}
+                    <div style = "position:absolute; left:470px">
+                    <font size="5">{{nums[i]}}</font>
+                    </div>
+                {% endif %}  
+                </br>
+                </br>   
+            {% endif %}
+        {% endfor %}
+        <p>Which cell can be filled by using the checkBoxes method?</p>
+        <form action="/puzzles/checkboxes/"  method="post">
+            <p><input type="text" name="cell"/></p>
+            <p><input type="submit" value="solve"/></p>
+        </form>
+        {% if result == True %}
+            <h1>Correct!</h1>
+            <a class="button" href="/puzzles/checkboxes">New Puzzle</a>
+        {% endif %}
+        {% if result == False %}
+            <h1>Incorrect</h1>
+            <p>Correct answer was: {{answer}}</p>
+            <a class="button" href="/puzzles/checkboxes">New Puzzle</a>
+        {% endif %}
+    {% endblock %}
+</body>

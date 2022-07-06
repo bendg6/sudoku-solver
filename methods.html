@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+    <head>
+        {% block title %}
+        Sudoku Solving Methods
+        {% endblock %}
+    </head>
+    <body>
+        {% block content %}
+          <center><h1>Methods</h1></center>
+        <p><b>checkCells</b></p>
+        <p>The checkCells method checks any cell in the same box, row, or column as 
+            the cell that is being evaluated. Any number in those cells can be eliminated as a possibility
+            for the cell that is being evaluated.
+        </p>
+        <p><b>checkBoxes, checkColumns, and checkRows</b></p>
+        <p>The checkBoxes operation takes all the missing numbers from a box and 
+            tests all unfilled cells in that box to see if there is only one possible location for a given number. 
+            The checkColumns and checkRows operations do the same thing, but they
+            evaluate all unfilled cells in a particular row or column.
+        </p>
+        <p><b>checkNakedSets</b></p>
+        <p>The checkNakedSets operation occurs when two or more unfilled cells in the same row, column, or box have an identical set of possible numbers.
+            If the number of cells with an identical set of possible numbers is the same as the number of possible numbers in the set, the checkNakedSets operation is used.
+            Since all the numbers in the set of possibilities must be in one of the cells with an identical set of possible numbers, these numbers can be
+            eliminated as a possibility from any cell in the same row/column/box as the unfilled cells. For instance, if the cells with an identical set of options
+            are in the same box, all other cells can remove those numbers as a possibility.
+
+        </p>
+        <p><b>boxElimination</b></p>
+        <p>The boxElimination operation takes all the missing numbers in a box
+            and tests all unfilled cells in that box. If all possible boxes for 
+            an unknown number are in the same row or column, other cells in that row or column
+            that are in different boxes cannot contain that particular number, because it must be in a different spot in that row or column.
+            Therefore, that option can be eliminated from cells in the same row or column but different boxes.
+        </p>
+        <p><b>rowElimination and colElimination</b></p>
+        <p>The rowElimination and colElimination operations are similar. 
+            For example, in rowElimination, all missing numbers in a particular row are tested in all unfilled cells in that row.
+            If all of these cells are in the same box, cells in that box that are not in the row cannot
+            contain that particular number, and that option can be eliminated as a possibility. The same logic applies for colElimination.
+        </p>
+        <p><b>nakedTriple</b></p>
+        <p>The nakedTriple operation is only used if three cells in the same row, column, or box have only two possible numbers,
+            and there are only three possible numbers that can go in any of these cells.
+            These three cells must therefore contain these three numbers in some permutation, so any other unfilled cells in this row, column, or box
+            cannot contain any of these three numbers. Therefore, these numbers can be eliminated as a option for those unfilled cells.
+        </p>
+        <p><b>x-wing</b></p>
+        <p>The x-wing operation is an advanced operation that is rarely used. It is used if two rows or columns have only two cells that can contain a particular unknown number.
+            For instance, if only two cells in row A could contain a 2, and only two cells in row B could contain a 2, and both rows could only have a 2 in columns 4 and 5,
+            then all cells in columns 4 and 5 not in rows A or B could not contain a 2, because one of rows A and B
+            definitely has a 2 in columns 4 and 5. This logic applies to two columns with the same situation, with only two rows possibly containing a certain value in both columns.
+        </p>
+        <p><b>xy-wing</b></p>
+        <p>The xy-wing operation is also a rarely used operation. It is used if there are three cells in a L shape (with two of the cells in the same row and two of the cells in the same column). These cells must have only two possible options, and
+            these options must form a triangle (only three possible options can fill any of the cells). In this case, the cell diagonally opposite from the pivot cell of the L (in the same row as one of the points of the L and in the same column as the other point of the L)
+            cannot contain the number that is an option for both of the points of the L, so it can be eliminated as an option from that cell. 
+        </p>
+        <p><b>guessAndCheck</b></p>
+        <p>The guessAndCheck operation is only used once all other operations can not solve any cells.
+          In the guessAndCheck operation, an unsolved cell with exactly two possible options is filled with one of the options. Next, all other operations are performed,
+          and if these operations produce an error, the cell is filled in with the other option. If no error is produced, the cell is cleared, and the other options is tried.
+          If neither option produces an error after several iterations of the other operations, the cell remains unfilled.
+        </p>
+        <p><b>guessNakedPairs</b></p>
+        <p>This operations is similar to the guessAndCheck operation, except two unfilled cells in are filled in instead of one. These cells must be in the same box, row, or column, and they must have the same set of exactly two possible numbers.
+          First, one possible combination (option A in one cell, option B in the other) will be filled in, and then other operations will be performed to see if this combination produces an error. If it does, the tried combination is eliminated, so the other combination must be correct.
+          If no error is produced, the other combination is tried to check for an error. If neither produces an error, the cells remain unfilled.
+        </p>
+        {% endblock %}
+    </body>
+</html>
+
+    

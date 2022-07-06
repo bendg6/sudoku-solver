@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+    <head>
+        {% block title %}
+          Sudoku Solver
+          {% endblock %}
+    </head>
+    <body>
+        {% block content %}
+        <center><h1>Sudoku Solver</h1></center>
+        <div style = "position:absolute; left:70px">
+          <font size="2">1</font>
+          </div>
+          <div style = "position:absolute; left:120px">
+            <font size="2">2</font>
+            </div>
+            <div style = "position:absolute; left:170px">
+              <font size="2">3</font>
+              </div>
+              <div style = "position:absolute; left:220px">
+                <font size="2">4</font>
+                </div>
+                <div style = "position:absolute; left:270px">
+                  <font size="2">5</font>
+                  </div>
+                  <div style = "position:absolute; left:320px">
+                    <font size="2">6</font>
+                    </div>
+                    <div style = "position:absolute; left:370px">
+                      <font size="2">7</font>
+                      </div>
+                      <div style = "position:absolute; left:420px">
+                        <font size="2">8</font>
+                        </div>
+                        <div style = "position:absolute; left:470px">
+                          <font size="2">9</font>
+                          </div>
+                          <br>
+        {% for i in range(81) %}
+            {% if (i+1) % 9 == 1 %}
+              <div style = "position:absolute; left:20px">
+              <font size="4">{{lets[(i+1)//9]}}</font>
+              </div>
+            {% endif %}
+            {% if (i+1) % 9 == 1 %}
+                <div class="square" style = "position:absolute; left:55px"></div>
+                {% if nums[i] != "0" %}
+                    {% if i in blue %}
+                    <div style = "position:absolute; left:70px">
+                    <font size="5" color="blue">{{nums[i]}}</font>
+                    </div> 
+                    {% else %}
+                    <div style = "position:absolute; left:70px">
+                    <font size="5" color="black">{{nums[i]}}</font>
+                    </div> 
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+            {% if (i+1) % 9 == 2 %}
+                <div class="square" style = "position:absolute; left:105px"></div>
+                {% if nums[i] != "0" %}
+                    {% if i in blue %}
+                    <div style = "position:absolute; left:120px">
+                    <font size="5" color="blue">{{nums[i]}}</font>
+                    </div> 
+                    {% else %}
+                    <div style = "position:absolute; left:120px">
+                    <font size="5" color="black">{{nums[i]}}</font>
+                    </div> 
+                    {% endif %} 
+                {% endif %}
+            {% endif %}
+            {% if (i+1) % 9 == 3 %}
+                <div class="square" style = "position:absolute; left:155px"></div>
+                {% if nums[i] != "0" %}
+                    {% if i in blue %}
+                    <div style = "position:absolute; left:170px">
+                    <font size="5" color="blue">{{nums[i]}}</font>
+                    </div> 
+                    {% else %}
+                    <div style = "position:absolute; left:170px">
+                    <font size="5" color="black">{{nums[i]}}</font>
+                    </div> 
+                    {% endif %}
+                {% endif %}   
+            {% endif %}
+            {% if (i+1) % 9 == 4 %}
+                <div class="square" style = "position:absolute; left:205px"></div>
+                {% if nums[i] != "0" %}
+                {% if i in blue %}
+                    <div style = "position:absolute; left:220px">
+                    <font size="5" color="blue">{{nums[i]}}</font>
+                    </div> 
+                    {% else %}
+                    <div style = "position:absolute; left:220px">
+                    <font size="5" color="black">{{nums[i]}}</font>
+                    </div> 
+                    {% endif %} 
+                {% endif %}
+            {% endif %}
+            {% if (i+1) % 9 == 5 %}
+                <div class="square" style = "position:absolute; left:255px"></div>
+                {% if nums[i] != "0" %}
+                    {% if i in blue %}
+                    <div style = "position:absolute; left:270px">
+                    <font size="5" color="blue">{{nums[i]}}</font>
+                    </div> 
+                    {% else %}
+                    <div style = "position:absolute; left:270px">
+                    <font size="5" color="black">{{nums[i]}}</font>
+                    </div> 
+                    {% endif %}
+                {% endif %}  
+            {% endif %}
+            {% if (i+1) % 9 == 6 %}
+                <div class="square" style = "position:absolute; left:305px"></div>
+                {% if nums[i] != "0" %}
+                    {% if i in blue %}
+                    <div style = "position:absolute; left:320px">
+                    <font size="5" color="blue">{{nums[i]}}</font>
+                    </div> 
+                    {% else %}
+                    <div style = "position:absolute; left:320px">
+                    <font size="5" color="black">{{nums[i]}}</font>
+                    </div> 
+                    {% endif %}
+                {% endif %} 
+            {% endif %}
+            {% if (i+1) % 9 == 7 %}
+                <div class="square" style = "position:absolute; left:355px"></div>
+                {% if nums[i] != "0" %}
+                    {% if i in blue %}
+                    <div style = "position:absolute; left:370px">
+                    <font size="5" color="blue">{{nums[i]}}</font>
+                    </div> 
+                    {% else %}
+                    <div style = "position:absolute; left:370px">
+                    <font size="5" color="black">{{nums[i]}}</font>
+                    </div> 
+                    {% endif %}
+                {% endif %} 
+            {% endif %}
+            {% if (i+1) % 9 == 8 %}
+                <div class="square" style = "position:absolute; left:405px"></div>
+                {% if nums[i] != "0" %}
+                    {% if i in blue %}
+                    <div style = "position:absolute; left:420px">
+                    <font size="5" color="blue">{{nums[i]}}</font>
+                    </div> 
+                    {% else %}
+                    <div style = "position:absolute; left:420px">
+                    <font size="5" color="black">{{nums[i]}}</font>
+                    </div> 
+                    {% endif %}
+                {% endif %}    
+            {% endif %}
+            {% if (i+1) % 9 == 0 %}
+                <div class="square" style = "position:absolute; left:455px"></div>
+                {% if nums[i] != "0" %}
+                    {% if i in blue %}
+                        <div style = "position:absolute; left:470px">
+                        <font size="5" color="blue">{{nums[i]}}</font>
+                        </div> 
+                    {% else %}
+                        <div style = "position:absolute; left:470px">
+                        <font size="5" color="black">{{nums[i]}}</font>
+                        </div>
+                    {% endif %}
+                {% endif %} 
+                </div>   
+                </br>
+                </br>   
+            {% endif %}
+        {% endfor %}
+        </br>
+        <div style = "position:absolute; left:0px">
+            <form action="/sudoku/solve" method="post">
+                <p><input type="submit" value="Solve completely"></p>
+            </form>
+        </div>
+        <div style = "position:absolute; left:150px">
+            <form action="/sudoku/onestep" method="post">
+                <input type="submit" value="Next step">
+            </form>
+        </div>
+        <div style = "position:absolute; left:250px">
+            <form action="/sudoku/clear" method="post">
+                <input type="submit" value="Clear grid">
+            </form>
+        </div>
+        <div style = "position:absolute; left:400px">
+            <a class="button" href="/sudoku">Solve another sudoku</a>
+        </div>
+        </br>
+        </br>
+        {% if steps > 0 %}
+            <p>Steps:</p>
+            {% for x in range(steps)%}
+                    <p>{{methods[x]}}</p>
+            {% endfor %}
+            
+        {% endif %}
+        {% endblock %}
+    </body>
+</html>

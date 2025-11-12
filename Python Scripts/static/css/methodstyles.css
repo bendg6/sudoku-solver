@@ -1,0 +1,136 @@
+.beginner{
+    background-color:#6ea3df;
+}
+.intermediate{
+    background-color:#51cba4;
+}
+.advanced{
+    background-color:rgb(237, 237, 14);
+}
+.diabolical{
+    background-color:rgb(227,138,12);
+}
+.beginnerborder{
+    border:1vw #6ea3df solid;
+}
+.intermediateborder{
+    border:1vw #51cba4 solid;
+}
+.advancedborder{
+    border:1vw rgb(237, 237, 14) solid;
+}
+.toclink{
+    text-decoration:none;
+    color:black;
+    font-size:1.25vw;
+    font-family:noto-sans, sans-serif;
+  }
+  a:hover{
+    color:white;
+  }
+  .toccontainer{
+    width:100%;
+    border-top:1.5px black solid;
+    padding:.5vw;
+    height:5.5vh;
+    font-size:2.5vh;
+  }
+  .imgborder {
+    background-color:black;
+    display:none;
+    width:270px;
+    margin:auto;
+    justify-content:center;
+    align-items:center;
+  }
+.heading{
+width:90vw;
+height:80px;
+margin-left:5vw;
+padding:10px;
+font-family:noto-sans, sans-serif;
+font-size:20px;
+border-top-left-radius: 1vw;
+border-top-right-radius:1vw;
+border: 3px black solid;
+}
+.info{
+font-family:helvetica;
+width:90vw;
+height:fit-content;
+margin-left:5vw;
+padding:10px;
+margin-bottom:20px;
+border-top-left-radius: 0;
+border-top-right-radius:0;
+border-top:0;
+font-size:14px;
+background-color:#e6dfc1;
+}
+#tableofcontents{
+display:none;
+}
+#checkrowinfo, #checkrowhead{
+    width:90vw;
+}
+#rowreductioninfo, #rowreductionhead{
+    width:90vw;
+}
+#explaininfo, #explainheading{
+    width:90vw;
+}
+  @media screen and (min-width:900px){
+    .imgborder {
+        background-color:black;
+        position:absolute;
+        height:400px;
+        max-width:30vw;
+        min-width:25vw;
+        left:65vw;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+      }
+  .heading{
+    width:40vw;
+    height:80px;
+    margin-left:20vw;
+    padding:10px;
+    font-family:noto-sans, sans-serif;
+    font-size:2vw;
+    border-top-left-radius: 1vw;
+    border-top-right-radius:1vw;
+    border: 3px black solid;
+  }
+  .info{
+    font-family:helvetica;
+    width:40vw;
+    height:320px;
+    margin-left:20vw;
+    padding:10px;
+    margin-bottom:20px;
+    border-top-left-radius: 0;
+    border-top-right-radius:0;
+    border-top:0;
+    font-size:1.5vw;
+    background-color:#e6dfc1;
+  }
+  #tableofcontents{
+    position:fixed;
+    left:0vw;
+    width:15vw;
+    border:3px black solid;
+    display:flex;
+    flex-flow:column wrap;
+  }
+  #checkrowinfo, #checkrowhead{
+    width:70vw;
+}
+  #rowreductioninfo, #rowreductionhead{
+      width:70vw;
+  }
+  #explaininfo, #explainheading{
+      width:70vw;
+  }
+
+  }

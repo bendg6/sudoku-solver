@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="/static/script.js"></script>
+        <link rel="icon" type="image/x-icon" href="/static/gridicon.jpg">
+        <link rel="stylesheet" href="/static/css/indexstyles.css"/>
+          <title>Solve Sudokus</title>
+    </head>
+          <body onLoad="backgroundColor()">
+            <nav class="navbar navbar-expand-md sticky-top navbar-dark" style="background-color: #000000;">
+              <div class="container-fluid">
+                <a class="navbar-brand" href="/home"><image class="growimage"src="{{ url_for('static', filename='homepage.png')}}" width="35" height="35"></image></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                      <a id="playlink"class="nav-link active" aria-current="page" href="/playsudoku">Play Sudoku</a>
+                    </li>
+                    <li class="nav-item">
+                      <a id="solverlink"class="nav-link active" aria-current="page" href="/solver">Sudoku Solver</a>
+                    </li>
+                    <li class="nav-item">
+                      <a id="methodlink"class="nav-link active" aria-current="page" href="/methods">Methods</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a id="puzzlelink"class="nav-link dropdown-toggle" href="/puzzles" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Puzzles
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="/puzzles/checkcells/easy">Check Cells</a></li>
+                <li><a class="dropdown-item" href="/puzzles/checkboxes/easy">Check Boxes</a></li>
+                <li><a class="dropdown-item" href="/puzzles/checkrows/easy">Check Rows</a></li>
+                <li><a class="dropdown-item" href="/puzzles/checkcols/easy">Check Columns</a></li>
+                <li><a class="dropdown-item" href="/puzzles/nakedpairs/easy">Naked Pairs</a></li>
+                <li><a class="dropdown-item" href="/puzzles/nakedtriples/easy">Naked Triples</a></li>
+                <li><a class="dropdown-item" href="/puzzles/boxreduction/easy">Box Reduction</a></li>
+                <li><a class="dropdown-item" href="/puzzles/rowreduction/easy">Row Reduction</a></li>
+                <li><a class="dropdown-item" href="/puzzles/colreduction/easy">Column Reduction</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+<div style="padding:10px;font-family:noto-sans, sans-serif; display:flex;background-color:#eee089;justify-content:center;font-size:min(30px,5vw)"><b>Welcome to solvesudokus.com!</b></div>
+<div id="links" style="background-color:white;display:flex;flex-wrap:wrap;justify-content:space-evenly;width:100%;padding-left:1vw;padding-right:1vw;padding-bottom:20px;padding-top:20px;">
+<div id="playsudoku" class="obj" align="center" style = "font-size:1.25vw;background-color:#fa8072;font-family:helvetica;width:22vw"><p>The Play Sudoku page creates custom sudoku puzzles, and includes a built in solver in case you get stuck.</p><a href="/playsudoku"style="display:flex;justify-content:center;margin-top:1vw;margin-bottom:5px"><img alt="Play Sudoku Link"class="growimage" src="{{ url_for('static', filename='gridfilled.png')}}" style="width:90%"></img></a></div>
+<div id="sudokusolver" class="obj" align="center" style = "font-size:1.25vw;background-color:#51cba4;font-family:helvetica;width:22vw"><p>The Sudoku Solver page solves an inputted sudoku and gives step-by-step instructions for solving it.</p><a href="/solver"style="display:flex;justify-content:center;margin-top:1vw;margin-bottom:5px"><img alt="Sudoku Solver Link"class="growimage" src="{{ url_for('static', filename='grid.png')}}" style="width:90%"></img></a></div>
+<div id="methods" class="obj" align="center" style = "font-size:1.25vw;background-color:#a1dde3;font-family:helvetica;width:22vw"><p>The Methods page explains how to use several common sudoku solving methods, with an example for each method.</p><a href="/methods" style="display:flex;justify-content:center;margin-top:1vw;margin-bottom:5px"><img alt="Methods Link"class="growimage" src="{{ url_for('static', filename='book.png')}}" style="width:90%"></img></a></div>
+<div id="puzzles" class="obj" align="center" style = "font-size:1.25vw;background-color:#eee089;font-family:helvetica;width:22vw"><p>The Puzzles pages contain puzzles designed to practice the solving methods outlined in the methods section.</p><br><a href="/puzzles/checkcells/easy"style="display:flex;justify-content:center;margin-bottom:5px"><img alt="Puzzles Link"class="growimage" src="{{ url_for('static', filename='puzzle.png')}}" style="width:90%"></img></a></div>
+</div>
+<div id="mobile" align="center" style="display:none;margin-left:5vw;width:90vw">
+<button type="button" class="collapsible"style= "font-size:3vw;background-color:#fa8072;width:100%;margin-top:20px;"><b>Play Sudoku</b></button>
+<div id="pscol" class="content"  style = "font-size:3vw;background-color:#fa8072;font-family:helvetica;width:100%"><p>The Play Sudoku page creates custom sudoku puzzles, and includes a built in solver in case you get stuck.</p><a class="mobilelink"href="/playsudoku">Play Sudoku</a></div>
+<button type="button" class="collapsible"style= "font-size:3vw;background-color:#51cba4;width:100%"><b>Sudoku Solver</b></button>
+<div id="sscol" class="content"  style = "font-size:3vw;background-color:#51cba4;font-family:helvetica;width:100%"><p>The Sudoku Solver page solves an inputted sudoku and gives step-by-step instructions for solving it.</p><a class="mobilelink"href="/solver">Sudoku Solver</a></div>
+<button type="button"class="collapsible"style= "font-size:3vw;background-color:#a1dde3;width:100%"><b>Methods</b></button>
+<div id="methodscol"class="content"  style = "font-size:3vw;background-color:#a1dde3;font-family:helvetica;width:100%"><p>The Methods page explains how to use several common sudoku solving methods.</p><a class="mobilelink"href="/methods">Methods</a></div>
+<button type="button"class="collapsible"style= "font-size:3vw;background-color:#eee089;width:100%;margin-bottom:20px;"><b>Puzzles</b></button>
+<div id="puzzlescol"class="content" style = "font-size:3vw;background-color:#eee089;font-family:helvetica;width:100%"><p>The Puzzles pages contain puzzles designed to practice the solving methods outlined in the methods section.</p><a class="mobilelink"href="/puzzles/checkcells/easy">Puzzles</a></div>
+ </div>   
+    
+ <div style= "text-align:center;font-family:noto-sans, sans-serif;background-color:#eee089; width:100%;padding:10px;margin-bottom:10px"><h2><b>More Information:</b></h2></div>
+ <div id="moremobile" align="center" style="display:none;margin-left:5vw;width:90vw"> 
+  <button type="button" class="collapsible"style= "font-size:3vw;background-color:#eee089;width:100%"><b>Sudoku Solver</b></button>
+  <div id="moresb" class="content"  style = "font-size:3vw;background-color:#eee089;font-family:helvetica;width:100%"><p>The Sudoku Solver is designed to solve sudokus, but it is also designed to teach the user how to solve them. Instead of using a brute-force algorithm, which would try every possible combination of numbers until the right one is found, human-made sudoku solving methods are used to solve the puzzle. Each method does one of two things; it eliminates candidates for a cell, or fills in a cell with a particular value. This approach does not succeed 100% of the time, but it does allow users to follow along in their own puzzle. Each step taken by the solver is also supplemented with an explanation, which explains the logic behind the method used.</p></div>
+  <button type="button"class="collapsible"style= "font-size:3vw;background-color:#eee089;width:100%"><b>Sudoku Basics</b></button>
+  <div id="moress"class="content"  style = "font-size:3vw;background-color:#eee089;font-family:helvetica;width:100%"><p>Sudoku is a puzzle played on a 9x9 grid of squares. Each sudoku contains eighty-one cells, which are the small squares with gray borders, and nine 3x3 boxes, which are separated by the blue lines in the grid. Once the puzzle is solved, each row, column, and box within the grid must contain the numbers 1-9, with no repeated numbers in any of the rows, columns, or boxes. Initially, some of the cells contain a number, and some are left blank for the player to deduce. By using logic and narrowing down the candidates for each cell to one number, a player must solve every unfilled cell to solve the puzzle. For further information on common sudoku terminology, see the glossary at the bottom of this page.</div>
+  <button type="button"class="collapsible"style= "font-size:3vw;background-color:#a1dde3;width:100%"><b>Puzzles</b></button>
+  <div id="morepuzzles"class="content" style = "font-size:3vw;background-color:#a1dde3;font-family:helvetica;width:100%"><p>The puzzles pages are designed to practice the solving methods that are described in the methods section. Puzzles implore you to solve one cell of a sudoku by using a specific method. If the incorrect answer is given, it will then show the correct answer. Each empty cell can be used to type in the candidates for that cell. There are three difficulty levels for each solving method. For most solving methods, the easy level asks you to fill in a cell with the correct number, while the medium and hard levels ask you to deduce which cell can be filled in by using the specified method. The easy levels are designed to teach the method to the puzzler, while the medium and hard levels are designed to train the puzzler's vision to find appropriate uses of the method. Currently, puzzles for the basic and intermediate solving methods are available.</div>
+    <button type="button"class="collapsible"style= "font-size:3vw;background-color:#a1dde3;width:100%"><b>Solving Methods (click through them below)</b></button>
+    <div id="moresolvingmethods"class="content" style = "font-size:3vw;background-color:#a1dde3;font-family:helvetica;width:100%"><p>The sudoku solver uses several sudoku solving methods that can also be used by humans. Learning these methods (and when to use them) will improve your sudoku solving skills. You can click through the methods below, and they are also described in greater detail on the Methods page.</div> 
+  </div>           
+<div id="moredesktop"style="display:block">
+<a id="ttt"href="/tictactoe"><div style="position:absolute; left:95vw"><image width="3" src="{{ url_for('static', filename='ttt.png')}}"></image></div></a> 
+<div id="tableofcontents">
+  <div style="padding:.25vw;background-color:black;height:fit-content;font-size:1.5vw;margin:0; font-family:noto-sans, sans-serif;color:white">Table of Contents</div>
+  <div class="toccontainer"><a class="toclink"onclick="scrollToSection(event, 'sshead')"href="#sshead">Sudoku Solver</a></div>
+  <div class="toccontainer"><a class="toclink"onclick="scrollToSection(event, 'sbhead')"href="#sbhead">Sudoku Basics</a></div>
+  <div class="toccontainer"><a class="toclink"onclick="scrollToSection(event, 'puzhead')"href="#puzhead">Puzzles</a></div>
+  <div class="toccontainer"><a class="toclink"onclick="scrollToSection(event, 'ssmhead')"href="#ssmhead">Sudoku Solving Methods</a></div>
+  <div class="toccontainer"><a class="toclink"onclick="scrollToSection(event, 'glossaryhead')"href="#glossaryhead">Common Sudoku Terminology</a></div>
+</div>
+<div id="sshead" class="heading"><b>Sudoku Solver:</b></div>
+<div id="ss" class="obj info" style = "background-color:#eee089"><p>The Sudoku Solver is designed to solve sudokus, but it is also designed to teach the user how to solve them. Instead of using a brute-force algorithm, which would try every possible combination of numbers until the right one is found, human-made sudoku solving methods are used to solve the puzzle. Each method does one of two things; it eliminates candidates for a cell, or fills in a cell with a particular value. This approach does not succeed 100% of the time, but it does allow users to follow along in their own puzzle. Each step taken by the solver is also supplemented with an explanation, which explains the logic behind the method used.</p></div>
+<div id="sbhead" class="heading"><b>Sudoku Basics:</b></div>
+<div id="sb" class="obj info" style = "background-color:#eee089"><p>Sudoku is a puzzle played on a 9x9 grid of squares. Each sudoku contains eighty-one cells, which are the small squares with gray borders, and nine 3x3 boxes, which are separated by the blue lines in the grid. Once the puzzle is solved, each row, column, and box within the grid must contain the numbers 1-9, with no repeated numbers in any of the rows, columns, or boxes. Initially, some of the cells contain a number, and some are left blank for the player to deduce. By using logic and narrowing down the candidates for each cell to one number, a player must solve every unfilled cell to solve the puzzle. For further information on common sudoku terminology, see the glossary at the bottom of this page.</p></div>
+<br>
+<div id="puzhead" class="heading"><b>Puzzles:</b></div>
+<div id="puz" class="obj info" style = "background-color:#eee089"><p>The puzzles pages are designed to practice the solving methods that are described in the methods section. Puzzles implore you to solve one cell of a sudoku by using a specific method. If the incorrect answer is given, it will then show the correct answer. Each empty cell can be used to type in the candidates for that cell. There are three difficulty levels for each solving method. For most solving methods, the easy level asks you to fill in a cell with the correct number, while the medium and hard levels ask you to deduce which cell can be filled in by using the specified method. The easy levels are designed to teach the method to the puzzler, while the medium and hard levels are designed to train the puzzler's vision to find appropriate uses of the method. Currently, puzzles for the basic and intermediate solving methods are available.</p></div>
+<div id="ssmhead"class="heading"><b>Sudoku Solving Methods:</b></div>
+<div id="ssm"class="obj info" style="background-color:#eee089"><p>The sudoku solver uses several sudoku solving methods that can also be used by humans. Learning these methods (and when to use them) will improve your sudoku solving skills. You can click through the methods below, and they are also described in greater detail on the Methods page.</p></div>
+</div>
+<br>
+<div id="1" class="methodblurb" style="display:block">
+  <p>To use the Check Cells method, pick a cell, then check every cell in the same box, row, or column as 
+  that cell to see if it contains a number. Any number in the same box, row, or column as the cell can be eliminated as a candidate. 
+  If there is only one candidate remaining for that cell, the cell can be filled in with that number.</p></div>
+<div id="2" class="methodblurb">
+  <p>To use the Check Boxes method, choose a box, then select a missing number from that box. Then, check the box
+  to see if there is only one possible cell that could contain the missing number. If there is, the cell can be filled in with the missing number.</p></div>
+<div id="3" class="methodblurb" ><p>To use the Check Rows method, choose a row, then select a missing number from that row. Then, check the row
+  to see if there is only one possible location for the missing number. If there is only one possible cell that the missing number can go, the cell
+  is filled in with the missing number. The Check Columns method does the exact same thing,
+  except with all the columns instead of the rows.</p></div>
+<div id="4" class="methodblurb" ><p>The Naked Pairs method can be used when two unfilled adjacent cells (adjacent means in the same row, column, or box as one another) have the same set of candidates, and each cell only has two possibilities.
+  Since the cells can't contain the same number, both of the candidates must be in one of these cells, so these numbers can be
+  eliminated as a candidate from any cell in the same row/column/box as both of the unfilled cells. For example, if the cells
+  are in the same box, all other cells in that box can not contain the two candidates, so those numbers can be removed as a candidate from every other cell in the box.</p></div>
+  <div id="5" class="methodblurb" ><p>The Naked Triples method can be used if three cells in the same row, column, or box collectively have only three candidates.
+    Those three cells must therefore contain these three numbers in some permutation, so any other unfilled cells in this row, column, or box
+    cannot contain any of these three numbers. Therefore, these three numbers can be eliminated as a candidate for those unfilled cells.</p></div>
+  <div id="6" class="methodblurb" ><p>The Hidden Pairs method is similar to the Naked Pairs method. To use the Hidden Pairs method, begin by choosing a box, row, or column in the sudoku. If there are two missing numbers
+  in the box/row/column that could only be put in the same two cells, any other candidates that could go in those two cells can be eliminated, because those cells must contain the two numbers that could only go in those cells.</p></div>
+<div id="7" class="methodblurb" ><p>To use the Box Reduction method, begin by choosing a box in the sudoku, and then picking a number that is missing from the box.
+  In that box, if every cell that could contain the missing number is in the same row or column, other cells in that row or column
+  that are in different boxes cannot contain that particular number, because the missing number must be in the box you chose.
+  Therefore, that candidate can be eliminated from other cells in the row or column.</p></div>
+<div id="8" class="methodblurb" ><p>The Row Reduction and Column Reduction methods are similar to the Check Rows and Check Columns methods. 
+  To use the Row Reduction method, pick a row, and then pick a number that is missing from that row. Then, test that number in all unfilled cells in that row to see if it is a candidate.
+   If all of the possible cells for the missing number are in the same box, cells in that box that are not in the row cannot
+   contain that particular number, and that candidate can be eliminated as a candidate. The same logic is used for Column Reduction, except that a missing number is tested along a column instead of a row.</p></div>
+<div id="9" class="methodblurb" ><p>The x-wing method can be used if two rows or columns have only two cells that can contain a particular unknown number.
+  For instance, if only two cells in row A could contain a 2, and only two cells in row B could contain a 2, and both rows could only have a 2 in columns 4 and 5,
+  then all cells in columns 4 and 5 not in rows A or B could not contain a 2, because one of rows A and B
+  definitely has a 2 in columns 4 and 5. This logic applies to two columns with the same situation, with only two rows possibly containing a certain value in both columns.</p></div>
+<div id="10" class="methodblurb" ><p>The xy-wing method can be used if there are three cells in a L shape that make up a naked triple. These cells must also have only two candidates, and all three of the collective candidates must be possibilities in exactly two of the cells. If all of these conditions are met, the xy-wing method can be used. One of the cells is the "pivot" cell, and the two other cells must be in the same row, column or box as that cell. 
+  If all three are in the same box, row or column, this is simply a naked triple, and the Naked Triples method could be used. However, if this is not the case, the xy-wing method is used.
+   Any cell that is adjacent to the non-pivot cells (shares a row, column, or box with both of the non-pivot cells) can eliminate the number that is an candidate for both of the non-pivot cells, because one of those cells must contain that number. 
+   </p></div>
+<div id="11" class="methodblurb" ><p>The swordfish method is similar to the x-wing method, except with three columns or rows instead of two. It can be used if there are three columns or rows that contain only three possible cells for the same number.</p></div>
+<div id="12" class="methodblurb" >The Guess and Check method should only be tried once all other methods fail to solve any cells.
+  In the Guess and Check method, an unsolved cell with exactly two candidates is filled with one of the numbers. Next, all other methods listed on this page are used,
+  and if these methods produce an error, the cell is filled in with the other number. If no error is produced, the cell is cleared, and the other number is tried.
+  If neither candidate produces an error after several iterations of the other methods, the cell remains unfilled.</div>
+<div id="d1" class="circle" style = "opacity:1; position:absolute; left:28vw"></div>
+<div id="d2" class="circle" style = "opacity:.4; position:absolute; left:30vw"></div>
+<div id="d3" class="circle" style = "opacity:.4; position:absolute; left:32vw"></div>
+<div id="d4" class="circle" style = "opacity:.4; position:absolute; left:34vw"></div>
+<div id="d5" class="circle" style = "opacity:.4; position:absolute; left:36vw"></div>
+<div id="d6" class="circle" style = "opacity:.4; position:absolute; left:38vw"></div>
+<div id="d7" class="circle" style = "opacity:.4; position:absolute; left:40vw"></div>
+<div id="d8" class="circle" style = "opacity:.4; position:absolute; left:42vw"></div>
+<div id="d9" class="circle" style = "opacity:.4; position:absolute; left:44vw"></div>
+<div id="d10" class="circle" style = "opacity:.4; position:absolute; left:46vw"></div>
+<div id="d11" class="circle" style = "opacity:.4; position:absolute; left:48vw"></div>
+<div id="d12" class="circle" style = "opacity:.4;position:absolute;left:50vw"></div>
+<br>
+<button class="button" id="next" onclick="switchMethods()">Next</button>
+<br>
+<br>
+<div id="glossaryhead"class="heading"><b>Glossary of Common Sudoku Terms:</b></div>
+<div id="glossary"class="obj info" style="background-color:#eee089">
+<p><b>Cell:</b> A small square within a sudoku puzzle that must contain a single number once the puzzle is completed. A sudoku grid consists of 81 cells in a 9x9 square.</p>
+<p><b>Box:</b> A 3x3 square of cells that must contain all of the numbers 1-9 once the puzzle is completed.</p>
+<p><b>Row:</b> A horizontal row of 9 cells, which must contain the numbers 1-9 once the puzzle is completed. </p>
+<p><b>Column:</b> A vertical column of 9 cells, which must contain the numbers 1-9 once the puzzle is completed.</p>
+<p><b>Candidate:</b> A number that could possibly go in a cell without violating the rules of sudoku.</p>
+<p><b>Solving method:</b> A method that can be used to eliminate candidates from cells or put a number into a cell.</p>
+<p><b>Naked single:</b> A cell that has one candidate left.</p>
+<p><b>Hidden single:</b> A cell that must contain a certain number because it is the only cell in its row, column, and/or box that could contain that number.</p>
+</div>
+  </div>
+  <div id="glossaryheadmobile"class="heading"style="width:98%;margin:auto;font-size:3vw"><b>Glossary of Common Sudoku Terms:</b></div>
+  <div id="glossarymobile"class="obj info"style="width:98%;margin:auto;background-color:#eee089">
+  <p><b>Cell:</b> A small square within a sudoku puzzle that must contain a single number once the puzzle is completed. A sudoku grid consists of 81 cells in a 9x9 square.</p>
+  <p><b>Box:</b> A 3x3 square of cells that must contain all of the numbers 1-9 once the puzzle is completed.</p>
+  <p><b>Row:</b> A horizontal row of 9 cells, which must contain the numbers 1-9 once the puzzle is completed. </p>
+  <p><b>Column:</b> A vertical column of 9 cells, which must contain the numbers 1-9 once the puzzle is completed.</p>
+  <p><b>Candidate:</b> A number that could possibly go in a cell without violating the rules of sudoku.</p>
+  <p><b>Solving method:</b> A method that can be used to eliminate candidates from cells or put a number into a cell.</p>
+  <p><b>Naked single:</b> A cell that has one candidate left.</p>
+  <p><b>Hidden single:</b> A cell that must contain a certain number because it is the only cell in its row, column, and/or box that could contain that number.</p>
+  </div>
+    </div>
+  <script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+    for (i = 0; i < coll.length; i++) {
+        var a = coll[i]
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+          content.style.zIndex = 1
+          var j;
+          for (j=0; j < coll.length; j++) {
+            var b = coll[j];
+            if(content.previousElementSibling === coll[j]) {
+                content.style.top = (20+3*j).toString() + 'vh'
+                content.style.backgroundColor = b.backgroundColor;
+            }
+            }
+          }
+          })
+        }
+  </script>  
+  <script>
+    function scrollToSection(event, targetId) {
+      event.preventDefault();
+      const targetElement = document.getElementById(targetId);
+      targetElement.scrollIntoView();
+      
+    }
+  </script>
+  <script>
+    const width = window.innerWidth;
+        const height = window.innerHeight;
+    console.log(width)
+    console.log(height)
+        // Check if the width is less than the height
+        if (width < height) {
+          // Width is less than height, so execute the query
+          console.log('Width is less than height');
+          document.getElementById('links').style.display = 'none'
+          document.getElementById('mobile').style.display = 'flex'
+          document.getElementById('mobile').style.flexWrap = 'wrap'
+          document.getElementById('moredesktop').style.display = 'none'
+          document.getElementById('moremobile').style.display = 'block'
+          document.getElementById('next').style.marginLeft = '5vw'
+          document.getElementById('next').style.fontSize = '4vw'
+          document.getElementById('next').style.width = 'fit-content'
+          document.getElementById('glossary').style.display = 'none'
+          document.getElementById('glossaryhead').style.display = 'none'
+          document.getElementById('glossarymobile').style.display = 'block'
+          document.getElementById('glossaryheadmobile').style.display = 'block'
+    for(let i=1; i <= 12; i++) {
+        a = "d" + i.toString();
+        b = 5*i + 1
+        document.getElementById(i.toString()).style.width = "90vw"
+        document.getElementById(i.toString()).style.marginLeft = "5vw"
+        document.getElementById(a).style.left = b.toString() + 'vw'
+        }
+        } else {
+          console.log('Width is greater than or equal to height');
+          document.getElementById('mobile').style.display = 'none'
+          document.getElementById('links').style.display = 'flex'
+          document.getElementById('links').style.flexWrap = 'wrap'
+          document.getElementById('links').style.justifyContent = 'space-between'
+          document.getElementById('moremobile').style.display = 'none'
+          document.getElementById('moredesktop').style.display = 'block'
+          document.getElementById('next').style.width = 'fit-content'
+          document.getElementById('next').style.marginLeft = '26vw'
+          document.getElementById('next').style.fontSize = '1.75vw'
+          document.getElementById('glossary').style.display = 'block'
+          document.getElementById('glossaryhead').style.display = 'block'
+          document.getElementById('glossarymobile').style.display = 'none'
+          document.getElementById('glossaryheadmobile').style.display = 'none'
+          for(let i=1; i <= 12; i++) {
+        a = "d" + i.toString();
+        b = 24 + 2*i
+        document.getElementById(i.toString()).style.width = "50vw"
+        document.getElementById(i.toString()).style.marginLeft = "25vw"
+        document.getElementById(a).style.left = b.toString() + 'vw'
+        }
+        }
+        </script>
+  <script>
+    // Define a function to execute the query
+    function executeQuery() {
+      // Get the window width and height
+      const width = window.innerWidth;
+        const height = window.innerHeight;
+    console.log(width)
+    console.log(height)
+        // Check if the width is less than the height
+        if (width < height) {
+          // Width is less than height, so execute the query
+          console.log('Width is less than height');
+          document.getElementById('links').style.display = 'none'
+          document.getElementById('mobile').style.display = 'flex'
+          document.getElementById('mobile').style.flexWrap = 'wrap'
+          document.getElementById('moredesktop').style.display = 'none'
+          document.getElementById('moremobile').style.display = 'block'
+          document.getElementById('next').style.marginLeft = '5vw'
+          document.getElementById('next').style.fontSize = '4vw'
+          document.getElementById('next').style.width = 'fit-content'
+          document.getElementById('glossary').style.display = 'none'
+          document.getElementById('glossaryhead').style.display = 'none'
+          document.getElementById('glossarymobile').style.display = 'block'
+          document.getElementById('glossaryheadmobile').style.display = 'block'
+          for(let i=1; i <= 12; i++) {
+        a = "d" + i.toString();
+        b = 5*i + 1
+        document.getElementById(i.toString()).style.width = "90vw"
+        document.getElementById(i.toString()).style.marginLeft = "5vw"
+        document.getElementById(a).style.left = b.toString() + 'vw'
+        }
+        } else {
+          console.log('Width is greater than or equal to height');
+          document.getElementById('mobile').style.display = 'none'
+          document.getElementById('links').style.display = 'flex'
+          document.getElementById('links').style.flexWrap = 'wrap'
+          document.getElementById('links').style.justifyContent = 'space-between'
+          document.getElementById('moremobile').style.display = 'none'
+          document.getElementById('moredesktop').style.display = 'block'
+          document.getElementById('next').style.width = 'fit-content'
+          document.getElementById('next').style.marginLeft = '25vw'
+          document.getElementById('next').style.fontSize = '1.75vw'
+          document.getElementById('glossary').style.display = 'block'
+          document.getElementById('glossaryhead').style.display = 'block'
+          document.getElementById('glossarymobile').style.display = 'none'
+          document.getElementById('glossaryheadmobile').style.display = 'none'
+          for(let i=1; i <= 12; i++) {
+        a = "d" + i.toString();
+        b = 24 + 2*i
+        document.getElementById(i.toString()).style.width = "50vw"
+        document.getElementById(i.toString()).style.marginLeft = "25vw"
+        document.getElementById(a).style.left = b.toString() + 'vw'
+        }
+        }
+    }
+
+    // Attach the event listener to the window resize event
+    window.addEventListener('resize', executeQuery);
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>

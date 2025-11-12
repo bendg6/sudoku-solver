@@ -1,0 +1,92 @@
+{% extends "colpuztemplate.html" %}
+<head>
+    {% block title %}
+    Column Reduction puzzles
+    {% endblock %}
+</head>
+<body>
+    {% block header %}
+    <div id="title"style="text-align:center"><b>Column Reduction puzzles</b></div>
+    {% endblock %}
+    {% block method %}
+    <div id="methods"class="methodbox"><p><b>Method explanation: </b>The Column Reduction method is similar to the Check Columns method. 
+        To use the Column Reduction method, pick a column, and then pick a number that is missing from that column. Then, test that number in all unfilled cells in that column to see if it is a possibility.
+         If all of the possible cells for the missing number are in the same box, cells in that box that are not in the column cannot
+         contain that particular number, and that candidate can be eliminated as a possibility. </p></div>  
+         <br>  
+             {% endblock %}
+             {% block buttons %}
+             <div id="buttons" >
+                <div style="font-size:1.25em;display:flex;gap:5px;justify-content:center"><b>New Puzzle:</b></div>
+                 <div style= "background-color:none; z-index:1">
+                 <button class="button" id="easy" style="border-radius:5px"onclick="location.href='/puzzles/colreduction/easy';" name="easy" z-index=1>Easy</button>
+             </div>
+             <div style= "background-color:none; z-index:1">
+                 <button class="button" id="medium"style="border-radius:5px"onclick="location.href='/puzzles/colreduction/medium';" name="medium" z-index=1>Medium</button>
+             </div>
+             <div style= "background-color:none; z-index:1">
+                 <button class="button" id="hard"style="border-radius:5px"onclick="location.href='/puzzles/colreduction/hard';" name="hard" >Hard</button>
+             </div>
+             </div>
+                 {% endblock %}
+             {% block results %}
+             {% if result != True and result != False %} 
+                 {% if puztype == "cell" %}
+                <div id="prompt"><p>Which <b>cell</b> can be solved by using the Column Reduction method?</p>
+                 <form action="#" method="post">
+                     <p><input type="text" name="cell" value="(cell)"/></p>
+                     <p><input type="submit" value="solve"/></p>
+                 </form>
+             </div>
+                 {% endif %}
+                 {% if puztype == "number" %}
+                 <div id="prompt"><p>Using the Column Reduction method, which <b>number</b> goes in cell {{cell}}?</p>
+                 <form action="#" method="post">
+                     <p><input type="text" name="cell" value="(number)"/></p>
+                     <p><input type="submit" value="solve"/></p>
+                 </form>
+             </div>
+                 {% endif %}
+                 {% endif %}
+                 {% if result == True %}
+                 <div id="message" >
+                     <h1>Correct!</h1>
+                      <div id="newpuzzle"><p>New Puzzle:</p></div>
+                 </div>
+                 <div id="buttons2" >
+                    <div id="newpuzzle"><p><b>New Puzzle:</b></p></div>
+                     <div style= "background-color:none; z-index:1">
+                         <button class="button" style="border-radius:5px"onclick="location.href='/puzzles/colreduction/easy';" name="easy" z-index=1>Easy</button>
+                     </div>
+                     <div style= " background-color:none; z-index:1">
+                         <button class="button" style="border-radius:5px"onclick="location.href='/puzzles/colreduction/medium';" name="medium" z-index=1>Medium</button>
+                     </div>
+                     <div style= "background-color:none; z-index:1">
+                         <button class="button" style="border-radius:5px"onclick="location.href='/puzzles/colreduction/hard';" name="hard" >Hard</button>
+                     </div>
+                 </div>
+                 {% endif %}
+                 {% if result == False %}
+                 <div id="message" >
+                     <h1>Incorrect</h1>
+                     <p>Correct answer was: {{ans}}</p>
+                     <div id="newpuzzle"><p>New Puzzle:</p></div>
+                 </div>
+                 <div id="buttons2" >
+                    <div id="newpuzzle"><p><b>New Puzzle:</b></p></div>
+                     <div style= "background-color:none; z-index:1">
+                         <button class="button" id="easy2" style="border-radius:5px"onclick="location.href='/puzzles/colreduction/easy';" name="easy" z-index=1>Easy</button>
+                     </div>
+                     <div style= "background-color:none; z-index:1">
+                         <button class="button" id="medium2"style="border-radius:5px"onclick="location.href='/puzzles/colreduction/medium';" name="medium" z-index=1>Medium</button>
+                     </div>
+                     <div style= "background-color:none; z-index:1">
+                         <button class="button" id="hard2"style="border-radius:5px"onclick="location.href='/puzzles/colreduction/hard';" name="hard" >Hard</button>
+                     </div>
+                 </div>
+                 {% endif %}
+                 <div id="example"><b>Example:</b></div>
+                 <img id="image" src="{{ url_for('static', filename='colreductionexample.png')}}" ></img>
+             {% endblock %}
+         </body>
+         

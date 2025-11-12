@@ -1,0 +1,88 @@
+{% extends "puzzlestemplate.html" %} 
+{% block title %}Hidden Pairs Puzzles{% endblock%} 
+{% block header %} 
+<div style="text-align:center"><h1><b>Hidden Pairs puzzles</b></h1></div>
+{% endblock %} 
+{% block method %}
+<div id="methods"class="methodbox"><p>The Hidden Pairs method is similar to the nakedPairs method. To use the Hidden Pairs method, begin by choosing a box, row, or column in the sudoku. If there are two missing numbers
+    in the box/row/column that could only be put in the same two cells, any other candidates that could go in those two cells can be eliminated, because those cells must contain the two numbers that could only go in those cells.</p>
+</div>
+<br>
+{% endblock %} 
+{% block buttons %}
+<div id="buttons" style="margin-top:0.5vw;position:absolute;left:40vw;display:flex;width:16vw;justify-content:space-around">
+    <div style= " background-color:none; z-index:1">
+    <button class="button" id="easy" style="border-radius:5px"onclick="location.href='/puzzles/hiddenpairs/easy';" name="easy" z-index=1>Easy</button>
+</div>
+<div style= "background-color:none; z-index:1">
+    <button class="button" id="medium"style="border-radius:5px"onclick="location.href='/puzzles/hiddenpairs/medium';" name="medium" z-index=1>Medium</button>
+</div>
+<div style= "background-color:none; z-index:1">
+    <button class="button" id="hard"style="border-radius:5px"onclick="location.href='/puzzles/hiddenpairs/hard';" name="hard" >Hard</button>
+</div>
+</div>
+    <div id="example"style= "z-index:0; font-size:2vw;width:30vw; background-color:rgb(227, 128, 243); left:65vw;height:fit-content;border-bottom-right-radius:10px;border-top-right-radius:10px;position:absolute"><b>Example:</b></div>
+    <div id="options"style= "z-index:0; font-size:2vw;width:30vw; background-color:rgb(227, 128, 243); left:10vw;height:fit-content;border-bottom-right-radius:10px;border-top-right-radius:10px;position:absolute"><b>Select Difficulty:</b></div>
+    </div>
+    <img id="image" src="{{ url_for('static', filename='hiddenpairsexample.png')}}" style="top:25vw;position:absolute;left:65vw;width:30vw"></img>
+    {% endblock %}
+    {% block results %}
+        {% if result != True and result != False %} 
+        {% if puztype == "cell" %}
+       <div id="prompt" style="position:absolute;left:5vw;top:50vw"><p>Which <b>cell</b> can be solved by using the Hidden Pairs method?</p>
+        <form action="#" method="post">
+            <p><input type="text" name="cell"/></p>
+            <p><input type="submit" value="solve"/></p>
+        </form>
+    </div>
+        {% endif %}
+        {% if puztype == "number" %}
+        <div id="prompt" style="position:absolute;left:5vw;top:50vw"><p>Using the Hidden Pairs method, which <b>number</b> goes in cell {{cell}}?</p>
+        <form action="#" method="post">
+            <p><input type="text" name="cell"/></p>
+            <p><input type="submit" value="solve"/></p>
+        </form>
+    </div>
+        {% endif %}
+        {% endif %}
+        {% if result == True %}
+        <div id="message" style="position:absolute">
+            <h1>Correct!</h1>
+             <div id="newpuzzle"><p>New Puzzle:</p></div>
+        </div>
+        <div id="buttons2" style="position:absolute;left:25vw;display:flex;justify-content:space-around;margin-top:0.5vw">
+            <div style= "background-color:none; z-index:1">
+                <button class="button" style="border-radius:5px"onclick="location.href='/puzzles/hiddenpairs/easy';" name="easy" z-index=1>Easy</button>
+            </div>
+            <div style= " background-color:none; z-index:1">
+                <button class="button" style="border-radius:5px"onclick="location.href='/puzzles/hiddenpairs/medium';" name="medium" z-index=1>Medium</button>
+            </div>
+            <div style= "background-color:none; z-index:1">
+                <button class="button" style="border-radius:5px"onclick="location.href='/puzzles/hiddenpairs/hard';" name="hard" >Hard</button>
+            </div>
+        </div>
+        {% endif %}
+        {% if result == False %}
+        <div id="message" style="position:absolute">
+            <h1>Incorrect</h1>
+            <p>Correct answer was: {{ans}}</p>
+            <div id="newpuzzle"><p>New Puzzle:</p></div>
+        </div>
+        <div id="buttons2" style="position:absolute;left:15vw;display:flex;justify-content:space-around;margin-top:0.5vw">
+            <div style= "background-color:none; z-index:1">
+                <button class="button" id="easy2" style="border-radius:5px"onclick="location.href='/puzzles/hiddenpairs/easy';" name="easy" z-index=1>Easy</button>
+            </div>
+            <div style= "background-color:none; z-index:1">
+                <button class="button" id="medium2"style="border-radius:5px"onclick="location.href='/puzzles/hiddenpairs/medium';" name="medium" z-index=1>Medium</button>
+            </div>
+            <div style= "background-color:none; z-index:1">
+                <button class="button" id="hard2"style="border-radius:5px"onclick="location.href='/puzzles/hiddenpairs/hard';" name="hard" >Hard</button>
+            </div>
+        </div>
+        {% endif %}
+        <script>
+            let dif = {{difficulty}}
+            dif.style.backgroundColor = 'cornflowerblue';
+        </script>
+        
+{% endblock %}

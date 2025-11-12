@@ -1,0 +1,224 @@
+.obj{
+    padding:10px;
+    border-radius:12px;
+    border: 3px rgb(87, 78, 78) solid;
+    margin-bottom: 8px;
+}
+#title{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size:35px;
+  text-align:center;
+}
+nav{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size:1.25em;
+}
+.circle{
+  width:10px;
+  height:10px;
+  border-radius:5px;
+  background-color: black;
+}
+.square {
+  height: 50px;
+  width: 50px;
+  background-color: #fff;
+  border: 3px gray solid;
+}
+.box img{
+  display: block;
+  object-fit:contain;
+  width: 30vw;
+  height:auto;
+}
+.searchbar {
+  border:0.25vw gray solid;
+  background-color: #fff;
+  width:9vw;
+  height:9vw;
+  text-align: center;
+  caret-color:black;
+  padding:0;
+}
+.collapsible {
+  width:20vw;
+  position:absolute;
+  height:3vw;
+  text-align:center;
+  background-color: white;
+}
+.content {
+  padding: 0 18px;
+  border: 0.5vw black solid;
+  display: none;
+  overflow: hidden;
+  background-color: white;
+  width:20vw;
+}
+.button{
+  text-decoration:none;
+  color:black;
+  margin-left:5px;
+  margin-right:5px;
+  padding:5px;
+  border: 3px black solid;
+  border-radius: 5px;
+  background-color:#eee089;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  margin:5px;
+}
+.button:hover{
+  color:white;
+  background-color:black;
+}
+#playlink:hover, #playlink:focus{
+  color:#fa8072;
+  border-bottom: 2px #fa8072 solid;
+}
+#solverlink:hover, #solverlink:focus{
+  color:#51cba4;
+  border-bottom: 2px #51cba4 solid;
+}
+#methodlink:hover, #methodlink:focus{
+  color:#6ea3df;
+  border-bottom: 2px #6ea3df solid;
+}
+#puzzlelink:hover, #puzzlelink:focus{
+  color:#eee089;
+  border-bottom: 2px #eee089 solid;
+}
+.dropdown-item:hover, .dropdown-item:focus{
+  background-color:#eee089;
+}
+#whitescreen{
+  background-color:rgba(255, 255, 255,0.99);
+  animation: colorscreen 5s linear infinite;
+  width:100vw;
+  height:100vh;
+  font-size:max(3vw, 20px);
+  position:fixed;
+  display:none;
+  z-index:2000;
+  top:0vh;
+  color:black;
+  padding:10vh;
+  justify-content:center;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin:0;
+  left:0px;
+  top:0px;
+}
+.numberimg{
+  width:3vw;
+  height:3vw;
+  position:absolute;
+}
+#spinner{
+  z-index:100000;
+  position:fixed; 
+  color:black;
+  top:50vh;
+  left:50vw;
+  display:none;
+}
+#backbutton{
+  background-image:url('/static/back.png');
+  background-size:cover;
+  left:0vw;
+  width:5vw;
+  height:5vw;
+  position:absolute;
+  }
+@keyframes change-size{
+  50%{transform: scale(1.1)}
+  100%{transform: scale(1)}
+}
+.growimage:hover, .growimage:focus{
+  animation: change-size 2s ease-in-out forwards;
+}
+.leftsidebar{
+  background-image: url('/static/numbers.png');
+  position:fixed;
+  top:0vh;
+  height:100vh;
+  left:0vw;
+  width:10vw;
+}
+.rightsidebar{
+  background-image: url('/static/numbers.png');
+  position:fixed;
+  top:0vh;
+  height:100vh;
+  left:90vw;
+  width:10vw;
+}
+@media screen and (max-width: 800px){
+  .leftsidebar, .rightsidebar{
+    display:none;
+  }
+}
+#submitbutton{
+  background-color:#eee089;
+  color:black;
+  border-radius:5px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+#submitbutton:hover{
+  background-color:#6ea3df;
+  color:white;
+}
+.diflink{
+  text-decoration:none;
+  color:black;
+  margin-left:5px;
+  margin-right:5px;
+  padding:5px;
+  border: 3px black solid;
+  border-radius: 5px;
+  background-color:#eee089;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.diflink:hover{
+  color:white;
+  background-color:black;
+}
+#nums{
+  font-family: 'Noto Sans', sans-serif;
+  display:flex;
+  justify-content:space-around;
+}
+#lets{
+  font-family: 'Noto Sans', sans-serif;
+  display:flex;
+  flex-flow: column wrap;
+  justify-content:space-around;
+  align-items:center;
+}
+#nums2{
+  font-family: 'Noto Sans', sans-serif;
+  display:flex;
+  justify-content:space-around;
+}
+#lets2{
+  font-family: 'Noto Sans', sans-serif;
+  display:flex;
+  flex-flow: column wrap;
+  justify-content:space-around;
+  align-items:center;
+}
+@media screen and (min-width:900px){
+  .searchbar {
+    border:0.25vw gray solid;
+    background-color: #fff; 
+    text-align: center;
+    caret-color:black;
+    width:3.34vw;
+    height:3.34vw;
+  }
+  .numberimg{
+    width:4vh;
+    height:4vh;
+    position:absolute;
+  }
+}
+  

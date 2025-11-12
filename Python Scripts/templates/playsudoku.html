@@ -1,0 +1,1153 @@
+{% extends "base.html" %} 
+{% block title %} 
+Play Sudoku
+{% endblock %} 
+{% block content %} 
+<body>
+    <div id="title"><h1><b>Play Sudoku</b></h1></div>
+    <script type="text/javascript">
+        function spinner() {
+            document.getElementById("spinner").style.display = "block";
+        }
+    </script>    
+<div id="whitescreen">Generating Sudoku...
+    <div class="spinner-border" id="spinner" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>  
+</div>
+<div class="obj" id="checkboxes" style="background-color:rgb(138, 202, 242);position:absolute;display:flex;flex-wrap:wrap;left:10vw;width:30vw">
+    <div style="font-size:1.25em;text-align:center;width:100%"><b>Options:</b></div>
+<div style="width:100%"><input type="checkbox" id="togglecandidates" name="candidate" value="Toggle Candidate">
+<label for="togglecandidates">Enable/disable notes</label></div>
+<div style="width:100%"><input type="checkbox" id="autocheck" name="autocheck" value="Autocheck answers">
+<label for="autocheck">Auto-check answers</label></div>
+<div style="width:100%"><input type="checkbox" id="darkmode" name="darkmode" value="Dark mode">
+    <label for="darkmode">Enable/disable dark mode</label></div>
+<div style="width:100%"><input type="checkbox" id="explain" name="candidate" value="Explanations">
+    <label for="explain">Explanations for steps</label></div>
+</div>
+<div id="difs" style="font-size:1.25vw;display:flex;align-items:center;justify-content:space-around;flex-wrap:wrap;position:absolute; padding:5px;background-color:#fa8072;height:fit-content">
+    <div style="font-size:1.25em;display:flex;justify-content:center"><b>Difficulty:</b></div>
+    <a class="diflink"href='/playsudoku/easy' onclick="whiteScreen(); spinner()" name="easy" method="get" z-index=1>Easy</a>
+    <a class="diflink"href='/playsudoku/medium'onclick="whiteScreen(); spinner()" name="medium" method="get" z-index=1>Medium</a>
+    <a class="diflink"href='/playsudoku/hard'onclick="whiteScreen(); spinner()" name="hard" method="get" >Hard</a>
+</div>
+<div id="nums" style="font-size:1.25vw;display:flex;position:absolute;width:36vw;justify-content:space-around;top:10vw;left:32vw">
+                <b>1</b>
+                <b>2</b>
+                <b>3</b>
+                <b>4</b>
+                <b>5</b>
+                <b>6</b>
+                <b>7</b>
+                <b>8</b>
+                <b>9</b>
+                    </div>
+                    <div id="lets" style="display:flex;flex-wrap:wrap;position:absolute;height:36vw;justify-content:space-around;top:13vw;left:30vw">
+                    <div style="width:100%"><b>A</b></div> 
+                    <div style="width:100%"><b>B</b></div> 
+                    <div style="width:100%"><b>C</b></div> 
+                    <div style="width:100%"><b>D</b></div> 
+                    <div style="width:100%"><b>E</b></div> 
+                    <div style="width:100%"><b>F</b></div> 
+                    <div style="width:100%"><b>G</b></div> 
+                    <div style="width:100%"><b>H</b></div> 
+                    <div style="width:100%"><b>I</b></div> 
+                    </div>
+                    <form action="/playsudoku/check" method="post">
+                        <div id="sudoku" style="font-size:large;display:flex;flex-direction:row;flex-wrap:wrap;position:absolute;height:36vw;width:36vw;left:32vw;top:12vw">
+                        <input class="searchbar" type="text" id="A1" name="A1" autocomplete="off"/>
+                        <input class="searchbar" type="text" id="A2" name="A2" autocomplete="off"/>
+                        <input class="searchbar" type="text" id="A3"style="border-right:blue 0.25vw solid" name="A3" autocomplete="off"/>
+                        <input class="searchbar" type="text" id="A4" style="border-left:blue 0.25vw solid"name="A4" autocomplete="off"/>
+                        <input class="searchbar" type="text" id="A5" name="A5" autocomplete="off"/>
+                        <input class="searchbar" type="text" id="A6" style="border-right:blue 0.25vw solid"name="A6" autocomplete="off"/>
+                        <input class="searchbar" id="A7"  type="text" style="border-left:blue 0.25vw solid"name="A7" autocomplete="off"/>
+                        <input class="searchbar" id="A8"  type="text" name="A8" autocomplete="off"/>
+                        <input class="searchbar"id="A9" type="text" name="A9" autocomplete="off"/>
+                        <input class="searchbar"id="B1" type="text" name="B1" autocomplete="off"/>
+                        <input class="searchbar"id="B2" type="text" name="B2" autocomplete="off"/>
+                        <input class="searchbar"id="B3" type="text"  style="border-right:blue 0.25vw solid"name="B3" autocomplete="off"/>
+                        <input class="searchbar"id="B4" type="text" name="B4"style="border-left:blue 0.25vw solid" autocomplete="off"/>
+                        <input class="searchbar"id="B5" type="text" name="B5" autocomplete="off"/>
+                        <input class="searchbar"id="B6"  type="text" style="border-right:blue 0.25vw solid" name="B6" autocomplete="off"/>
+                        <input class="searchbar" id="B7" type="text" name="B7"style="border-left:blue 0.25vw solid" autocomplete="off"/>
+                        <input class="searchbar"id="B8" type="text" name="B8" autocomplete="off"/>
+                        <input class="searchbar"id="B9" type="text" name="B9" autocomplete="off"/>
+                        <input class="searchbar"id="C1" style="border-bottom:blue 0.25vw solid" type="text" name="C1" autocomplete="off"/>
+                        <input class="searchbar" id="C2"style="border-bottom:blue 0.25vw solid" type="text" name="C2" autocomplete="off"/>
+                        <input class="searchbar"id="C3" style="border-bottom:blue 0.25vw solid;border-right:blue 0.25vw solid" type="text" name="C3" autocomplete="off"/>
+                        <input class="searchbar"id="C4" style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="C4" autocomplete="off"/>
+                        <input class="searchbar"id="C5" style="border-bottom:blue 0.25vw solid" type="text" name="C5" autocomplete="off"/>
+                        <input class="searchbar"id="C6" style="border-bottom:blue 0.25vw solid;border-right:blue 0.25vw solid"type="text" name="C6" autocomplete="off"/>
+                        <input class="searchbar"id="C7" style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="C7" autocomplete="off"/>
+                        <input class="searchbar"id="C8" style="border-bottom:blue 0.25vw solid" type="text" name="C8" autocomplete="off"/>
+                        <input class="searchbar"id="C9" style="border-bottom:blue 0.25vw solid" type="text" name="C9" autocomplete="off"/>
+                        <input class="searchbar"id="D1" style="border-top:blue 0.25vw solid" type="text" name="D1" autocomplete="off"/>
+                        <input class="searchbar"id="D2" style="border-top:blue 0.25vw solid"  type="text" name="D2" autocomplete="off"/>
+                        <input class="searchbar"id="D3" style="border-top:blue 0.25vw solid;border-right:blue 0.25vw solid" type="text" name="D3" autocomplete="off"/>
+                        <input class="searchbar"id="D4" style="border-top: blue 0.25vw solid;border-left:0.25vw blue solid" type="text" name="D4" autocomplete="off"/>
+                        <input class="searchbar"id="D5" style="border-top:blue 0.25vw solid" type="text" name="D5" autocomplete="off"/>
+                        <input class="searchbar" id="D6"style="border-top:blue 0.25vw solid; border-right:blue 0.25vw solid"type="text" name="D6" autocomplete="off"/>
+                        <input class="searchbar" id="D7"style="border-top:blue 0.25vw solid;border-left:0.25vw blue solid" type="text" name="D7" autocomplete="off"/>
+                        <input class="searchbar"id="D8" style="border-top:blue 0.25vw solid" type="text" name="D8" autocomplete="off"/>
+                        <input class="searchbar" id="D9"style="border-top:blue 0.25vw solid"type="text" name="D9" autocomplete="off"/>
+                        <input class="searchbar"id="E1"  type="text" name="E1" autocomplete="off"/>
+                        <input class="searchbar"id="E2"  type="text" name="E2" autocomplete="off"/>
+                        <input class="searchbar" id="E3"  style="border-right:blue 0.25vw solid"type="text" name="E3" autocomplete="off"/>
+                        <input class="searchbar" id="E4" style="border-left:blue 0.25vw solid"type="text" name="E4" autocomplete="off"/>
+                        <input class="searchbar" id="E5" type="text" name="E5" autocomplete="off"/>
+                        <input class="searchbar" id="E6"  style="border-right:blue 0.25vw solid"type="text" name="E6" autocomplete="off"/>
+                        <input class="searchbar" id="E7" style="border-left:blue 0.25vw solid"type="text" name="E7" autocomplete="off"/>
+                        <input class="searchbar" id="E8"type="text" name="E8" autocomplete="off"/>
+                        <input class="searchbar" id="E9" type="text" name="E9" autocomplete="off"/>
+                        <input class="searchbar" id="F1"style="border-bottom:blue 0.25vw solid" type="text" name="F1" autocomplete="off"/>
+                        <input class="searchbar" id="F2"style="border-bottom:blue 0.25vw solid" type="text" name="F2" autocomplete="off"/>
+                        <input class="searchbar" id="F3" style="border-right:blue 0.25vw solid;border-bottom:blue 0.25vw solid" type="text" name="F3" autocomplete="off"/>
+                        <input class="searchbar" id="F4"style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="F4" autocomplete="off"/>
+                        <input class="searchbar" id="F5"style="border-bottom:blue 0.25vw solid" type="text" name="F5" autocomplete="off"/>
+                        <input class="searchbar" id="F6" style="border-right:blue 0.25vw solid;border-bottom:blue 0.25vw solid" type="text" name="F6" autocomplete="off"/>
+                        <input class="searchbar" id="F7"style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="F7" autocomplete="off"/>
+                        <input class="searchbar" id="F8"style="border-bottom:blue 0.25vw solid" type="text" name="F8" autocomplete="off"/>
+                        <input class="searchbar" id="F9"style="border-bottom:blue 0.25vw solid" type="text" name="F9" autocomplete="off"/>
+                        <input class="searchbar" id="G1" style="border-top:0.25vw blue solid"type="text" name="G1" autocomplete="off"/>
+                        <input class="searchbar" id="G2" style="border-top:0.25vw blue solid"type="text" name="G2" autocomplete="off"/>
+                        <input class="searchbar" id="G3" style="border-top:0.25vw blue solid;border-right:blue 0.25vw solid"type="text" name="G3" autocomplete="off"/>
+                        <input class="searchbar" id="G4" style="border-top:0.25vw blue solid;border-left:blue 0.25vw solid"type="text" name="G4" autocomplete="off"/>
+                        <input class="searchbar" id="G5" style="border-top:0.25vw blue solid"type="text" name="G5" autocomplete="off"/>
+                        <input class="searchbar" id="G6" style="border-top:0.25vw blue solid;border-right:blue 0.25vw solid"type="text" name="G6" autocomplete="off"/>
+                        <input class="searchbar" id="G7" style="border-top:0.25vw blue solid;border-left:blue 0.25vw solid"type="text" name="G7" autocomplete="off"/>
+                        <input class="searchbar" id="G8" style="border-top:0.25vw blue solid"type="text" name="G8" autocomplete="off"/>
+                        <input class="searchbar" id="G9" style="border-top:0.25vw blue solid"type="text" name="G9" autocomplete="off"/>
+                        <input class="searchbar" id="H1" type="text" name="H1" autocomplete="off"/>
+                        <input class="searchbar" id="H2" type="text" name="H2" autocomplete="off"/>
+                        <input class="searchbar" id="H3"  style="border-right:blue 0.25vw solid"type="text" name="H3" autocomplete="off"/>
+                        <input class="searchbar" id="H4" style="border-left:blue 0.25vw solid"type="text" name="H4" autocomplete="off"/>
+                        <input class="searchbar" id="H5" type="text" name="H5" autocomplete="off"/>
+                        <input class="searchbar" id="H6"  style="border-right:blue 0.25vw solid"type="text" name="H6" autocomplete="off"/>
+                        <input class="searchbar" id="H7"style="border-left:blue 0.25vw solid" type="text" name="H7" autocomplete="off"/>
+                        <input class="searchbar" id="H8" type="text" name="H8" autocomplete="off"/>
+                        <input class="searchbar" id="H9" type="text" name="H9" autocomplete="off"/>
+                        <input class="searchbar"id="I1" type="text" name="I1" autocomplete="off"/>
+                        <input class="searchbar"id="I2"   type="text" name="I2" autocomplete="off"/>
+                        <input class="searchbar" id="I3" style="border-right:blue 0.25vw solid"type="text" name="I3" autocomplete="off"/>
+                        <input class="searchbar" id="I4"style="border-left:blue 0.25vw solid"type="text" name="I4" autocomplete="off"/>
+                        <input class="searchbar"id="I5"  type="text" name="I5" autocomplete="off"/>
+                        <input class="searchbar" id="I6" style="border-right:blue 0.25vw solid" type="text" name="I6" autocomplete="off"/>
+                        <input class="searchbar" id="I7" style="border-left:blue 0.25vw solid"type="text" name="I7" autocomplete="off"/>
+                        <input class="searchbar" id="I8" type="text" name="I8" autocomplete="off"/>
+                        <input class="searchbar" id="I9" type="text" name="I9" autocomplete="off"/>
+                        </div>
+    <div id="buttons" class="obj"style="background-color:#eee089;display:flex;flex-wrap:wrap;font-size:3.5vw;justify-content:center;gap:1vw;position:absolute;top:50vw;width:50vw;left:25vw">
+        <p style="font-size:1.25em"><b>Solving Options:</b></p>
+        <button class="button" id="ca" style="background-color:#6ad1b9" type="submit" name="check" method="post">Check Answers</button>
+    </form>
+        <input class="button" id="solve" style="height:fit-content;background-color:#6ad1b9" onclick="location.href='/play/solve'" type="button"method="post" value="Solve Completely"/>
+        <input class="button" id="onestep" style="height:fit-content;background-color:#6ad1b9" onclick="location.href='/play/onestep'" type="button"method="post" value="Next Step"/>
+        <input class="button" id="clear" style="height:fit-content;background-color: #6ad1b9" onclick="location.href='/play/clear'" type="button"method="post" value="Clear Puzzle"/>
+    <form action="/play/solvecell" method="post">
+        <input id="cell"style="margin-top:10px;height:fit-content;color:black; background-color:#6ad1b9" size="10" name="cell" type="text"method="post" value="Solve cell"/>
+</form>
+</div>
+    <div id="rules"style="font-size:1.25vw;display:flex;flex-wrap:wrap;position:absolute; width:20vw;top:10vh;left:4vw;border-radius:20px;padding:15px;border:3px black solid;background-color:#eee089;height:fit-content">
+    <div style="font-size:1.25em;text-align:center;width:100%"><b>Sudoku Rules:</b></div>
+    <div style="width:100%"><b>1.</b> Each cell must be filled in with a number between 1 and 9.</div>
+    <div style="width:100%"><b>2.</b> When the puzzle is complete, each row, column, and box must contain each number 1-9.</div>
+    <div style="width:100%"><b>3.</b> A row, column, or box cannot contain the same number more than once.</div>
+    </div>
+    <div id="options"style="font-size:1.25vw;display:flex;flex-wrap:wrap;position:absolute; width:20vw;top:10vh;left:75vw;border-radius:20px;padding:15px;border:3px black solid;background-color:rgb(138, 202, 242);height:fit-content">
+        <div style="font-size:1.25em;text-align:center;width:100%"><b>Options Explained:</b></div>
+            <div style="width:100%"><b><i>Notes:</i></b> When checked, you can input notes in small font.</div><div style="font-family:monospace;width:100%">Keyboard shortcut: N</div>
+            <div style="width:100%"><b><i>Auto-check:</i></b> The solver will automatically check your inputs. Red means incorrect, blue means correct.</div><div style="font-family:monospace;width:100%">Keyboard shortcut: A</div>
+            <div style="width:100%"><b><i>Dark mode:</i></b> Darkens the grid and background.</div><div style="font-family:monospace;width:100%">Keyboard shortcut: D</div>
+            <div style="width:100%"><b><i>Explanations:</i></b> If you use the solver to finish the sudoku, in-depth explanations will be added to explain each step that the solver took.</div><div style="font-family:monospace;width:100%">Keyboard shortcut: E</div>
+    </div>
+    <div id="check" style="padding:5px;font-size:1.25vw;display:flex;flex-wrap:wrap;position:absolute; width:20vw;top:65vh;left:75vw;border-radius:20px;padding:15px;border:3px black solid;background-color:#51cba4;height:fit-content">
+        <div style="font-size:1.25em;text-align:center;width:100%"><b>Check answers:</b></div>
+        <div style="width:100%;">Press enter or click the check answers button to check your answers. Correct numbers will appear in blue, incorrect numbers will appear in red.</div>
+        <div style="padding: 5px;font-size:1.25em;text-align:center;width:100%"><b>Solve completely:</b></div>
+        <div style="width:100%;">When pressed, all unsolved cells will be filled in with the correct number. A step-by-step explanation of how to solve the sudoku will replace the sudoku rules box.</div>
+        <div style="padding:5px;font-size:1.25em;text-align:center;width:100%"><b>Clear grid:</b></div>
+        <div style="width:100%;">Press to delete all red or blue numbers.</div>
+        <div style="padding:5px;font-size:1.25em;text-align:center;width:100%"><b>Solve cell:</b></div>
+        <div style="width:100%;">Enter the coordinates of an unfilled cell (example: 'A1'). The solver will input the correct number into this cell.</div>
+    </div>
+    <div class="container-fluid">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %} 
+            {% for msg in messages %} 
+                <div style = "position:absolute;top:15vh; width:100%;text-align:center;color:rgb(235, 231, 230); font-size:20px">{{msg}}</div>
+            {% endfor %}
+        {% endif %} 
+    {% endwith %} 
+    </div>
+    {% if methods[0] != "no" %}
+    <div class="obj" id="steps" style = "background-color:#eee089;overflow-x: hidden;overflow-y: auto;display:flex;flex-wrap:wrap;padding:1vw;justify-content:center;position:absolute;height:10vw;top:50vw;border: 3px black solid">
+        <div style="font-size:1.25em;width:100%" align="center"><p><b>Steps (scroll down):</b></p></div>
+        {% for x in range(methods|length)%}
+        <div style="text-align:center;width:100%"><p><b>{{methods[x]}}</b></p></div>
+        <div style="font-size:1.25em;text-align:center;width:100%"><p><b>Explanation:</b></p></div><div style="text-align:center;width:100%"><p>{{explain[x]}}</p></div>
+        {% endfor %}
+    </div>
+    <div class="obj" id="stepsnoexplain" style = "background-color:#eee089;overflow-x: hidden;overflow-y: auto;display:flex;padding:1vw;flex-wrap:wrap;justify-content:center;position:absolute;height:10vw;top:50vw;border: 3px black solid">
+        <div style="font-size:1.25em;width:100%" align="center"><p><b>Steps (scroll down):</b></p></div>
+        {% for x in range(methods|length)%}
+        <div style="text-align:center;width:100%"><p><b>{{methods[x]}}</b></p></div>
+        {% endfor %}
+    </div>
+    {% endif %}
+        <script>
+            var checkbox = document.getElementById("togglecandidates");
+            var autocheck = document.getElementById("autocheck");
+            var darkmode = document.getElementById("darkmode");
+            var explains = document.getElementById("explain")
+            var cells = document.getElementsByClassName('searchbar')
+            var solvecell = document.getElementById('cell')
+            const inputs = document.querySelectorAll("input[type='text']");
+            solvecell.addEventListener('click', function(){
+                solvecell.value = ""
+            })
+            explains.addEventListener('change', function(){
+                if(this.checked) {
+                    if(document.getElementById("stepsnoexplain")){
+                    document.getElementById("stepsnoexplain").style.display = 'none'
+                    }
+                } else {
+                    if(document.getElementById("stepsnoexplain")){
+                    document.getElementById("stepsnoexplain").style.display = 'flex'
+                    }
+                }
+            })
+            darkmode.addEventListener('change', function() {
+                console.log('darkmode')
+                if(this.checked) {
+                    document.body.style.backgroundColor = '#aa88ee';
+                    document.getElementById('playlink').style.color = '#aa88ee'
+                document.getElementById('playlink').style.borderBottom = '2px #aa88ee solid'
+                    if(document.body.style.backgroundColor === '#aa88ee'){
+                        console.log('purple')
+                    }
+                    document.getElementById('rules').style.backgroundColor = '#fab072'
+                    document.getElementById('buttons').style.backgroundColor = '#fab072'
+                    if(document.getElementById('steps')){
+                    document.getElementById('steps').style.backgroundColor = '#51cba4'
+                    document.getElementById('stepsnoexplain').style.backgroundColor = '#51cba4'
+                    }
+                    var cookies = document.cookie.split(";");
+                    for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i];
+                    const eqPos = cookie.indexOf("=");
+                    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+                    console.log(document.cookie)
+                    }
+                    console.log(document.cookie)
+                    document.cookie = "darkmode=true; max-age=3600"
+                    console.log(document.cookie)
+                    for(let i=0; i < 81; i++){
+                        inputs[i].style.backgroundColor = 'black'
+                        if(!(redsjs.includes(i) || bluesjs.includes(i) || graysjs.includes(i))){
+                        inputs[i].style.color = 'white'
+                        } else {
+                        if(graysjs.includes(i)){
+                        inputs[i].style.color = 'silver'
+                        }
+                        }
+                    }
+                } else {
+                    document.body.style.backgroundColor = '#fa8072';
+                    document.getElementById('playlink').style.color = '#fa8072'
+                    document.getElementById('playlink').style.borderBottom = '2px #fa8072 solid'
+                    document.getElementById('rules').style.backgroundColor = '#eee089'
+                    document.getElementById('buttons').style.backgroundColor = '#eee089'
+                    if(document.getElementById('steps')){
+                    document.getElementById('steps').style.backgroundColor = '#eee089'
+                    document.getElementById('stepsnoexplain').style.backgroundColor = '#eee089'
+                    }
+                    var cookies = document.cookie.split(";");
+                    for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i];
+                    const eqPos = cookie.indexOf("=");
+                    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+                    }
+                    document.cookie = "darkmode=false; max-age=3600"
+                    console.log(document.cookie)
+                    for(let i=0; i < 81; i++){
+                        inputs[i].style.backgroundColor = 'white'
+                        if(!(redsjs.includes(i) || bluesjs.includes(i) || graysjs.includes(i))){
+                        inputs[i].style.color = 'black'
+                        
+                        } else {
+                        if(graysjs.includes(i)){
+                        inputs[i].style.color = 'gray'
+                        }
+                        }
+                    }
+                }
+
+            })
+            checkbox.addEventListener("change", function() {
+            if (this.checked) {
+            console.log("Checkbox is checked");
+            for(let i=0; i < cells.length; i++){
+                if(!(graysjs.includes(i) || bluesjs.includes(i) || cells[i].value != "")) {
+                
+                cells[i].style.fontSize = '0.7em'
+                cells[i].style.textAlign = 'left'
+                if(cells[i].name[0] !== '#'){
+                cells[i].name = '#' + cells[i].name
+                }
+                cells[i].style.color = 'black'
+                if(darkmode.checked){
+                    cells[i].style.color = 'white'
+                }
+            }
+            }
+            } else {
+            console.log("Checkbox is not checked");
+            for(let i=0; i < cells.length; i++){
+            if(!(graysjs.includes(i) || bluesjs.includes(i) || cells[i].value != "")) {
+            cells[i].style.fontSize = '1.3em'
+            cells[i].style.textAlign = 'center'
+            if(cells[i].name[0] === "#"){
+                cells[i].name = cells[i].name.substring(1)
+            }
+            console.log(cells[i].name)
+            cells[i].style.color = 'black'
+                if(darkmode.checked){
+                    cells[i].style.color = 'white'
+                }
+            }
+            }
+            }
+            });
+        </script>
+         <script>
+            let redsjs = {{ reds }}
+            let bluesjs = {{ blues }}
+            let graysjs = {{ grays }}
+            let numsjs = {{ nums }}
+            let smallsjs = {{s}}
+            let sol = {{solution}}
+            var width = window.innerWidth;
+            var darkmode = document.getElementById('darkmode')
+            const changeEvent = new Event('change');
+            const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
+            let currentInputIndex = 0;
+            document.body.style.backgroundColor = '#fa8072';
+            document.getElementById('playlink').style.color = '#fa8072'
+            document.getElementById('playlink').style.borderBottom = '2px #fa8072 solid'
+              // Get all the text inputs in the document
+            if(document.cookie){
+                var cookies = document.cookie.split(';');
+                var dark = 'false'
+                var dcheck  = 0
+            // Loop through the cookies to find the one with the specified name
+            for(var i = 0; i < cookies.length; i++) {
+                if(dcheck === 0){
+                var cookie = cookies[i].trim();
+                // Check if this cookie has the desired name
+                if(cookie.indexOf('darkmode') === 0) {
+                // Return the value of the cookie
+                var dark = cookie.substring(9, cookie.length);
+                console.log(dark)
+                dcheck = 1
+                }
+            }
+            }
+
+            if(dark === 'true'){
+                darkmode.checked = true
+                darkmode.dispatchEvent(changeEvent);
+                document.body.style.backgroundColor = '#aa88ee';
+                document.getElementById('playlink').style.color = '#aa88ee'
+                document.getElementById('playlink').style.borderBottom = '2px #aa88ee solid'
+            for (let i=0; i < 81; i++){
+                inputs[i].style.backgroundColor = 'black'
+                if(!(redsjs.includes(i) || bluesjs.includes(i) || graysjs.includes(i))){
+                inputs[i].style.color = 'white'
+                } else {
+                if(graysjs.includes(i)){
+                inputs[i].style.color = 'silver'
+                }
+                }
+            }
+        }
+    }
+              var cells = document.getElementsByClassName('searchbar')
+              for (let i=0; i < 81; i++){
+                inputs[i].addEventListener('click', function(){
+                    for(let j=0; j<81;j++){
+                        if(darkmode.checked){
+                        inputs[j].style.backgroundColor = 'black'
+                        } else {
+                        inputs[j].style.backgroundColor = 'white'
+                        }
+                    }
+                    if(darkmode.checked){
+                        this.style.backgroundColor = '#aa88ee'
+                    } else {
+                    this.style.backgroundColor = 'cornflowerblue'
+                    }
+                    var letter = this.id[0]
+                    var number = parseInt(this.id[1])
+                    for(let j=0; j < 9; j++){
+                        if(letter === letters[j]){
+                            currentInputIndex = 9 * j
+                        }
+                    }
+                    currentInputIndex = currentInputIndex + number - 1
+                    console.log(currentInputIndex)
+                }
+
+                )
+              }
+
+// Add an event listener to detect key presses
+document.addEventListener("keydown", function(event) {
+    const checkbox = document.getElementById('togglecandidates');
+    const autocheck = document.getElementById('autocheck')
+    const darkmode = document.getElementById('darkmode')
+    if (event.keyCode >= 49 && event.keyCode <= 57) {
+    console.log('A number key was pressed');
+    if(autocheck.checked && !checkbox.checked){
+        console.log('change color')
+        if(event.keyCode - 48 === sol[currentInputIndex] && inputs[currentInputIndex].value.length === 0){
+            inputs[currentInputIndex].style.color = 'blue'
+            bluesjs.push(currentInputIndex)
+        } else {
+            inputs[currentInputIndex].style.color = 'red'
+            bluesjs.push(currentInputIndex)
+        }
+    }
+  }
+  switch (event.key) {
+    case 'n':
+      // Get the checkbox element
+      event.preventDefault()
+      checkbox.checked = !checkbox.checked
+      // Toggle the checked state of the checkbox
+    checkbox.dispatchEvent(changeEvent);
+      break;
+    case 'a':
+        event.preventDefault()
+        autocheck.checked = !autocheck.checked
+    autocheck.dispatchEvent(changeEvent);
+        break;
+    case 'N':
+    // Get the checkbox element
+    // Toggle the checked state of the checkbox
+    event.preventDefault()
+    checkbox.checked = !checkbox.checked
+    checkbox.dispatchEvent(changeEvent);
+    break;
+    case 'A':
+    event.preventDefault()
+    autocheck.checked = !autocheck.checked
+    autocheck.dispatchEvent(changeEvent);
+        break;
+    case 'd':
+    event.preventDefault()
+    console.log('d')
+    darkmode.checked = !darkmode.checked
+    darkmode.dispatchEvent(changeEvent);
+        break;
+    case 'D':
+    event.preventDefault()
+    console.log('D')
+    darkmode.checked = !darkmode.checked
+    darkmode.dispatchEvent(changeEvent);
+        break;
+    case 'E':
+    event.preventDefault()
+    console.log('E')
+    explains.checked = !explains.checked
+    explains.dispatchEvent(changeEvent);
+    case 'e':
+    event.preventDefault()
+    console.log('e')
+    explains.checked = !explains.checked
+    explains.dispatchEvent(changeEvent);
+    case "ArrowLeft":
+      // Left arrow key pressed
+      if (currentInputIndex > 0) {
+        currentInputIndex--;
+        console.log(currentInputIndex)
+        inputs[currentInputIndex].focus();
+        for(let j=0; j<81;j++){
+        if(darkmode.checked){
+        inputs[j].style.backgroundColor = 'black'
+        } else {
+        inputs[j].style.backgroundColor = 'white'
+        }
+    }
+        if(darkmode.checked){
+            inputs[currentInputIndex].style.backgroundColor = '#aa88ee'
+        } else {
+        inputs[currentInputIndex].style.backgroundColor = 'cornflowerblue'
+        }
+        if(!(graysjs.includes(currentInputIndex) || bluesjs.includes(currentInputIndex))){
+        if(checkbox.checked) {
+            if(inputs[currentInputIndex].value === ""){
+            inputs[currentInputIndex].style.fontSize = '0.7em'
+            inputs[currentInputIndex].style.textAlign = 'left'
+            console.log('checked')
+            if(inputs[currentInputIndex].name[0] !== '#'){
+            inputs[currentInputIndex].name = '#' + cells[currentInputIndex].name
+            }
+        }
+        } else{
+            inputs[currentInputIndex].style.fontSize = '1.3em'
+            inputs[currentInputIndex].style.textAlign = 'center'
+            if(inputs[currentInputIndex].value.length > 1){
+                inputs[currentInputIndex].value = ''
+            }
+            if(redsjs.includes(currentInputIndex)){
+                inputs[currentInputIndex].value = ''
+                if(darkmode.checked){
+                inputs[currentInputIndex].style.color = 'white'
+                } else {
+                inputs[currentInputIndex].style.color = 'black'
+                }
+                redsjs = redsjs.filter(function(element) {
+                return element !== currentInputIndex;
+                });
+            }
+            if(inputs[currentInputIndex].name[0] === '#'){
+                inputs[currentInputIndex].name = inputs[currentInputIndex].name.substring(1)
+                }
+            console.log('not checked')
+        }
+    }
+      }
+      break;
+    case "ArrowUp":
+      // Up arrow key pressed
+      if(currentInputIndex > 8) {
+        currentInputIndex = currentInputIndex - 9;
+        inputs[currentInputIndex].focus();
+        for(let j=0; j<81;j++){
+        if(darkmode.checked){
+        inputs[j].style.backgroundColor = 'black'
+        
+        } else {
+        inputs[j].style.backgroundColor = 'white'
+        
+        }
+    }
+    if(darkmode.checked){
+            inputs[currentInputIndex].style.backgroundColor = '#aa88ee'
+        } else {
+        inputs[currentInputIndex].style.backgroundColor = 'cornflowerblue'
+        }
+        if(!(graysjs.includes(currentInputIndex) || bluesjs.includes(currentInputIndex))){
+        if(checkbox.checked) {
+            if(inputs[currentInputIndex].value === ""){
+            inputs[currentInputIndex].style.fontSize = '0.7em'
+            inputs[currentInputIndex].style.textAlign = 'left'
+            console.log('checked')
+            if(inputs[currentInputIndex].name[0] !== '#'){
+            inputs[currentInputIndex].name = '#' + cells[currentInputIndex].name
+            }
+        }
+        } else{
+            inputs[currentInputIndex].style.fontSize = '1.3em'
+            inputs[currentInputIndex].style.textAlign = 'center'
+            if(inputs[currentInputIndex].value.length > 1){
+                inputs[currentInputIndex].value = ''
+            }
+            if(redsjs.includes(currentInputIndex)){
+                inputs[currentInputIndex].value = ''
+                if(darkmode.checked){
+                inputs[currentInputIndex].style.color = 'white'
+                } else {
+                inputs[currentInputIndex].style.color = 'black'
+                }
+                redsjs = redsjs.filter(function(element) {
+                return element !== currentInputIndex;
+                });
+            }
+            if(inputs[currentInputIndex].name[0] === '#'){
+                inputs[currentInputIndex].name = inputs[currentInputIndex].name.substring(1)
+                }
+            console.log('not checked')
+        }
+    }
+      }
+      break;
+    case "ArrowRight":
+      // Right arrow key pressed
+      if (currentInputIndex < 80) {
+        currentInputIndex++;
+        inputs[currentInputIndex].focus();
+        for(let j=0; j<81;j++){
+        if(darkmode.checked){
+        inputs[j].style.backgroundColor = 'black'
+        
+        } else {
+        inputs[j].style.backgroundColor = 'white'
+        
+        }
+    }
+    if(darkmode.checked){
+            inputs[currentInputIndex].style.backgroundColor = '#aa88ee'
+        } else {
+        inputs[currentInputIndex].style.backgroundColor = 'cornflowerblue'
+        }
+        if(!(graysjs.includes(currentInputIndex) || bluesjs.includes(currentInputIndex))){
+        if(checkbox.checked) {
+            if(inputs[currentInputIndex].value === ""){
+            inputs[currentInputIndex].style.fontSize = '0.7em'
+            inputs[currentInputIndex].style.textAlign = 'left'
+            console.log('checked')
+            if(inputs[currentInputIndex].name[0] !== '#'){
+            inputs[currentInputIndex].name = '#' + cells[currentInputIndex].name
+            }
+        }
+        } else{
+            inputs[currentInputIndex].style.fontSize = '1.3em'
+            inputs[currentInputIndex].style.textAlign = 'center'
+            if(inputs[currentInputIndex].value.length > 1){
+                inputs[currentInputIndex].value = ''
+            }
+            if(redsjs.includes(currentInputIndex)){
+                inputs[currentInputIndex].value = ''
+                if(darkmode.checked){
+                inputs[currentInputIndex].style.color = 'white'
+                } else {
+                inputs[currentInputIndex].style.color = 'black'
+                }
+                redsjs = redsjs.filter(function(element) {
+                return element !== currentInputIndex;
+                });
+            }
+            if(inputs[currentInputIndex].name[0] === '#'){
+                inputs[currentInputIndex].name = inputs[currentInputIndex].name.substring(1)
+                }
+            console.log('not checked')
+        }
+    }
+      }
+      break;
+    case "ArrowDown":
+      // Down arrow key pressed
+      if(currentInputIndex < 72){
+        currentInputIndex = currentInputIndex + 9;
+        inputs[currentInputIndex].focus();
+        for(let j=0; j<81;j++){
+        if(darkmode.checked){
+        inputs[j].style.backgroundColor = 'black'
+        
+        } else {
+        inputs[j].style.backgroundColor = 'white'
+        
+        }
+    }
+    if(darkmode.checked){
+        inputs[currentInputIndex].style.backgroundColor = '#aa88ee'
+        } else {
+        inputs[currentInputIndex].style.backgroundColor = 'cornflowerblue'
+        }
+        if(!(graysjs.includes(currentInputIndex) || bluesjs.includes(currentInputIndex))){
+        if(checkbox.checked) {
+            if(inputs[currentInputIndex].value === ""){
+            inputs[currentInputIndex].style.fontSize = '0.7em'
+            inputs[currentInputIndex].style.textAlign = 'left'
+            console.log('checked')
+            if(inputs[currentInputIndex].name[0] !== '#'){
+            inputs[currentInputIndex].name = '#' + cells[currentInputIndex].name
+            }
+        }
+        } else{
+            inputs[currentInputIndex].style.fontSize = '1.3em'
+            inputs[currentInputIndex].style.textAlign = 'center'
+            if(inputs[currentInputIndex].value.length > 1){
+                inputs[currentInputIndex].value = ''
+            }
+            if(redsjs.includes(currentInputIndex)){
+                inputs[currentInputIndex].value = ''
+                if(darkmode.checked){
+                inputs[currentInputIndex].style.color = 'white'
+                } else {
+                inputs[currentInputIndex].style.color = 'black'
+                }
+                redsjs = redsjs.filter(function(element) {
+                return element !== currentInputIndex;
+                });
+            }
+            if(inputs[currentInputIndex].name[0] === '#'){
+                inputs[currentInputIndex].name = inputs[currentInputIndex].name.substring(1)
+                }
+            console.log('not checked')
+        }
+    }
+      }
+      break;
+    default:
+      break;
+  }
+});
+            for (let i=0; i < 81; i++){
+                let j = i%9 + 1
+                if(redsjs.includes(i)){
+                document.getElementById(letters[Math.floor(i/9)] + j.toString()).style.color = "red"
+                document.getElementById(letters[Math.floor(i/9)] + j.toString()).value = numsjs[i]
+                document.getElementById(letters[Math.floor(i/9)] + j.toString()).style.fontSize = '1.3em'
+                }
+                if(bluesjs.includes(i)){
+                    document.getElementById(letters[Math.floor(i/9)] + j.toString()).style.color = "blue"
+                    document.getElementById(letters[Math.floor(i/9)] +j.toString()).value = numsjs[i]
+                    document.getElementById(letters[Math.floor(i/9)] + j.toString()).style.fontSize = '1.3em'
+                    document.getElementById(letters[Math.floor(i/9)] + j.toString()).readOnly = 'true'
+                    }
+                    if(graysjs.includes(i)){
+                        if(darkmode.checked){
+                        document.getElementById(letters[Math.floor(i/9)] + j.toString()).style.color = "silver"
+                        } else {
+                        document.getElementById(letters[Math.floor(i/9)] + j.toString()).style.color = "gray"
+                        }
+                        document.getElementById(letters[Math.floor(i/9)] + j.toString()).value = numsjs[i]
+                        document.getElementById(letters[Math.floor(i/9)] + j.toString()).style.fontSize = '1.3em'
+                        document.getElementById(letters[Math.floor(i/9)] + j.toString()).readOnly = 'true'
+                        }
+                    if(smallsjs.includes(i)){
+                        if(darkmode.checked){
+                            document.getElementById(letters[Math.floor(i/9)] + j.toString()).style.color = "white"
+                        } else {
+                        document.getElementById(letters[Math.floor(i/9)] + j.toString()).style.color = "black"
+                        }
+                        document.getElementById(letters[Math.floor(i/9)] + j.toString()).value = numsjs[i]
+                        document.getElementById(letters[Math.floor(i/9)] + j.toString()).style.fontSize = '0.7em'
+                        document.getElementById(letters[Math.floor(i/9)] + j.toString()).style.textAlign = 'left'
+                        document.getElementById(letters[Math.floor(i/9)] + j.toString()).name = '#' + document.getElementById(letters[Math.floor(i/9)] + j.toString()).name
+                        console.log(document.getElementById(letters[Math.floor(i/9)] + j.toString()).name)
+                    }
+            }
+            </script>
+            <script>
+                explains.checked = true
+                explains.dispatchEvent(changeEvent);
+                var cells = document.getElementsByClassName('searchbar')
+                var checkbox = document.getElementById("togglecandidates");
+                for(let i=0; i < cells.length; i++){
+                    if(!(graysjs.includes(i) || bluesjs.includes(i))){
+                    cells[i].addEventListener('click', function() {
+                        if(checkbox.checked) {
+                            console.log(this.id)
+                            this.style.fontSize = '0.7em'
+                            this.style.textAlign = 'left'
+                            console.log('checked')
+                            if(darkmode.checked){
+                                this.style.color = 'white'
+                            } else {
+                            this.style.color = 'black'
+                            }
+                            if(this.name[0] !== '#'){
+                            this.name = '#' + cells[i].name
+                            }
+                        } else{
+                            this.style.fontSize = '1.3em'
+                            this.style.textAlign = 'center'
+                            this.value = ""
+                            if(darkmode.checked){
+                                this.style.color = 'white'
+                            } else {
+                            this.style.color = 'black'
+                            }
+                            if(this.name[0] === '#'){
+                                this.name = this.name.substring(1)
+                                }
+                            console.log('not checked')
+                        }
+                   
+                    })
+                 }
+                }
+            </script>
+    <script>
+        var width = window.innerWidth;
+            var height = window.innerHeight;
+        
+            // Check if the width is less than the height
+            if (width < height || width < 700) {
+                if(screen.width < 500){
+                    width = screen.width
+                  }
+              // Width is less than height, so execute the query
+              console.log('Width is less than height');
+              var t = document.getElementById('title')
+              var tbot = t.offsetHeight + t.offsetTop
+              document.getElementById('difs').style.top = (tbot + 0.03*width).toString() + 'px'
+              document.getElementById('difs').style.width = '81vw'
+              document.getElementById('difs').style.left = '9.5vw'
+              document.getElementById('difs').style.fontSize = '3.5vw'
+              document.getElementById('difs').style.justifyContent = 'space-around'
+              var difs = document.getElementById('difs')
+              var difsbot = difs.offsetHeight + difs.offsetTop
+              document.getElementById('nums').style.top = (difsbot + 0.01*width).toString() + 'px'
+              document.getElementById('nums').style.left = '9vw'
+              document.getElementById('nums').style.width = '81vw'
+              document.getElementById('nums').style.fontSize = '3vw'
+              var num = document.getElementById('nums')
+              var numbot = num.offsetHeight + num.offsetTop
+              document.getElementById('sudoku').style.width = '81vw'
+              document.getElementById('sudoku').style.height = '81vw'
+              document.getElementById('sudoku').style.left = '9.5vw'
+              document.getElementById('sudoku').style.top = (numbot + 0.01*width).toString() + 'px'
+              document.getElementById('sudoku').style.fontSize = '4.5vw'
+              document.getElementById('lets').style.fontSize = '3vw'
+              document.getElementById('lets').style.top = (numbot + 0.02*width).toString() + 'px'
+              document.getElementById('lets').style.height = '81vw'
+              document.getElementById('lets').style.left = '5.5vw'
+              var sud = document.getElementById('sudoku')
+              var sudbot = sud.offsetHeight + sud.offsetTop
+              document.getElementById('buttons').style.left = '9.5vw'
+              document.getElementById('buttons').style.top = (sudbot + 0.03*width).toString() + 'px'
+              document.getElementById('buttons').style.width = '81vw'
+              document.getElementById('buttons').style.fontSize = '3.5vw'
+              var buts = document.getElementById('buttons')
+              var butsbot = buts.offsetHeight + buts.offsetTop
+              document.getElementById('checkboxes').style.left = '9.5vw'
+              document.getElementById('checkboxes').style.top = (butsbot + 0.03*width).toString() + 'px'
+              document.getElementById('checkboxes').style.width = '81vw'
+              document.getElementById('checkboxes').style.fontSize = '3vw'
+              var opts = document.getElementById('checkboxes')
+              var optsbot = opts.offsetHeight + opts.offsetTop
+              document.getElementById('check').style.left = '9.5vw'
+              document.getElementById('check').style.top = (optsbot + 0.03*width).toString() + 'px'
+              document.getElementById('check').style.width = '81vw'
+              document.getElementById('check').style.fontSize = '3vw'
+              var check = document.getElementById('check')
+              var checkbot = check.offsetHeight + check.offsetTop
+              document.getElementById('options').style.top = (checkbot + 0.03*width).toString() + 'px'
+              document.getElementById('options').style.width = '81vw'
+              document.getElementById('options').style.left = '9.5vw'
+               document.getElementById('options').style.fontSize = '3vw'
+              var m = document.getElementById('options')
+              var mbot = m.offsetHeight + m.offsetTop
+              document.getElementById('rules').style.left = '9.5vw'
+              document.getElementById('rules').style.top = (mbot + 0.03*width).toString() + 'px'
+              document.getElementById('rules').style.width = '81vw'
+              document.getElementById('rules').style.fontSize = '3vw'
+              var cells = document.getElementsByClassName('searchbar')
+              for(let i=0;i < cells.length;i++){
+                  cells[i].style.width = '9vw'
+                  cells[i].style.height = '9vw'
+              }
+              if(document.getElementById('steps')){
+              document.getElementById('steps').style.top = (sudbot + 0.03*width).toString() + 'px'
+              document.getElementById('steps').style.left = '9.5vw'
+              document.getElementById('steps').style.width = '81vw'
+              document.getElementById('steps').style.maxWidth = '1000px'
+              document.getElementById('steps').style.height = '20vw'
+              document.getElementById('steps').style.fontSize = '3vw'
+              document.getElementById('stepsnoexplain').style.top = (sudbot + 0.03*width).toString() + 'px'
+              document.getElementById('stepsnoexplain').style.left = '9.5vw'
+              document.getElementById('stepsnoexplain').style.width = '81vw'
+              document.getElementById('stepsnoexplain').style.maxWidth = '1000px'
+              document.getElementById('stepsnoexplain').style.height = '20vw'
+              document.getElementById('stepsnoexplain').style.fontSize = '3vw'
+              let steps = document.getElementById('steps')
+              stepsbot = steps.offsetHeight + steps.offsetTop
+              document.getElementById('buttons').style.left = '9.5vw'
+              document.getElementById('buttons').style.top = (stepsbot + 0.03*width).toString() + 'px'
+              document.getElementById('buttons').style.width = '81vw'
+              document.getElementById('buttons').style.fontSize = '3.5vw'
+              var buts = document.getElementById('buttons')
+              var butsbot = buts.offsetHeight + buts.offsetTop
+              document.getElementById('checkboxes').style.left = '9.5vw'
+              document.getElementById('checkboxes').style.top = (butsbot + 0.03*width).toString() + 'px'
+              document.getElementById('checkboxes').style.width = '81vw'
+              document.getElementById('checkboxes').style.fontSize = '3vw'
+              var opts = document.getElementById('checkboxes')
+              var optsbot = opts.offsetHeight + opts.offsetTop
+              document.getElementById('check').style.left = '9.5vw'
+              document.getElementById('check').style.top = (optsbot + 0.03*width).toString() + 'px'
+              document.getElementById('check').style.width = '81vw'
+              document.getElementById('check').style.fontSize = '3vw'
+              var check = document.getElementById('check')
+              var checkbot = check.offsetHeight + check.offsetTop
+              document.getElementById('options').style.top = (checkbot + 0.03*width).toString() + 'px'
+              document.getElementById('options').style.width = '81vw'
+              document.getElementById('options').style.left = '9.5vw'
+               document.getElementById('options').style.fontSize = '3vw'
+              var m = document.getElementById('options')
+              var mbot = m.offsetHeight + m.offsetTop
+              document.getElementById('rules').style.left = '9.5vw'
+              document.getElementById('rules').style.top = (mbot + 0.03*width).toString() + 'px'
+              document.getElementById('rules').style.width = '81vw'
+              document.getElementById('rules').style.fontSize = '3vw'
+              }
+            } else {
+                console.log('Width is greater than or equal to height');
+            var t = document.getElementById('title')
+              var tbot = t.offsetHeight + t.offsetTop
+              document.getElementById('difs').style.left = '35vw'
+              document.getElementById('difs').style.top = (tbot + 0.01*width).toString() + 'px'
+              document.getElementById('difs').style.width = '30vw' 
+              document.getElementById('difs').style.fontSize = '1.25vw'
+              document.getElementById('difs').style.justifyContent = 'space-between'
+              var dif = document.getElementById('difs')
+              var difbot = dif.offsetHeight + dif.offsetTop
+              document.getElementById('nums').style.fontSize = '1.25vw'
+              document.getElementById('nums').style.top = (difbot + 0.01*width).toString() + 'px'
+              document.getElementById('nums').style.left = '36.5vw'
+              document.getElementById('nums').style.width = '27vw'
+              var n = document.getElementById('nums')
+              var nbot = n.offsetHeight + n.offsetTop
+              document.getElementById('sudoku').style.width = '27vw'
+              document.getElementById('sudoku').style.height = '27vw'
+              document.getElementById('sudoku').style.left = '36.5vw'
+              document.getElementById('sudoku').style.top = (nbot + 0.01*width).toString() + 'px'
+              document.getElementById('sudoku').style.fontSize = '1.6vw'
+              document.getElementById('lets').style.fontSize = '1.25vw'
+              document.getElementById('lets').style.top = (nbot + 0.015*width).toString() + 'px'
+              document.getElementById('lets').style.height = '27vw'
+              document.getElementById('lets').style.left = '34.5vw'
+              var sud = document.getElementById('sudoku')
+              var sudbot = sud.offsetHeight + sud.offsetTop
+              document.getElementById('options').style.left = '30vw'
+              document.getElementById('options').style.width = '40vw'
+              document.getElementById('options').style.fontSize = '1.3vw'
+              document.getElementById('buttons').style.left = '70vw'
+              document.getElementById('buttons').style.top = (nbot).toString() + 'px'
+              document.getElementById('buttons').style.width = '200px'
+              document.getElementById('buttons').style.fontSize = '1.15vw'
+              var m = document.getElementById('buttons')
+              var mbot = m.offsetHeight + m.offsetTop
+              document.getElementById('rules').style.left = '3vw'
+              document.getElementById('rules').style.top = (tbot + 10).toString() + 'px'
+              document.getElementById('rules').style.width = '25vw'
+              document.getElementById('rules').style.fontSize = '1.25vw'
+              var r = document.getElementById('rules')
+              var rbot = r.offsetHeight + r.offsetTop
+              document.getElementById('check').style.left = '30vw'
+              document.getElementById('check').style.width = '40vw'
+              document.getElementById('check').style.fontSize = '1.25vw'
+              document.getElementById('checkboxes').style.left = '3vw'
+              document.getElementById('checkboxes').style.top = (rbot + 50).toString() + 'px'
+              document.getElementById('checkboxes').style.width = '25vw'
+              document.getElementById('checkboxes').style.fontSize = '1.25vw'
+              var ch = document.getElementById('checkboxes')
+              var chbot = ch.offsetHeight + ch.offsetTop
+              document.getElementById('options').style.top = Math.max((sudbot + 0.02*width),(chbot + 0.02*width)).toString() + 'px'
+              var opt = document.getElementById('options')
+              var optbot = opt.offsetHeight + opt.offsetTop
+              document.getElementById('check').style.top = (optbot + 10).toString() + 'px'
+              var cells = document.getElementsByClassName('searchbar')
+              for(let i=0;i < cells.length;i++){
+                  cells[i].style.width = '3vw'
+                  cells[i].style.height = '3vw'
+              }
+              if(document.getElementById('steps')){
+                var h = document.getElementById('rules').offsetHeight
+                document.getElementById('steps').style.left = '3vw'
+              document.getElementById('steps').style.top = (tbot + 10).toString() + 'px'
+              document.getElementById('steps').style.width = '25vw'
+              document.getElementById('steps').style.fontSize = '15px'
+              document.getElementById('steps').style.height = h.toString() + 'px'
+              document.getElementById('stepsnoexplain').style.left = '3vw'
+              document.getElementById('stepsnoexplain').style.top = (tbot + 10).toString() + 'px'
+              document.getElementById('stepsnoexplain').style.width = '25vw'
+              document.getElementById('stepsnoexplain').style.fontSize = '15px'
+              document.getElementById('stepsnoexplain').style.height = h.toString() + 'px'
+              }
+            }
+            </script>
+    <script>
+        // Define a function to execute the query
+        function executeQuery() {
+          // Get the window width and height
+          var width = window.innerWidth;
+          var height = window.innerHeight;
+  
+          // Check if the width is less than the height
+          if (width < height || width < 700) {
+            // Width is less than height, so execute the query
+            console.log('Width is less than height');
+              var t = document.getElementById('title')
+              var tbot = t.offsetHeight + t.offsetTop
+              document.getElementById('difs').style.top = (tbot + 0.03*width).toString() + 'px'
+              document.getElementById('difs').style.width = '81vw'
+              document.getElementById('difs').style.left = '9.5vw'
+              document.getElementById('difs').style.fontSize = '3.5vw'
+              document.getElementById('difs').style.justifyContent = 'space-around'
+              var difs = document.getElementById('difs')
+              var difsbot = difs.offsetHeight + difs.offsetTop
+              document.getElementById('nums').style.top = (difsbot + 0.01*width).toString() + 'px'
+              document.getElementById('nums').style.left = '9vw'
+              document.getElementById('nums').style.width = '81vw'
+              document.getElementById('nums').style.fontSize = '3vw'
+              var num = document.getElementById('nums')
+              var numbot = num.offsetHeight + num.offsetTop
+              document.getElementById('sudoku').style.width = '81vw'
+              document.getElementById('sudoku').style.height = '81vw'
+              document.getElementById('sudoku').style.left = '9.5vw'
+              document.getElementById('sudoku').style.top = (numbot + 0.01*width).toString() + 'px'
+              document.getElementById('sudoku').style.fontSize = '4.5vw'
+              document.getElementById('lets').style.fontSize = '3vw'
+              document.getElementById('lets').style.top = (numbot + 0.02*width).toString() + 'px'
+              document.getElementById('lets').style.height = '81vw'
+              document.getElementById('lets').style.left = '5.5vw'
+              var sud = document.getElementById('sudoku')
+              var sudbot = sud.offsetHeight + sud.offsetTop
+              document.getElementById('buttons').style.left = '9.5vw'
+              document.getElementById('buttons').style.top = (sudbot + 0.03*width).toString() + 'px'
+              document.getElementById('buttons').style.width = '81vw'
+              document.getElementById('buttons').style.fontSize = '3.5vw'
+              var buts = document.getElementById('buttons')
+              var butsbot = buts.offsetHeight + buts.offsetTop
+              document.getElementById('checkboxes').style.left = '9.5vw'
+              document.getElementById('checkboxes').style.top = (butsbot + 0.03*width).toString() + 'px'
+              document.getElementById('checkboxes').style.width = '81vw'
+              document.getElementById('checkboxes').style.fontSize = '3vw'
+              var opts = document.getElementById('checkboxes')
+              var optsbot = opts.offsetHeight + opts.offsetTop
+              document.getElementById('check').style.left = '9.5vw'
+              document.getElementById('check').style.top = (optsbot + 0.03*width).toString() + 'px'
+              document.getElementById('check').style.width = '81vw'
+              document.getElementById('check').style.fontSize = '3vw'
+              var check = document.getElementById('check')
+              var checkbot = check.offsetHeight + check.offsetTop
+              document.getElementById('options').style.top = (checkbot + 0.03*width).toString() + 'px'
+              document.getElementById('options').style.width = '81vw'
+              document.getElementById('options').style.left = '9.5vw'
+               document.getElementById('options').style.fontSize = '3vw'
+              var m = document.getElementById('options')
+              var mbot = m.offsetHeight + m.offsetTop
+              document.getElementById('rules').style.left = '9.5vw'
+              document.getElementById('rules').style.top = (mbot + 0.03*width).toString() + 'px'
+              document.getElementById('rules').style.width = '81vw'
+              document.getElementById('rules').style.fontSize = '3vw'
+              var cells = document.getElementsByClassName('searchbar')
+              for(let i=0;i < cells.length;i++){
+                  cells[i].style.width = '9vw'
+                  cells[i].style.height = '9vw'
+              }
+              if(document.getElementById('steps')){
+                document.getElementById('steps').style.top = (sudbot + 0.03*width).toString() + 'px'
+              document.getElementById('steps').style.left = '9.5vw'
+              document.getElementById('steps').style.width = '81vw'
+              document.getElementById('steps').style.maxWidth = '1000px'
+              document.getElementById('steps').style.height = '20vw'
+              document.getElementById('steps').style.fontSize = '3vw'
+              document.getElementById('stepsnoexplain').style.top = (sudbot + 0.03*width).toString() + 'px'
+              document.getElementById('stepsnoexplain').style.left = '9.5vw'
+              document.getElementById('stepsnoexplain').style.width = '81vw'
+              document.getElementById('stepsnoexplain').style.maxWidth = '1000px'
+              document.getElementById('stepsnoexplain').style.height = '20vw'
+              document.getElementById('stepsnoexplain').style.fontSize = '3vw'
+              let steps = document.getElementById('steps')
+              stepsbot = steps.offsetHeight + steps.offsetTop
+              document.getElementById('buttons').style.left = '9.5vw'
+              document.getElementById('buttons').style.top = (stepsbot + 0.03*width).toString() + 'px'
+              document.getElementById('buttons').style.width = '81vw'
+              document.getElementById('buttons').style.fontSize = '3.5vw'
+              var buts = document.getElementById('buttons')
+              var butsbot = buts.offsetHeight + buts.offsetTop
+              document.getElementById('checkboxes').style.left = '9.5vw'
+              document.getElementById('checkboxes').style.top = (butsbot + 0.03*width).toString() + 'px'
+              document.getElementById('checkboxes').style.width = '81vw'
+              document.getElementById('checkboxes').style.fontSize = '3vw'
+              var opts = document.getElementById('checkboxes')
+              var optsbot = opts.offsetHeight + opts.offsetTop
+              document.getElementById('check').style.left = '9.5vw'
+              document.getElementById('check').style.top = (optsbot + 0.03*width).toString() + 'px'
+              document.getElementById('check').style.width = '81vw'
+              document.getElementById('check').style.fontSize = '3vw'
+              var check = document.getElementById('check')
+              var checkbot = check.offsetHeight + check.offsetTop
+              document.getElementById('options').style.top = (checkbot + 0.03*width).toString() + 'px'
+              document.getElementById('options').style.width = '81vw'
+              document.getElementById('options').style.left = '9.5vw'
+               document.getElementById('options').style.fontSize = '3vw'
+              var m = document.getElementById('options')
+              var mbot = m.offsetHeight + m.offsetTop
+              document.getElementById('rules').style.left = '9.5vw'
+              document.getElementById('rules').style.top = (mbot + 0.03*width).toString() + 'px'
+              document.getElementById('rules').style.width = '81vw'
+              document.getElementById('rules').style.fontSize = '3vw'
+              }
+          } else {
+            console.log('Width is greater than or equal to height');
+            var t = document.getElementById('title')
+              var tbot = t.offsetHeight + t.offsetTop
+              document.getElementById('difs').style.left = '35vw'
+              document.getElementById('difs').style.top = (tbot + 0.01*width).toString() + 'px'
+              document.getElementById('difs').style.width = '30vw' 
+              document.getElementById('difs').style.fontSize = '1.25vw'
+              document.getElementById('difs').style.justifyContent = 'space-between'
+              var dif = document.getElementById('difs')
+              var difbot = dif.offsetHeight + dif.offsetTop
+              document.getElementById('nums').style.fontSize = '1.25vw'
+              document.getElementById('nums').style.top = (difbot + 0.01*width).toString() + 'px'
+              document.getElementById('nums').style.left = '36.5vw'
+              document.getElementById('nums').style.width = '27vw'
+              var n = document.getElementById('nums')
+              var nbot = n.offsetHeight + n.offsetTop
+              document.getElementById('sudoku').style.width = '27vw'
+              document.getElementById('sudoku').style.height = '27vw'
+              document.getElementById('sudoku').style.left = '36.5vw'
+              document.getElementById('sudoku').style.top = (nbot + 0.01*width).toString() + 'px'
+              document.getElementById('sudoku').style.fontSize = '1.6vw'
+              document.getElementById('lets').style.fontSize = '1.25vw'
+              document.getElementById('lets').style.top = (nbot + 0.015*width).toString() + 'px'
+              document.getElementById('lets').style.height = '27vw'
+              document.getElementById('lets').style.left = '34.5vw'
+              var sud = document.getElementById('sudoku')
+              var sudbot = sud.offsetHeight + sud.offsetTop
+              document.getElementById('options').style.left = '30vw'
+              document.getElementById('options').style.width = '40vw'
+              document.getElementById('options').style.fontSize = '1.3vw'
+              document.getElementById('buttons').style.left = '70vw'
+              document.getElementById('buttons').style.top = (nbot).toString() + 'px'
+              document.getElementById('buttons').style.width = '200px'
+              document.getElementById('buttons').style.fontSize = '1.15vw'
+              var m = document.getElementById('buttons')
+              var mbot = m.offsetHeight + m.offsetTop
+              document.getElementById('rules').style.left = '3vw'
+              document.getElementById('rules').style.top = (tbot + 10).toString() + 'px'
+              document.getElementById('rules').style.width = '25vw'
+              document.getElementById('rules').style.fontSize = '1.25vw'
+              var r = document.getElementById('rules')
+              var rbot = r.offsetHeight + r.offsetTop
+              document.getElementById('check').style.left = '30vw'
+              document.getElementById('check').style.width = '40vw'
+              document.getElementById('check').style.fontSize = '1.25vw'
+              document.getElementById('checkboxes').style.left = '3vw'
+              document.getElementById('checkboxes').style.top = (rbot + 50).toString() + 'px'
+              document.getElementById('checkboxes').style.width = '25vw'
+              document.getElementById('checkboxes').style.fontSize = '1.25vw'
+              var ch = document.getElementById('checkboxes')
+              var chbot = ch.offsetHeight + ch.offsetTop
+              document.getElementById('options').style.top = Math.max((sudbot + 0.02*width),(chbot + 0.02*width)).toString() + 'px'
+              var opt = document.getElementById('optionns')
+              var optbot = opt.offsetHeight + opt.offsetTop
+              document.getElementById('check').style.top = (optbot + 10).toString() + 'px'
+              var cells = document.getElementsByClassName('searchbar')
+              for(let i=0;i < cells.length;i++){
+                  cells[i].style.width = '3vw'
+                  cells[i].style.height = '3vw'
+              }
+              if(document.getElementById('steps')){
+                var h = document.getElementById('rules').offsetHeight
+                document.getElementById('steps').style.left = '3vw'
+              document.getElementById('steps').style.top = (tbot + 10).toString() + 'px'
+              document.getElementById('steps').style.width = '25vw'
+              document.getElementById('steps').style.fontSize = '15px'
+              document.getElementById('steps').style.height = h.toString() + 'px'
+              document.getElementById('stepsnoexplain').style.left = '3vw'
+              document.getElementById('stepsnoexplain').style.top = (tbot + 10).toString() + 'px'
+              document.getElementById('stepsnoexplain').style.width = '25vw'
+              document.getElementById('stepsnoexplain').style.fontSize = '15px'
+              document.getElementById('stepsnoexplain').style.height = h.toString() + 'px'
+              }
+        }
+    }
+  
+        // Attach the event listener to the window resize event
+        window.addEventListener('resize', executeQuery);
+      </script>
+    {% endblock %}
+</body>

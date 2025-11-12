@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+    <head>
+        {% block css %} 
+        <link rel="stylesheet" href="/static/css/numbersnakestyles.css"/>
+        {% endblock %}
+        {% block title %}Numbersnake{% endblock %}
+        </head>
+      <body>
+            {% block content %}
+            <div id="difs">
+                <div style="font-size:1.25em;display:flex;gap:5px;justify-content:center"><b>New Puzzle:</b></div>
+                <a id="easy"class="diflink"href='/numbersnake' onclick="whiteScreen()" name="easy" method="get" z-index=1>Easy</a>
+            </div>
+            <div id="title" style="text-align:center"><b>Numbersnake</b></div>
+            <div id="rules">
+                <div style="font-size:1.25em;text-align:center;width:100%"><b>Numbersnake Rules:</b></div>
+                <div style="width:100%"><b>1.</b> Each cell must be filled in with a number between 1 and 81.</div>
+                <div style="width:100%"><b>2.</b> When the puzzle is complete, the numbers 1-81 must form a continuous "snake" in numerical order with all consecutive numbers in the snake being horizontally or vertically adjacent.</div>
+                <div style="width:100%"><b>3.</b> Each puzzle has its own set of special rules in addition to the basic ones.</div>
+                </div>     
+            <div id="buttons" class="obj">
+                <p style="text-align:center;width:100%;font-size:1.25em"><b>Solving Options:</b></p>
+                <input class="psbutton" id="ca" type="button" value="Check Answers">
+                <input class="psbutton" id="solve" type="button" value="Solve Completely"/>
+                <button class="psbutton" id="onestep" type="submit" name="onestep" method="post">Next Step</button>
+                <input class="psbutton" id="clear" type="button"method="post" value="Clear Puzzle"/>
+            <form action="/play/solvecell" method="post">
+                <input id="cell" name="cell" type="text"method="post" value="Solve cell"/>
+        </form>
+        </div>
+                <div id="sudoku">
+                <input class="searchbar" type="text" id="A1" name="A1" autocomplete="off"/>
+                <input class="searchbar" type="text" id="A2" name="A2" autocomplete="off"/>
+                <input class="searchbar" type="text" id="A3"style="border-right:blue 0.25vw solid" name="A3" autocomplete="off"/>
+                <input class="searchbar" type="text" id="A4" style="border-left:blue 0.25vw solid"name="A4" autocomplete="off"/>
+                <input class="searchbar" type="text" id="A5" name="A5" autocomplete="off"/>
+                <input class="searchbar" type="text" id="A6" style="border-right:blue 0.25vw solid"name="A6" autocomplete="off"/>
+                <input class="searchbar" id="A7"  type="text" style="border-left:blue 0.25vw solid"name="A7" autocomplete="off"/>
+                <input class="searchbar" id="A8"  type="text" name="A8" autocomplete="off"/>
+                <input class="searchbar"id="A9" type="text" name="A9" autocomplete="off"/>
+                <input class="searchbar"id="B1" type="text" name="B1" autocomplete="off"/>
+                <input class="searchbar"id="B2" type="text" name="B2" autocomplete="off"/>
+                <input class="searchbar"id="B3" type="text"  style="border-right:blue 0.25vw solid"name="B3" autocomplete="off"/>
+                <input class="searchbar"id="B4" type="text" name="B4"style="border-left:blue 0.25vw solid" autocomplete="off"/>
+                <input class="searchbar"id="B5" type="text" name="B5" autocomplete="off"/>
+                <input class="searchbar"id="B6"  type="text" style="border-right:blue 0.25vw solid" name="B6" autocomplete="off"/>
+                <input class="searchbar" id="B7" type="text" name="B7"style="border-left:blue 0.25vw solid" autocomplete="off"/>
+                <input class="searchbar"id="B8" type="text" name="B8" autocomplete="off"/>
+                <input class="searchbar"id="B9" type="text" name="B9" autocomplete="off"/>
+                <input class="searchbar"id="C1" style="border-bottom:blue 0.25vw solid" type="text" name="C1" autocomplete="off"/>
+                <input class="searchbar" id="C2"style="border-bottom:blue 0.25vw solid" type="text" name="C2" autocomplete="off"/>
+                <input class="searchbar"id="C3" style="border-bottom:blue 0.25vw solid;border-right:blue 0.25vw solid" type="text" name="C3" autocomplete="off"/>
+                <input class="searchbar"id="C4" style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="C4" autocomplete="off"/>
+                <input class="searchbar"id="C5" style="border-bottom:blue 0.25vw solid" type="text" name="C5" autocomplete="off"/>
+                <input class="searchbar"id="C6" style="border-bottom:blue 0.25vw solid;border-right:blue 0.25vw solid"type="text" name="C6" autocomplete="off"/>
+                <input class="searchbar"id="C7" style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="C7" autocomplete="off"/>
+                <input class="searchbar"id="C8" style="border-bottom:blue 0.25vw solid" type="text" name="C8" autocomplete="off"/>
+                <input class="searchbar"id="C9" style="border-bottom:blue 0.25vw solid" type="text" name="C9" autocomplete="off"/>
+                <input class="searchbar"id="D1" style="border-top:blue 0.25vw solid" type="text" name="D1" autocomplete="off"/>
+                <input class="searchbar"id="D2" style="border-top:blue 0.25vw solid"  type="text" name="D2" autocomplete="off"/>
+                <input class="searchbar"id="D3" style="border-top:blue 0.25vw solid;border-right:blue 0.25vw solid" type="text" name="D3" autocomplete="off"/>
+                <input class="searchbar"id="D4" style="border-top: blue 0.25vw solid;border-left:0.25vw blue solid" type="text" name="D4" autocomplete="off"/>
+                <input class="searchbar"id="D5" style="border-top:blue 0.25vw solid" type="text" name="D5" autocomplete="off"/>
+                <input class="searchbar" id="D6"style="border-top:blue 0.25vw solid; border-right:blue 0.25vw solid"type="text" name="D6" autocomplete="off"/>
+                <input class="searchbar" id="D7"style="border-top:blue 0.25vw solid;border-left:0.25vw blue solid" type="text" name="D7" autocomplete="off"/>
+                <input class="searchbar"id="D8" style="border-top:blue 0.25vw solid" type="text" name="D8" autocomplete="off"/>
+                <input class="searchbar" id="D9"style="border-top:blue 0.25vw solid"type="text" name="D9" autocomplete="off"/>
+                <input class="searchbar"id="E1"  type="text" name="E1" autocomplete="off"/>
+                <input class="searchbar"id="E2"  type="text" name="E2" autocomplete="off"/>
+                <input class="searchbar" id="E3"  style="border-right:blue 0.25vw solid"type="text" name="E3" autocomplete="off"/>
+                <input class="searchbar" id="E4" style="border-left:blue 0.25vw solid"type="text" name="E4" autocomplete="off"/>
+                <input class="searchbar" id="E5" type="text" name="E5" autocomplete="off"/>
+                <input class="searchbar" id="E6"  style="border-right:blue 0.25vw solid"type="text" name="E6" autocomplete="off"/>
+                <input class="searchbar" id="E7" style="border-left:blue 0.25vw solid"type="text" name="E7" autocomplete="off"/>
+                <input class="searchbar" id="E8"type="text" name="E8" autocomplete="off"/>
+                <input class="searchbar" id="E9" type="text" name="E9" autocomplete="off"/>
+                <input class="searchbar" id="F1"style="border-bottom:blue 0.25vw solid" type="text" name="F1" autocomplete="off"/>
+                <input class="searchbar" id="F2"style="border-bottom:blue 0.25vw solid" type="text" name="F2" autocomplete="off"/>
+                <input class="searchbar" id="F3" style="border-right:blue 0.25vw solid;border-bottom:blue 0.25vw solid" type="text" name="F3" autocomplete="off"/>
+                <input class="searchbar" id="F4"style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="F4" autocomplete="off"/>
+                <input class="searchbar" id="F5"style="border-bottom:blue 0.25vw solid" type="text" name="F5" autocomplete="off"/>
+                <input class="searchbar" id="F6" style="border-right:blue 0.25vw solid;border-bottom:blue 0.25vw solid" type="text" name="F6" autocomplete="off"/>
+                <input class="searchbar" id="F7"style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="F7" autocomplete="off"/>
+                <input class="searchbar" id="F8"style="border-bottom:blue 0.25vw solid" type="text" name="F8" autocomplete="off"/>
+                <input class="searchbar" id="F9"style="border-bottom:blue 0.25vw solid" type="text" name="F9" autocomplete="off"/>
+                <input class="searchbar" id="G1" style="border-top:0.25vw blue solid"type="text" name="G1" autocomplete="off"/>
+                <input class="searchbar" id="G2" style="border-top:0.25vw blue solid"type="text" name="G2" autocomplete="off"/>
+                <input class="searchbar" id="G3" style="border-top:0.25vw blue solid;border-right:blue 0.25vw solid"type="text" name="G3" autocomplete="off"/>
+                <input class="searchbar" id="G4" style="border-top:0.25vw blue solid;border-left:blue 0.25vw solid"type="text" name="G4" autocomplete="off"/>
+                <input class="searchbar" id="G5" style="border-top:0.25vw blue solid"type="text" name="G5" autocomplete="off"/>
+                <input class="searchbar" id="G6" style="border-top:0.25vw blue solid;border-right:blue 0.25vw solid"type="text" name="G6" autocomplete="off"/>
+                <input class="searchbar" id="G7" style="border-top:0.25vw blue solid;border-left:blue 0.25vw solid"type="text" name="G7" autocomplete="off"/>
+                <input class="searchbar" id="G8" style="border-top:0.25vw blue solid"type="text" name="G8" autocomplete="off"/>
+                <input class="searchbar" id="G9" style="border-top:0.25vw blue solid"type="text" name="G9" autocomplete="off"/>
+                <input class="searchbar" id="H1" type="text" name="H1" autocomplete="off"/>
+                <input class="searchbar" id="H2" type="text" name="H2" autocomplete="off"/>
+                <input class="searchbar" id="H3"  style="border-right:blue 0.25vw solid"type="text" name="H3" autocomplete="off"/>
+                <input class="searchbar" id="H4" style="border-left:blue 0.25vw solid"type="text" name="H4" autocomplete="off"/>
+                <input class="searchbar" id="H5" type="text" name="H5" autocomplete="off"/>
+                <input class="searchbar" id="H6"  style="border-right:blue 0.25vw solid"type="text" name="H6" autocomplete="off"/>
+                <input class="searchbar" id="H7"style="border-left:blue 0.25vw solid" type="text" name="H7" autocomplete="off"/>
+                <input class="searchbar" id="H8" type="text" name="H8" autocomplete="off"/>
+                <input class="searchbar" id="H9" type="text" name="H9" autocomplete="off"/>
+                <input class="searchbar"id="I1" type="text" name="I1" autocomplete="off"/>
+                <input class="searchbar"id="I2"   type="text" name="I2" autocomplete="off"/>
+                <input class="searchbar" id="I3" style="border-right:blue 0.25vw solid"type="text" name="I3" autocomplete="off"/>
+                <input class="searchbar" id="I4"style="border-left:blue 0.25vw solid"type="text" name="I4" autocomplete="off"/>
+                <input class="searchbar"id="I5"  type="text" name="I5" autocomplete="off"/>
+                <input class="searchbar" id="I6" style="border-right:blue 0.25vw solid" type="text" name="I6" autocomplete="off"/>
+                <input class="searchbar" id="I7" style="border-left:blue 0.25vw solid"type="text" name="I7" autocomplete="off"/>
+                <input class="searchbar" id="I8" type="text" name="I8" autocomplete="off"/>
+                <input class="searchbar" id="I9" type="text" name="I9" autocomplete="off"/>
+                </div>
+                </div>
+                <div id="directionpad">
+                    <button id="upbutton"class="arrowbutton" style="grid-row:1/2;grid-column:2/3"><img src="/static/uparrowbutton.jpg"></button>
+                    <button id="leftbutton"class="arrowbutton" style="grid-row:2/3;grid-column:1/2"><img src="/static/leftarrowbutton.jpg"></button>
+                    <button id="rightbutton"class="arrowbutton" style="grid-row:2/3;grid-column:3/4"><img src="/static/rightarrowbutton.jpg"></button>
+                    <button id="downbutton"class="arrowbutton" style="grid-row:3/4;grid-column:2/3"><img src="/static/downarrowbutton.jpg"></button>
+                </div>
+            <script>
+              let currentInputIndex = 0;
+              // Get all the text inputs in the document
+const inputs = document.querySelectorAll("input[type='text']");
+              var cells = document.getElementsByClassName('searchbar')
+              for (let i=0; i < inputs.length; i++){
+                inputs[i].addEventListener('click', function(){
+                    for(let i=0; i<inputs.length;i++){
+                        inputs[i].style.backgroundColor = 'white'
+                    }
+                    this.style.backgroundColor = 'cornflowerblue'
+                    currentInputIndex = i
+                    console.log(currentInputIndex)
+                }
+
+                )
+              }
+
+// Add an event listener to detect arrow key events
+document.addEventListener("keydown", function(event) {
+  switch (event.key) {
+    case "ArrowLeft":
+      // Left arrow key pressed
+      if (currentInputIndex > 0) {
+        currentInputIndex--;
+        console.log(currentInputIndex)
+        inputs[currentInputIndex].focus();
+        for(let i=0; i<inputs.length;i++){
+            inputs[i].style.backgroundColor = 'white'
+        }
+        inputs[currentInputIndex].style.backgroundColor = 'cornflowerblue'
+      }
+      break;
+    case "ArrowUp":
+      // Up arrow key pressed
+      if(currentInputIndex > 8) {
+        currentInputIndex = currentInputIndex - 9;
+        inputs[currentInputIndex].focus();
+        for(let i=0; i<inputs.length;i++){
+            inputs[i].style.backgroundColor = 'white'
+        }
+        inputs[currentInputIndex].style.backgroundColor = 'cornflowerblue'
+      }
+      break;
+    case "ArrowRight":
+      // Right arrow key pressed
+      if (currentInputIndex < inputs.length - 1) {
+        currentInputIndex++;
+        inputs[currentInputIndex].focus();
+        for(let i=0; i<inputs.length;i++){
+            inputs[i].style.backgroundColor = 'white'
+        }
+        inputs[currentInputIndex].style.backgroundColor = 'cornflowerblue'
+      }
+      break;
+    case "ArrowDown":
+      // Down arrow key pressed
+      if(currentInputIndex < 72){
+        currentInputIndex = currentInputIndex + 9;
+        inputs[currentInputIndex].focus();
+        for(let i=0; i<inputs.length;i++){
+            inputs[i].style.backgroundColor = 'white'
+        }
+        inputs[currentInputIndex].style.backgroundColor = 'cornflowerblue'
+      }
+      break;
+    default:
+      break;
+  }
+});
+</script>
+<script>
+    let numsjs = {{ nums }}
+    var graysjs = {{grays}}
+        var sol = {{sol}}
+    const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
+    for (let i=0; i < 81; i++){
+      let j = i%9 + 1
+      if(numsjs[i] !== 0){
+        if(graysjs.includes(i)){
+            document.getElementById(letters[Math.floor(i/9)] + j.toString()).style.color = 'gray'
+        } else {
+            document.getElementById(letters[Math.floor(i/9)] + j.toString()).style.color = 'black'
+        }
+      document.getElementById(letters[Math.floor(i/9)] + j.toString()).readOnly = 'true'
+      document.getElementById(letters[Math.floor(i/9)] +j.toString()).value = numsjs[i]
+      }
+    }
+    </script>
+    <script>
+        var cells = document.getElementsByClassName('searchbar')
+        var checkanswers = document.getElementById('ca')
+        var solvecompletely = document.getElementById('solve')
+        var clear = document.getElementById('clear')      
+        checkanswers.addEventListener('click', function(){
+            event.preventDefault();
+            for(let i=0; i < 81;i++){
+                if(!graysjs.includes(i)){
+                    if(cells[i].value !== ""){
+                        console.log('nonzero value')
+                        if(cells[i].value === sol[i].toString()){
+                            cells[i].style.color = 'blue';
+                            cells[i].readOnly = 'true';
+                        } else {
+                            cells[i].style.color = 'red';
+                        }
+                    }
+            }
+        }
+            })
+            solvecompletely.addEventListener('click', function(){
+            event.preventDefault();
+            for(let i=0; i < 81;i++){
+                if(!graysjs.includes(i)){
+                    cells[i].value = sol[i]
+                    cells[i].style.color = 'blue'
+                    cells[i].readOnly = 'true'
+                }
+                }
+                })
+            clear.addEventListener('click', function(){
+            event.preventDefault();
+            for(let i=0; i < 81;i++){
+                if(!graysjs.includes(i)){
+                    cells[i].value = ""
+                    cells[i].style.color = 'black'
+                    cells[i].readOnly = 'false'
+                }
+                }
+                })
+    </script>
+            {% endblock %}
+        </body>
+</html>

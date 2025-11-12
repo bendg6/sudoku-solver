@@ -1,0 +1,47 @@
+{% extends "base.html" %} 
+<html>
+    <head>
+{% block title %} 
+Group Maker
+{% endblock %} 
+    </head>
+<body>
+{% block content %} 
+<h1><center>Group Generator</center></h1>
+<br>
+{% if method == 'get' %} 
+<form action="/groups" method="post">
+    <div style="margin-left:10px"><h3>Type in the names of all group members, separated by commas with no spaces.</h3></div>
+    <div style="margin-left:10px"><input type="text" name="names"></input></div>
+    <div style="margin-left:10px"><h3>Number of Groups:</h3></div>
+    <div style="margin-left:10px"><input type="text" name="groups"></input></div>
+    <div style="margin-left:10px"><input class="button" type="submit" value="submit"></input></div>
+</form>
+{% endif %} 
+{% if method == 'post' %}
+{% for a in range(g) %}
+<div style="margin-left:10px;margin-right:10px;background-color:blue;color:white">
+<div style="width:100%;margin-left:10px;margin-right:10px">Group {{a+1}}:</div></div>
+{% for i in range(n.size) %}
+<div style="margin-left:10px;margin-right:10px;background-color:red;color:white">
+{% if i % g == a %} 
+<div style="width:100%;margin-left:10px;margin-right:10px">{{n[i]}}</div>
+{% endif %}
+ </div>
+ {% endfor %}
+ {% endfor %}
+  <form action="/groups" method="get">
+    <input class="button" type="submit" value="make more groups">
+ </form>
+ {% endif %}
+ <div class="container-fluid">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %} 
+        {% for msg in messages %} 
+            <div style = "position:absolute;top:50vh; width:100%;text-align:center;color:rgb(22, 52, 174); font-size:20px">{{msg}}</div>
+        {% endfor %}
+    {% endif %} 
+{% endwith %} 
+ {% endblock %}
+</body>
+</html>

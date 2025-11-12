@@ -1,0 +1,90 @@
+{% extends "puzzlestemplate.html" %}
+<head>
+    {% block title %}
+    Box Reduction puzzles
+    {% endblock %}
+</head>
+<body>
+    {% block header %}
+    <div id="title" style="text-align:center"><h1><b>Box Reduction puzzles</b></h1></div>
+    {% endblock %} 
+    {% block method %}
+    <div id="methods"class="methodbox"><p>To use the Box Reduction method, begin by choosing a box in the sudoku, and then picking a number that is missing from the box.
+        In that box, if every cell that could contain the missing number is in the same row or column, other cells in that row or column
+        that are in different boxes cannot contain that particular number, because the missing number must be in the box you chose.
+        Therefore, that candidate can be eliminated from other cells in the row or column.</p></div>
+        <br>
+        {% endblock %} 
+        {% block buttons %}
+        <div id="buttons" >
+            <div style="font-size:1.25em;display:flex;gap:5px;justify-content:center"><b>New Puzzle:</b></div>
+            <div style= " background-color:none; z-index:1">
+            <button class="button" id="easy" style="border-radius:5px"onclick="location.href='/puzzles/boxreduction/easy';" name="easy" z-index=1>Easy</button>
+        </div>
+        <div style= "background-color:none; z-index:1">
+            <button class="button" id="medium"style="border-radius:5px"onclick="location.href='/puzzles/boxreduction/medium';" name="medium" z-index=1>Medium</button>
+        </div>
+        <div style= "background-color:none; z-index:1">
+            <button class="button" id="hard"style="border-radius:5px"onclick="location.href='/puzzles/boxreduction/hard';" name="hard" >Hard</button>
+        </div>
+        </div>
+        {% endblock %}
+        {% block results %}
+        {% if result != True and result != False %} 
+        {% if puztype == "cell" %}
+        <div id="prompt" ><p>Which <b>cell </b> can be solved by using the Box Reduction method?</p>
+        <form action="#" method="post">
+            <p><input type="text" name="cell"/></p>
+            <p><input type="submit" value="solve"/></p>
+        </form>
+        </div>
+        {% endif %}
+        {% if puztype == "number" %}
+        <div id="prompt" ><p>Using the Box Reduction method, which <b>number</b> goes in cell {{cell}}?</p>
+        <form action="#" method="post">
+            <p><input type="text" name="cell"/></p>
+            <p><input type="submit" value="solve"/></p>
+        </form>
+        </div>
+        {% endif %}
+        {% endif %}
+        {% if result == True %}
+        <div id="message" >
+            <h1>Correct!</h1>
+        </div>
+        <div id="buttons2" >
+            <div id="newpuzzle"><p><b>New Puzzle:</b></p></div>
+            <div style= "background-color:none; z-index:1">
+                <button class="button" style="border-radius:5px"onclick="location.href='/puzzles/boxreduction/easy';" name="easy" z-index=1>Easy</button>
+            </div>
+            <div style= " background-color:none; z-index:1">
+                <button class="button" style="border-radius:5px"onclick="location.href='/puzzles/boxreduction/medium';" name="medium" z-index=1>Medium</button>
+            </div>
+            <div style= "background-color:none; z-index:1">
+                <button class="button" style="border-radius:5px"onclick="location.href='/puzzles/boxreduction/hard';" name="hard" >Hard</button>
+            </div>
+        </div>
+        {% endif %}
+        {% if result == False %}
+        <div id="message" >
+            <div id="incorrect"><h1>Incorrect</h1></div>
+            <div id="correction"><p>Correct answer was: {{ans}}</p></div>
+        </div>
+        <div id="buttons2" >
+            <div id="newpuzzle"><p><b>New Puzzle:</b></p></div>
+            <div style= "background-color:none; z-index:1">
+                <button class="button" id="easy2" style="border-radius:5px"onclick="location.href='/puzzles/boxreduction/easy';" name="easy" z-index=1>Easy</button>
+            </div>
+            <div style= "background-color:none; z-index:1">
+                <button class="button" id="medium2"style="border-radius:5px"onclick="location.href='/puzzles/boxreduction/medium';" name="medium" z-index=1>Medium</button>
+            </div>
+            <div style= "background-color:none; z-index:1">
+                <button class="button" id="hard2"style="border-radius:5px"onclick="location.href='/puzzles/boxreduction/hard';" name="hard" >Hard</button>
+            </div>
+        </div>
+        {% endif %}
+        <div id="example"><b>Example:</b></div>
+        <img id="image" src="{{ url_for('static', filename='boxreductionexample.png')}}" ></img>
+    {% endblock %}
+</body>
+

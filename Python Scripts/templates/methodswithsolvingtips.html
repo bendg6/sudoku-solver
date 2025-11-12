@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+    <head>
+        {% block title %}
+        Sudoku Solving Methods
+        {% endblock %}
+    </head>
+    <body>
+        {% block content %}
+
+            <div class="vl" style="height:92vh;top:8vh;left:50vw;position:fixed;background-color:black"></div>
+            <div class="obj"align="center"style="position:fixed;height:50px;font-size:large;z-index:1;width:46vw;background-color:#a1dde3">
+                <p><b>Solving Methods:</b></p>
+            </div>
+            <div class="obj"align="center"style="left:54vw;height:50px;z-index:1;position:fixed;font-size:large;width:36vw;background-color:rgb(255, 200, 100)">
+            <p><b>Solving Tips:</b></p>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="obj" style="background-color:#6ea3df;height:fit-content;width:30vw"><p><b>Simple Solving Methods:</b></p></div>
+        <div class="obj" style="background-color:#6ea3df; width:fit-content;height:8vh"><p><b>checkCells (also known as finding naked singles)</b></p></div>
+        <div class="obj" style="font-family:helvetica;background-color:#6ea3df;width:36vw;position:absolute;left:54vw">
+            <p>This method should be one of the first methods tried when starting a puzzle. To use this method most efficiently, look for cells in boxes with several numbers already filled in. Cells that are in nearly full rows and columns are also prime candidates for this method.</p>
+            </div>
+        <div class="obj" style = "font-family:helvetica;background-color:#6ea3df;width:46vw"><p>To use the checkCells method, pick a cell, then check every cell in the same box, row, or column as 
+            that cell to see if it contains a number. Any number in the same box, row, or column as the cell can be eliminated as a candidate. 
+            If there is only one candidate remaining for that cell, the cell can be filled in with that number.
+        </p></div>
+        <div class="obj" style="position:absolute;left:8vw;height:450px;width:34vw; background-color:#6ea3df">
+        <div class="box" style="position:absolute;left:2vw"><img src="{{ url_for('static', filename='checkcellsexample.png')}}"style="width:30vw"></img></div>
+        </div>
+        <br>
+        <div class="obj"style="background-color:#6ea3df; width:46vw;height:12vh"><p><b>checkBoxes (cells solved by checkBoxes, checkRows, and checkColumns are collectively known as hidden singles)</b></p></div>
+        <div style="left:54vw;position:absolute">
+            <div class="obj" style="font-family:helvetica;background-color:#6ea3df;width:36vw">
+            <p>checkBoxes is most likely to yield results in boxes with several cells that have already been solved. This narrows down the number of cells that could contain a missing number.
+                This method is also particularly useful when a number is already in the puzzle several times. This will typically narrow down the number of cells that the number could be in within the boxes that don't contain that number yet.
+            </p>
+            </div>
+        </div>
+        <div class="obj" style = "font-family:helvetica;background-color:#6ea3df;width:46vw"><p>To use the checkBoxes method, choose a box, then select a missing number from that box. Then, check the box
+            to see if there is only one possible cell that could contain the missing number. If there is, the cell can be filled in with the missing number.
+        </p></div>
+        <div class="obj" style="height:450px;width:46vw; background-color:#6ea3df">
+        <div style="position:absolute;left:10vw"><img src="{{ url_for('static', filename='checkboxesexample.png')}}" width="350" height="425"></img></div>
+        </div>
+        <br>
+        <div class="obj"style="background-color:#6ea3df; width:fit-content;height:8vh"><p><b>checkRows/checkColumns</b></p></div>
+        <div style="left:54vw;position:absolute">
+            <div class="obj" style="font-family:helvetica;background-color:#6ea3df;width:36vw">
+            <p>checkRows is typically most likely to yield results in rows with several cells that have already been filled, and checkColumns is usually useful in columns with several cells that have already been filled. They are most helpful in filling in numbers that are already in the puzzle several times. This can be seen in the checkRows example (the leftmost example), in which several 1s are already in the puzzle. This narrows down the number of cells that could contain a missing number.
+                
+            </p>
+            </div>
+        </div>
+        <div class="obj" style = "font-family:helvetica;background-color:#6ea3df;width:46vw"><p>To use the checkRows method, choose a row, then select a missing number from that row. Then, check the row
+            to see if there is only one possible location for the missing number. If there is only one possible cell that the missing number can go, the cell
+            is filled in with the missing number. The checkColumns method does the exact same thing,
+            except with all the columns instead of the rows.</p></div>
+            <div class="obj" style="width:46vw;height:370px;background-color:#6ea3df">
+            <image src="{{ url_for('static', filename='checkcolsexample.png')}}" width="275" height="330"></image>
+            <image src="{{ url_for('static', filename='checkrowsexample.png')}}" width="275" height="330"></image></div>
+        <br>
+        <div class="obj" style="background-color:rgb(146,227,54);height:8vh;width:fit-content"><p><b>Intermediate Solving Methods:</b></p></div>
+        <div class="obj"style="background-color:rgb(146,227,54); width:fit-content;height:8vh"><p><b>nakedPairs</b></p></div>
+        <div style="left:54vw;position:absolute">
+            <div class="obj" style="font-family:helvetica;background-color:rgb(146,227,54);width:36vw">
+            <p>It is most common to find naked pairs in a row or column with at least 4 numbers already filled in, although naked pairs can also be found in boxes. Usually, this occurs if there are two empty cells in the same row or column within the box, and the box has 5 or more numbers already filled in. Also, it is easier to find naked pairs with pencilmarking (pencilmarking is writing in the candidates in for each cell).
+            </p>
+            </div>
+        </div>
+        <div class="obj" style = "font-family:helvetica;background-color:rgb(146,227,54);width:46vw"><p>The nakedPairs method can be used when two unfilled adjacent cells (adjacent means in the same row, column, or box as one another) have the same set of candidates, and each cell only has two possibilities.
+            Since the cells can't contain the same number, both of the candidates must be in one of these cells, so these numbers can be
+            eliminated as a candidate from any cell that is in the same row, column, or box as both of the unfilled cells. For example, if the cells
+            are in the same box, all other cells in that box can not contain the two candidates, so those numbers can be removed as a candidate from every other cell in the box.
+        </p></div>
+        <div class="obj" style="background-color:rgb(146,227,54);height:450px;width:46vw">
+        <div style="position:absolute;left:10vw"><image src="{{ url_for('static', filename='nakedpairsexample.png')}}" width="350" height="425"></image></div>
+        </div>
+        <br>
+        <div class="obj"style="background-color:rgb(146,227,54); width:fit-content;height:8vh"><p><b>nakedTriples</b></p></div>
+        <div style="left:54vw;position:absolute">
+            <div class="obj"style="font-family:helvetica;background-color:rgb(146,227,54);width:36vw">
+            <p>Naked triples are much easier to spot when pencil marks are used to put in the candidates for each cell. It is most common to find naked triples in a box with at least 3 numbers already filled in and at least one empty row or column, although naked triples can also be found in rows and columns with several filled in cells. 
+            </p>
+            </div>
+        </div>
+        <div class="obj"style = "font-family:helvetica;background-color:rgb(146,227,54);width:46vw"><p>The nakedTriples method can be used if three cells in the same row, column, or box collectively have only three candidates.
+            Those three cells must therefore contain these three numbers in some permutation, so any other unfilled cells in this row, column, or box
+            cannot contain any of these three numbers. Therefore, these three numbers can be eliminated as a candidate for those unfilled cells.
+        </p></div>
+        <div class="obj" style="height:450px;width:46vw; background-color:rgb(146,227,54)">
+        <div style="position:absolute;left:10vw"><image src="{{ url_for('static', filename='nakedtripleexample.png')}}" width="350" height="425"></image></div>
+        </div>
+        <br>
+        <div class="obj"style="background-color:rgb(146,227,54); width:fit-content;height:8vh"><p><b>hiddenPairs</b></p></div>
+        <div style="left:54vw;position:absolute">
+            <div class="obj" style="font-family:helvetica;background-color:rgb(146,227,54);width:36vw">
+            <p>Hidden pairs are much easier to spot when pencil marks are used to put in the candidates for each cell. It is most common to find them in a box, row, or column with at least 4 numbers filled in. Methods such as checkCells, checkBoxes, checkRows, checkColumns and nakedPairs should usually be tried before attempting to use this method, because these methods are useful more often than the hiddenPairs method.
+            </p>
+            </div>
+        </div>
+        <div class="obj" style = "font-family:helvetica;background-color:rgb(146,227,54);width:46vw"><p>The hiddenPairs method is similar to the nakedPairs method. To use the hiddenPairs method, begin by choosing a box, row, or column in the sudoku. If there are two missing numbers
+            in the box/row/column that could only be put in the same two cells, any other candidates that could go in those two cells can be eliminated, because those cells must contain the two numbers that could only go in those cells.</p></div>
+            <div class="obj" style="height:450px;width:46vw; background-color:rgb(146,227,54)">
+                <div style="position:absolute;left:10vw"><image src="{{ url_for('static', filename='hiddenpairsexample.png')}}" width="350" height="425"></image></div>
+                </div>
+                <br>
+        <div class="obj"style="background-color:rgb(146,227,54); width:fit-content;height:8vh"><p><b>boxReduction</b></p></div>
+        <div style="left:54vw;position:absolute">
+            <div class="obj" style="font-family:helvetica;background-color:rgb(146,227,54);width:36vw">
+            <p>This method is usually useful in a box with an entire column or row (or both) already filled in. This severely restricts the number of cells that a missing number could go in, so it is more likely that all of the cells that could contain the missing number are in the same row or column. 
+            </p>
+            </div>
+        </div>
+        <div class="obj" style = "font-family:helvetica;background-color:rgb(146,227,54);width:46vw"><p>To use the boxReduction method, begin by choosing a box in the sudoku, and then picking a number that is missing from the box.
+            In that box, if every cell that could contain the missing number is in the same row or column, other cells in that row or column
+            that are in different boxes cannot contain that particular number, because the missing number must be in the box you chose.
+            Therefore, that candidate can be eliminated from other cells in the row or column.</p></div>
+            <div class="obj" style="height:450px;width:46vw; background-color:rgb(146,227,54)">
+            <div style="position:absolute;left:10vw"><image src="{{ url_for('static', filename='boxreductionexample.png')}}" width="350" height="425"></image></div>
+            </div>
+            <br>
+            <div class="obj"style="background-color:rgb(146,227,54); width:fit-content;height:8vh"><p><b>rowReduction and columnReduction</b></p></div>
+            <div style="left:54vw;position:absolute">
+                <div class="obj" style="font-family:helvetica;background-color:rgb(146,227,54);width:36vw">
+                <p>The row/columnReduction methods are most useful when a number is already present in several boxes. This can be seen in the columnReduction example (the example on the right), where several 7s are already filled in, which restricts the number of places that this number could go in in that column. Additionally, it is helpful if the row or column already has a few numbers filled in, or if a box has 3 filled cells in the same row or column. This method can eliminate candidates from any cell, but usually only solves cells with 2 remaining candidates.
+                </p>
+                </div>
+            </div>
+        <div class="obj" style = "font-family:helvetica;background-color:rgb(146,227,54);width:46vw"><p>The rowReduction and columnReduction methods are similar to the checkRows and checkColumns methods. 
+           To use the rowReduction method, pick a row, and then pick a number that is missing from that row. Then, test that number in all unfilled cells in that row to see if it is a candidate.
+            If all of the possible cells for the missing number are in the same box, cells in that box that are not in the row cannot
+            contain that particular number, and that candidate can be eliminated as a candidate. The same logic is used for columnReduction, except that a missing number is tested along a column instead of a row.
+        </p></div>
+        <div class="obj" style="width:46vw;height:370px;background-color:rgb(146,227,54)">
+        <image src="{{ url_for('static', filename='colreductionexample.png')}}" width="275" height="330"></image>
+        <image src="{{ url_for('static', filename='rowreductionexample.png')}}" width="275" height="330"></image></div>
+        <br>
+        <div class="obj" style="background-color:rgb(227,138,12);width:fit-content;height:8vh"><p><b>Advanced solving methods:</b></p></div>
+        <div class="obj"style="background-color:rgb(227,138,12); width:fit-content;height:8vh"><p><b>x-wing</b></p></div>
+        <div style="left:54vw;position:absolute">
+            <div class="obj"style="font-family:helvetica;background-color:rgb(227,138,12);width:36vw">
+            <p>The x-wing is an obscure method that should only be used after trying all the methods above. All of the advanced and diabolical solving methods generally require the use of pencil marks to write down the candidates for each unfilled cells, and this method is no exception. The x-wing is most likely to be useful when two columns or rows have a few cells filled in, and a number occurs in the puzzle several times that is not in those rows or columns. In the example, this can be seen, as there are several 3s in the puzzle that restrict where a 3 could go in rows A and G.
+            </p>
+            </div>
+        </div>
+        <div class="obj"style = "font-family:helvetica;background-color:rgb(227,138,12);width:46vw"><p>The x-wing method can be used if two rows or columns have only two cells that can contain a particular unknown number.
+            For instance, if only two cells in row A could contain a 2, and only two cells in row B could contain a 2, and both rows could only have a 2 in columns 4 and 5,
+            then all cells in columns 4 and 5 not in rows A or B could not contain a 2, because one of rows A and B
+            definitely has a 2 in columns 4 and 5. This logic applies to two columns with the same situation, with only two rows possibly containing a certain value in both columns.
+        </p></div>
+        <div class="obj" style="height:450px;width:46vw; background-color:rgb(227,138,12)">
+        <div style="position:absolute;left:10vw"><image src="{{ url_for('static', filename='xwingexample.png')}}" width="350" height="425"></image></div>
+        </div>
+        <br>
+        <div class="obj"style="background-color:rgb(227,138,12); width:fit-content;height:8vh"><p><b>xy-wing</b></p></div>
+        <div style="left:54vw;position:absolute">
+            <div class="obj"style="font-family:helvetica;background-color:rgb(227,138,12);width:36vw">
+            <p>The xy-wing method works best when using pencil marks to fill in the possibilities for each of the cells. If the puzzle has several cells with only 2 candidates in the same row or column, this method is most likely to be useful, but methods like nakedPairs and nakedTriples should be attempted before trying this method, as they are easier to find and typically more common.
+            </p>
+            </div>
+        </div>
+        <div class="obj"style = "font-family:helvetica;background-color:rgb(227,138,12);width:46vw"><p>The xy-wing method can be used if there are three cells in a L shape that make up a naked triple. These cells must also have only two candidates, and all three of the collective candidates must be possibilities in exactly two of the cells. If all of these conditions are met, the xy-wing method can be used. One of the cells is the "pivot" cell, and the two other cells must be in the same row, column or box as that cell. 
+            If all three are in the same box, row or column, this is simply a naked triple, and the nakedTriples method could be used. However, if this is not the case, the xy-wing method is used.
+             Any cell that is adjacent to the non-pivot cells (shares a row, column, or box with both of the non-pivot cells) can eliminate the number that is an candidate for both of the non-pivot cells, because one of those cells must contain that number. 
+             This explanation is more easily understood by looking at the example. The pivot cell is G3, and the non-pivot cells are A3 and G6. A3 is in the same column as G3, G6 is in the same row as G3, and they form a naked triple with each candidate represented twice.
+             Therefore, A6 (which is adjacent to both A3 and G6) can not contain a 1, because either A3 or G6 must contain a 1. 1 is eliminated as an candidate for A6, and 9 is the only candidate left, so A6 must contain a 9. 
+        </p></div>
+        <div class="obj" style="height:450px;width:46vw; background-color:rgb(227,138,12)">
+        <div style="position:absolute;left:10vw"><image src="{{ url_for('static', filename='xywingexample.png')}}" width="350" height="425"></image></div>
+        </div>
+        <br>
+        <div class="obj"style="background-color:rgb(227,138,12); width:fit-content;height:8vh"><p><b>swordfish</b></p></div>
+        <div style="left:54vw;position:absolute">
+            <div class="obj"style="font-family:helvetica;background-color:rgb(227,138,12);width:36vw">
+            <p>The uses for the swordfish method are similar to the x-wing method, as the swordfish is just a 3x3 version of the x-wing method. This method should be tried only after rigorous pencilmarking, and is only useful in very rare cases. Hidden singles, reduction methods, and the x-wing method should be tried first before attempting to use this method.
+            </p>
+            </div>
+        </div>
+        <div class="obj"style = "font-family:helvetica;background-color:rgb(227,138,12);width:46vw"><p>The swordfish method is similar to the x-wing method, except with three columns or rows instead of two. It is used if there are three columns (or rows) that contain only two possible cells for the same number.  
+        </p></div>
+        <div class="obj" style="height:450px;width:46vw; background-color:rgb(227,138,12)">
+        <div style="position:absolute;left:10vw"><image src="{{ url_for('static', filename='swordfishexample.png')}}" width="350" height="425"></image></div>
+        </div>
+        <br>
+        <div class="obj"style="background-color:rgb(227,138,12); width:fit-content;height:8vh"><p><b>skyscraper</b></p></div>
+        <div style="left:54vw;position:absolute">
+            <div class="obj"style="font-family:helvetica;background-color:rgb(227,138,12);width:36vw">
+            <p>This method should be tried only after rigorous pencilmarking, and is typically only useful once most of the puzzle has been solved. The hidden single methods and reduction methods should be tried first before attempting to use this method.
+            </p>
+            </div>
+        </div>
+        <div class="obj"style = "font-family:helvetica;background-color:rgb(227,138,12);width:46vw"><p>The skyscraper method is similar to the x-wing method. To use the skyscraper method, you must find two columns with only two cells that could contain a number that is missing from those columns. Of those four cells, if two of those cells are in the same row, only one of those cells could contain the missing number, so one of the other two cells must contain it. This is true because both columns must contain the missing number. Therefore, if there is a cell that is adjacent to both of the other two cells, it cannot contain the number, so that number can be eliminated as a candidate from that cell. This method can also be used on two rows with only two possible locations for a missing number.
+        </p></div>
+        <br>
+        <div class="obj"style="background-color:rgb(243,67,36); width:fit-content;height:8vh"><p><b>Diabolical solving methods:</b></p></div>
+        <div class="obj"style="background-color:rgb(243,67,36); width:fit-content;height:8vh"><p><b>guessAndCheck</b></p></div>
+        <div style="left:54vw;position:absolute">
+            <div class="obj"style="font-family:helvetica;background-color:rgb(243,67,36);width:36vw">
+            <p>This method is possible for a human to use, but is very tedious and time-consuming to use practically. The method requires the puzzler to try candidates and then attempt to find an error in the puzzle, which takes many steps and is often prone to human error.
+            </p>
+            </div>
+        </div>
+        <div class="obj"style = "font-family:helvetica;background-color:rgb(243,67,36);width:46vw"><p>The guessAndCheck method should only be tried once all other methods fail to solve any cells.
+          In the guessAndCheck method, an unsolved cell with exactly two candidates is filled with one of those candidates. Next, all other methods listed on this page are used,
+          and if these methods produce an error, the cell is filled in with the other number. If no error is produced, the cell is cleared, and the other number is tried.
+          If neither candidate produces an error after several iterations of the other methods, the cell remains unfilled.
+        </p></div>
+        {% endblock %}
+    </body>
+</html>
+
+    

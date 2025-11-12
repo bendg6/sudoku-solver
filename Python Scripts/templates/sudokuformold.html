@@ -1,0 +1,422 @@
+{% extends "base.html" %}
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        {% block title %}Sudoku Solver{% endblock %}
+        </head>
+      <body>
+            {% block content %}
+            <div id="title" style="text-align:center"><b>Sudoku Solver</b></div>
+              <script type="text/javascript">
+                function spinner() {
+                    document.getElementById("spinner").style.display = "block";
+                }
+            </script>         
+            <div id="nums" style="font-size:1.25vw;display:flex;position:absolute;width:36vw;justify-content:space-around;top:10vw;left:32vw">
+              <b>1</b>
+              <b>2</b>
+              <b>3</b>
+              <b>4</b>
+              <b>5</b>
+              <b>6</b>
+              <b>7</b>
+              <b>8</b>
+              <b>9</b>
+              </div>
+              <div id="lets" style="font-size:1.25vw;display:flex;flex-wrap:wrap;position:absolute;height:36vw;justify-content:space-around;top:13vw;left:30vw">
+              <div style="width:100%"><b>A</b></div> 
+              <div style="width:100%"><b>B</b></div> 
+              <div style="width:100%"><b>C</b></div> 
+              <div style="width:100%"><b>D</b></div> 
+              <div style="width:100%"><b>E</b></div> 
+              <div style="width:100%"><b>F</b></div> 
+              <div style="width:100%"><b>G</b></div> 
+              <div style="width:100%"><b>H</b></div> 
+              <div style="width:100%"><b>I</b></div> 
+              </div>             
+            <form action="#" method="post">
+              <div id='sudoku'style="font-size:medium;display:flex;flex-direction:row;flex-wrap:wrap;position:absolute;width:36vw;left:32vw;top:12vw">
+                <div ><input class="searchbar" type="text" id="A1" name="A1" autocomplete="off"/></div>
+                        <div ><input class="searchbar" type="text" id="A2" name="A2" autocomplete="off"/></div>
+                        <div ><input class="searchbar" type="text" id="A3"style="border-right:blue 0.25vw solid" name="A3" autocomplete="off"/></div>
+                        <div ><input class="searchbar" type="text" id="A4" style="border-left:blue 0.25vw solid"name="A4" autocomplete="off"/></div>
+                        <div ><input class="searchbar" type="text" id="A5" name="A5" autocomplete="off"/></div>
+                        <div ><input class="searchbar" type="text" id="A6" style="border-right:blue 0.25vw solid"name="A6" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="A7"  type="text" style="border-left:blue 0.25vw solid"name="A7" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="A8"  type="text" name="A8" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="A9" type="text" name="A9" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="B1" type="text" name="B1" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="B2" type="text" name="B2" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="B3" type="text"  style="border-right:blue 0.25vw solid"name="B3" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="B4" type="text" name="B4"style="border-left:blue 0.25vw solid" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="B5" type="text" name="B5" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="B6"  type="text" style="border-right:blue 0.25vw solid" name="B6" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="B7" type="text" name="B7"style="border-left:blue 0.25vw solid" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="B8" type="text" name="B8" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="B9" type="text" name="B9" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="C1" style="border-bottom:blue 0.25vw solid" type="text" name="C1" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="C2"style="border-bottom:blue 0.25vw solid" type="text" name="C2" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="C3" style="border-bottom:blue 0.25vw solid;border-right:blue 0.25vw solid" type="text" name="C3" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="C4" style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="C4" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="C5" style="border-bottom:blue 0.25vw solid" type="text" name="C5" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="C6" style="border-bottom:blue 0.25vw solid;border-right:blue 0.25vw solid"type="text" name="C6" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="C7" style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="C7" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="C8" style="border-bottom:blue 0.25vw solid" type="text" name="C8" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="C9" style="border-bottom:blue 0.25vw solid" type="text" name="C9" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="D1" style="border-top:blue 0.25vw solid" type="text" name="D1" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="D2" style="border-top:blue 0.25vw solid"  type="text" name="D2" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="D3" style="border-top:blue 0.25vw solid;border-right:blue 0.25vw solid" type="text" name="D3" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="D4" style="border-top: blue 0.25vw solid;border-left:0.25vw blue solid" type="text" name="D4" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="D5" style="border-top:blue 0.25vw solid" type="text" name="D5" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="D6"style="border-top:blue 0.25vw solid; border-right:blue 0.25vw solid"type="text" name="D6" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="D7"style="border-top:blue 0.25vw solid;border-left:0.25vw blue solid" type="text" name="D7" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="D8" style="border-top:blue 0.25vw solid" type="text" name="D8" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="D9"style="border-top:blue 0.25vw solid"type="text" name="D9" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="E1"  type="text" name="E1" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="E2"  type="text" name="E2" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="E3"  style="border-right:blue 0.25vw solid"type="text" name="E3" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="E4" style="border-left:blue 0.25vw solid"type="text" name="E4" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="E5" type="text" name="E5" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="E6"  style="border-right:blue 0.25vw solid"type="text" name="E6" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="E7" style="border-left:blue 0.25vw solid"type="text" name="E7" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="E8"type="text" name="E8" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="E9" type="text" name="E9" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="F1"style="border-bottom:blue 0.25vw solid" type="text" name="F1" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="F2"style="border-bottom:blue 0.25vw solid" type="text" name="F2" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="F3" style="border-right:blue 0.25vw solid;border-bottom:blue 0.25vw solid" type="text" name="F3" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="F4"style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="F4" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="F5"style="border-bottom:blue 0.25vw solid" type="text" name="F5" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="F6" style="border-right:blue 0.25vw solid;border-bottom:blue 0.25vw solid" type="text" name="F6" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="F7"style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="F7" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="F8"style="border-bottom:blue 0.25vw solid" type="text" name="F8" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="F9"style="border-bottom:blue 0.25vw solid" type="text" name="F9" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="G1" style="border-top:0.25vw blue solid"type="text" name="G1" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="G2" style="border-top:0.25vw blue solid"type="text" name="G2" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="G3" style="border-top:0.25vw blue solid;border-right:blue 0.25vw solid"type="text" name="G3" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="G4" style="border-top:0.25vw blue solid;border-left:blue 0.25vw solid"type="text" name="G4" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="G5" style="border-top:0.25vw blue solid"type="text" name="G5" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="G6" style="border-top:0.25vw blue solid;border-right:blue 0.25vw solid"type="text" name="G6" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="G7" style="border-top:0.25vw blue solid;border-left:blue 0.25vw solid"type="text" name="G7" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="G8" style="border-top:0.25vw blue solid"type="text" name="G8" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="G9" style="border-top:0.25vw blue solid"type="text" name="G9" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="H1" type="text" name="H1" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="H2" type="text" name="H2" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="H3"  style="border-right:blue 0.25vw solid"type="text" name="H3" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="H4" style="border-left:blue 0.25vw solid"type="text" name="H4" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="H5" type="text" name="H5" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="H6"  style="border-right:blue 0.25vw solid"type="text" name="H6" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="H7"style="border-left:blue 0.25vw solid" type="text" name="H7" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="H8" type="text" name="H8" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="H9" type="text" name="H9" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="I1" type="text" name="I1" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="I2"   type="text" name="I2" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="I3" style="border-right:blue 0.25vw solid"type="text" name="I3" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="I4"style="border-left:blue 0.25vw solid"type="text" name="I4" autocomplete="off"/></div>
+                        <div ><input class="searchbar"id="I5"  type="text" name="I5" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="I6" style="border-right:blue 0.25vw solid" type="text" name="I6" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="I7" style="border-left:blue 0.25vw solid"type="text" name="I7" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="I8" type="text" name="I8" autocomplete="off"/></div>
+                        <div ><input class="searchbar" id="I9" type="text" name="I9" autocomplete="off"/></div>
+                </div>
+                <div id="stringOfNums" style="padding-bottom:10px;margin-bottom:10px;position:absolute; top:30vh;left:75vw"><input name="stringOfNums" type="text"></input><input id="submitbutton" type="submit" value="submit" onclick="whiteScreen(), spinner()"></div>
+                <div id="whitescreen">Solving Sudoku...
+                  <div class="spinner-border" id="spinner" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>  
+              </div>
+                <div id="buttons" style="display:flex;top:48vw;left:32vw;position:absolute">
+                  <input class="button"id="solve"style= "margin-right:10px;border-radius:5px" type="submit" value="Solve sudoku" onclick="spinner(), whiteScreen()"></input>
+                  <input class="button" id="load"style="border-radius:5px" type="submit" onclick="clearGrid(), spinner(), whiteScreen()"value="Load sample sudoku"></input></div>
+            </form>
+            <div id="sud"style="text-align:center;display:flex;justify-content:center;font-family:helvetica;position:absolute; width:100%;font-size:15px;top:16vh;margin:auto">To solve a sudoku, input the numbers into this grid:</div>
+                <div id="or"style="display:flex;font-family:helvetica;position:absolute; font-size:15px;top:19vh;left:75vw; max-height:40px">Or, type in the 81-digit code for the sudoku, with zeroes for blank cells:</div>
+            <script>
+              let currentInputIndex = 0;
+              // Get all the text inputs in the document
+const inputs = document.querySelectorAll("input[type='text']");
+              var cells = document.getElementsByClassName('searchbar')
+              for (let i=0; i < inputs.length; i++){
+                inputs[i].addEventListener('click', function(){
+                    for(let i=0; i<inputs.length;i++){
+                        inputs[i].style.backgroundColor = 'white'
+                    }
+                    this.style.backgroundColor = 'cornflowerblue'
+                    currentInputIndex = i
+                    console.log(currentInputIndex)
+                }
+
+                )
+              }
+
+// Add an event listener to detect arrow key events
+document.addEventListener("keydown", function(event) {
+  switch (event.key) {
+    case "ArrowLeft":
+      // Left arrow key pressed
+      if (currentInputIndex > 0) {
+        currentInputIndex--;
+        console.log(currentInputIndex)
+        inputs[currentInputIndex].focus();
+        for(let i=0; i<inputs.length;i++){
+            inputs[i].style.backgroundColor = 'white'
+        }
+        inputs[currentInputIndex].style.backgroundColor = 'cornflowerblue'
+      }
+      break;
+    case "ArrowUp":
+      // Up arrow key pressed
+      if(currentInputIndex > 8) {
+        currentInputIndex = currentInputIndex - 9;
+        inputs[currentInputIndex].focus();
+        for(let i=0; i<inputs.length;i++){
+            inputs[i].style.backgroundColor = 'white'
+        }
+        inputs[currentInputIndex].style.backgroundColor = 'cornflowerblue'
+      }
+      break;
+    case "ArrowRight":
+      // Right arrow key pressed
+      if (currentInputIndex < inputs.length - 1) {
+        currentInputIndex++;
+        inputs[currentInputIndex].focus();
+        for(let i=0; i<inputs.length;i++){
+            inputs[i].style.backgroundColor = 'white'
+        }
+        inputs[currentInputIndex].style.backgroundColor = 'cornflowerblue'
+      }
+      break;
+    case "ArrowDown":
+      // Down arrow key pressed
+      if(currentInputIndex < 72){
+        currentInputIndex = currentInputIndex + 9;
+        inputs[currentInputIndex].focus();
+        for(let i=0; i<inputs.length;i++){
+            inputs[i].style.backgroundColor = 'white'
+        }
+        inputs[currentInputIndex].style.backgroundColor = 'cornflowerblue'
+      }
+      break;
+    default:
+      break;
+  }
+});
+
+            const width = window.innerWidth;
+                const height = window.innerHeight;
+                console.log(height)
+                console.log(width)
+                // Check if the width is less than the height
+                if (width < 800) {
+                  // Width is less than height, so execute the query
+                  console.log('Width is less than height');
+                  var t = document.getElementById('title')
+                  var tbot = t.offsetHeight + t.offsetTop
+                  document.getElementById('sud').style.top = (tbot + .01*height).toString() + 'px' 
+                                    var s = document.getElementById('sud')
+                  var sbot = s.offsetHeight + s.offsetTop
+                  document.getElementById('nums').style.top = (sbot + .01*height).toString() + 'px'
+                  document.getElementById('nums').style.left = '14vw'
+                  document.getElementById('nums').style.width = '72vw'
+                  document.getElementById('nums').style.fontSize = '3vw'
+                  var n = document.getElementById('nums')
+                  var nbot = n.offsetHeight + n.offsetTop
+                  document.getElementById('sudoku').style.width = '72vw'
+                  document.getElementById('sudoku').style.height = '72vw'
+                  document.getElementById('sudoku').style.left = '14vw'
+                  document.getElementById('sudoku').style.top = (nbot + .01*width).toString() + 'px'
+                  document.getElementById('sudoku').style.fontSize = '3vw'
+                  var sud = document.getElementById('sudoku')
+                  var sudbot = sud.offsetHeight + sud.offsetTop
+                  var sudleft = sud.offsetLeft
+                  document.getElementById('lets').style.fontSize = '3vw'
+                  document.getElementById('lets').style.top = (nbot + .01*height + .01*width).toString() + 'px'
+                  document.getElementById('lets').style.height = '72vw'
+                  document.getElementById('lets').style.left = (sudleft - .03*width).toString() + 'px'
+                  document.getElementById('buttons').style.left = '14vw'
+                  document.getElementById('buttons').style.top = (sudbot + .01*height).toString() + 'px'
+                  document.getElementById('buttons').style.width = '50vw'
+                  var but = document.getElementById('buttons')
+                  var butbot = but.offsetHeight + but.offsetTop
+                  document.getElementById('or').style.left = '14vw'
+                  document.getElementById('or').style.maxWidth = '72vw'
+                  document.getElementById('or').style.top = (butbot + 0.02*height).toString() + 'px'
+                 var or = document.getElementById('or')
+                 var orbot = or.offsetHeight + or.offsetTop
+                  document.getElementById('stringOfNums').style.left = '14vw'
+                  document.getElementById('stringOfNums').style.top = (orbot + 0.02*height).toString() + 'px'
+                  var cells = document.getElementsByClassName('searchbar')
+                  for(let i=0;i < cells.length;i++){
+                      cells[i].style.width = '8vw'
+                      cells[i].style.height = '8vw'
+                  }
+                } else {
+                  console.log('Width is greater than or equal to height');
+                  var t = document.getElementById('title')
+                  var tbot = t.offsetHeight + t.offsetTop
+                  document.getElementById('sud').style.top = (tbot + .01*height).toString() + 'px'
+                  var s = document.getElementById('sud')
+                  var sbot = s.offsetHeight + s.offsetTop
+                  document.getElementById('nums').style.top = (sbot + .01*height).toString() + 'px'
+                  document.getElementById('nums').style.left = '35vw'
+                  document.getElementById('nums').style.width = '30vw'
+                  document.getElementById('nums').style.fontSize = '1.25vw'
+                  var n = document.getElementById('nums')
+                  var nbot = n.offsetHeight + n.offsetTop
+                  document.getElementById('sudoku').style.width = '30vw'
+                  document.getElementById('sudoku').style.height = '30vw'
+                  document.getElementById('sudoku').style.left = '35vw'
+                  document.getElementById('sudoku').style.top = (nbot + .01*height).toString() + 'px'
+                  document.getElementById('sudoku').style.fontSize = '1.75vw'
+                  var sud = document.getElementById('sudoku')
+                  var sudbot = sud.offsetHeight + sud.offsetTop
+                  document.getElementById('lets').style.top = (nbot + .01*height + .01*width).toString() + 'px'
+                  document.getElementById('lets').style.height = '30vw'
+                  document.getElementById('lets').style.left = '32.5vw'
+                  document.getElementById('lets').style.fontSize = '1.25vw'
+                  document.getElementById('buttons').style.left = '36vw'
+                  document.getElementById('buttons').style.top = (sudbot + 0.01*width).toString() + 'px'
+                  document.getElementById('buttons').style.width = '40vw'
+                  var cells = document.getElementsByClassName('searchbar')
+                  for(let i=0;i < cells.length;i++){
+                      cells[i].style.width = '3.33vw'
+                      cells[i].style.height = '3.33vw'
+                  }
+                  var but = document.getElementById('buttons')
+                  var butbot = but.offsetHeight + but.offsetTop
+                  document.getElementById('or').style.left = '35vw'
+                  document.getElementById('or').style.top = (butbot + 0.02*height).toString() + 'px'
+                  document.getElementById('or').style.maxWidth = '40vw'
+                 var or = document.getElementById('or')
+                 var orbot = or.offsetHeight + or.offsetTop
+                  document.getElementById('stringOfNums').style.left = '35vw'
+                  document.getElementById('stringOfNums').style.top = (orbot + 0.02*height).toString() + 'px'
+                }
+              </script> 
+            <script>
+              // Define a function to execute the query
+              function executeQuery() {
+                // Get the window width and height
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+                console.log(height)
+                console.log(width)
+                // Check if the width is less than the height
+                if (width < 800) {
+                  // Width is less than height, so execute the query
+                  console.log('Width is less than height');
+                  var t = document.getElementById('title')
+                  var tbot = t.offsetHeight + t.offsetTop
+                  document.getElementById('sud').style.top = (tbot + .01*height).toString() + 'px' 
+                  var s = document.getElementById('sud')
+                  var sbot = s.offsetHeight + s.offsetTop
+                  document.getElementById('nums').style.top = (sbot + .01*height).toString() + 'px'
+                  document.getElementById('nums').style.left = '14vw'
+                  document.getElementById('nums').style.width = '72vw'
+                  document.getElementById('nums').style.fontSize = '3vw'
+                  var n = document.getElementById('nums')
+                  var nbot = n.offsetHeight + n.offsetTop
+                  document.getElementById('sudoku').style.width = '72vw'
+                  document.getElementById('sudoku').style.height = '72vw'
+                  document.getElementById('sudoku').style.left = '14vw'
+                  document.getElementById('sudoku').style.top = (nbot + .01*width).toString() + 'px'
+                  document.getElementById('sudoku').style.fontSize = '3vw'
+                  var sud = document.getElementById('sudoku')
+                  var sudbot = sud.offsetHeight + sud.offsetTop
+                  var sudleft = sud.offsetLeft
+                  document.getElementById('lets').style.fontSize = '3vw'
+                  document.getElementById('lets').style.top = (nbot + .01*height + .01*width).toString() + 'px'
+                  document.getElementById('lets').style.height = '72vw'
+                  document.getElementById('lets').style.left = (sudleft - .03*width).toString() + 'px'
+                  document.getElementById('buttons').style.left = '14vw'
+                  document.getElementById('buttons').style.top = (sudbot + .01*height).toString() + 'px'
+                  document.getElementById('buttons').style.width = '50vw'
+                  var but = document.getElementById('buttons')
+                  var butbot = but.offsetHeight + but.offsetTop
+                  document.getElementById('or').style.left = '14vw'
+                  document.getElementById('or').style.top = (butbot + 0.02*height).toString() + 'px'
+                  document.getElementById('or').style.maxWidth = '72vw'
+                 var or = document.getElementById('or')
+                 var orbot = or.offsetHeight + or.offsetTop
+                  document.getElementById('stringOfNums').style.left = '14vw'
+                  document.getElementById('stringOfNums').style.top = (orbot + 0.02*height).toString() + 'px'
+                  var cells = document.getElementsByClassName('searchbar')
+                  for(let i=0;i < cells.length;i++){
+                      cells[i].style.width = '8vw'
+                      cells[i].style.height = '8vw'
+                  }
+                } else {
+                  console.log('Width is greater than or equal to height');
+                  var t = document.getElementById('title')
+                  var tbot = t.offsetHeight + t.offsetTop
+                  document.getElementById('sud').style.top = (tbot + .01*height).toString() + 'px'
+                  var s = document.getElementById('sud')
+                  var sbot = s.offsetHeight + s.offsetTop
+                  document.getElementById('nums').style.top = (sbot + .01*height).toString() + 'px'
+                  document.getElementById('nums').style.left = '35vw'
+                  document.getElementById('nums').style.width = '30vw'
+                  document.getElementById('nums').style.fontSize = '1.25vw'
+                  var n = document.getElementById('nums')
+                  var nbot = n.offsetHeight + n.offsetTop
+                  document.getElementById('sudoku').style.width = '30vw'
+                  document.getElementById('sudoku').style.height = '30vw'
+                  document.getElementById('sudoku').style.left = '35vw'
+                  document.getElementById('sudoku').style.top = (nbot + .01*height).toString() + 'px'
+                  document.getElementById('sudoku').style.fontSize = '1.75vw'
+                  var sud = document.getElementById('sudoku')
+                  var sudbot = sud.offsetHeight + sud.offsetTop
+                  document.getElementById('lets').style.top = (nbot + .01*height + .01*width).toString() + 'px'
+                  document.getElementById('lets').style.height = '30vw'
+                  document.getElementById('lets').style.left = '32.5vw'
+                  document.getElementById('lets').style.fontSize = '1.25vw'
+                  document.getElementById('buttons').style.left = '36vw'
+                  document.getElementById('buttons').style.top = (sudbot + 0.01*width).toString() + 'px'
+                  document.getElementById('buttons').style.width = '40vw'
+                  var cells = document.getElementsByClassName('searchbar')
+                  for(let i=0;i < cells.length;i++){
+                      cells[i].style.width = '3.33vw'
+                      cells[i].style.height = '3.33vw'
+                  }
+                  var but = document.getElementById('buttons')
+                  var butbot = but.offsetHeight + but.offsetTop
+                  document.getElementById('or').style.left = '35vw'
+                  document.getElementById('or').style.top = (butbot + 0.02*height).toString() + 'px'
+                  document.getElementById('or').style.maxWidth = '40vw'
+                 var or = document.getElementById('or')
+                 var orbot = or.offsetHeight + or.offsetTop
+                  document.getElementById('stringOfNums').style.left = '35vw'
+                  document.getElementById('stringOfNums').style.top = (orbot + 0.02*height).toString() + 'px'
+                }
+
+              }
+        
+              // Attach the event listener to the window resize event
+              window.addEventListener('resize', executeQuery);
+            </script>
+            <!-- <script>
+              document.onkeydown = checkKey;
+              function checkKey(e) {
+                e = e || window.event
+                if (e.keyCode == '38') {
+                  const letters = ['A','B','C','D','E','F','G','H','I']
+                  for(let i=2;i<10;i++) {
+                    for(let j=1; j<10; j++) {
+                      k = letters[i-1] + toString(j)
+                      if(document.getElementById(k).checked) {
+
+                    }
+                  }
+                }
+                else if (e.keyCode == '40') {
+                    // down arrow
+                }
+                else if (e.keyCode == '37') {
+                  // left arrow
+                }
+                else if (e.keyCode == '39') {
+                  // right arrow
+                }
+              }
+            }
+            </script> -->
+            {% endblock %}
+        </body>
+</html>

@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+    <head>
+        {% block css %} 
+        <link rel="stylesheet" href="/static/css/methodstyles.css"/>
+        {% endblock %}
+        {% block title %}
+        SolveSudokus Methods
+        {% endblock %}
+    </head>
+    <body>
+        {% block content %}
+        <div id="tableofcontents">
+            <div style="padding:.25vw;background-color:black;height:fit-content;font-size:1.5vw;margin:0; font-family:noto-sans, sans-serif;color:white">Shortcuts</div>
+            <div class="beginner toccontainer"><a class="toclink"onclick="scrollToSection(event, 'cchead')"href="#cchead">Check Cells</a></div>
+            <div class="beginner toccontainer"><a class="toclink"onclick="scrollToSection(event, 'cbhead')"href="#cbhead">Check Boxes</a></div>
+            <div class="beginner toccontainer"><a class="toclink"onclick="scrollToSection(event, 'checkrowhead')"href="#checkrowhead">Check Rows/Columns</a></div>
+            <div class="intermediate toccontainer"><a class="toclink"onclick="scrollToSection(event, 'nphead')"href="#nphead">Naked Pairs</a></div>
+            <div class="intermediate toccontainer"><a class="toclink"onclick="scrollToSection(event, 'nthead')"href="#nthead">Naked Triples</a></div>
+            <div class="intermediate toccontainer"><a class="toclink"onclick="scrollToSection(event, 'hphead')"href="#hphead">Hidden Pairs</a></div>
+            <div class="intermediate toccontainer"><a class="toclink"onclick="scrollToSection(event, 'boxreductionhead')"href="#boxreductionhead">Box Reduction</a></div>
+            <div class="intermediate toccontainer"><a class="toclink"onclick="scrollToSection(event, 'rowreductionhead')"href="#rowreductionhead">Row/Column Reduction</a></div>
+            <div class="advanced toccontainer" ><a class="toclink"onclick="scrollToSection(event, 'xwinghead')"href="#xwinghead">x-wing</a></div>
+            <div class="advanced toccontainer" ><a class="toclink"onclick="scrollToSection(event, 'xywinghead')"href="#xywinghead">xy-wing</a></div>
+            <div class="advanced toccontainer" ><a class="toclink"onclick="scrollToSection(event, 'swordhead')"href="#swordhead">Swordfish</a></div>
+            <div class="diabolical toccontainer" ><a class="toclink"onclick="scrollToSection(event, 'guesshead')"href="#guesshead">Guess and Check </a></div>
+          </div>
+        <div id="title"style="margin:auto;margin-bottom:5px;text-align:center;font-size:2rem;"><b>Solving Methods</b></div>
+        <div id="explainheading"class="heading beginner" style="background-color:rgb(138, 202, 242)"><p><b>Explaining the solving methods</b></p></div>
+    <div id="explaininfo"class="obj info" style="height:fit-content"><p>When implemented, a sudoku solving method does one of two things. It will either eliminate candidates (possible numbers) from cells, or fill in cells with a certain number. 
+        There are countless different solving methods, but the most common (and useful) ones are explained below. For beginners, I would recommend mastering the beginner techniques first (the blue methods), because they are the easiest to understand, many sudokus can be solved using just these methods. 
+        If you want to practice any of these methods, check out the Puzzles pages. We have created custom puzzles to practice these methods. They are designed to help you use these methods correctly when you are playing a real sudoku.</p>
+    </div>
+        <div id="simple" style="display:flex;justify-content:center;font-size:24px;background-color:#6ea3df;width:100%"><p><b>Beginner Solving Methods:</b></p></div>
+        <br>
+        <div class="obj beginnerborder imgborder">
+            <img src="{{ url_for('static', filename='checkcellsexample.png')}}" style="height:95%;width:95%"></img></div>
+    </div>
+        <div id="cchead"class="heading beginner"><p><b>Check Cells (aka finding naked singles)</b></p></div>
+    <div class="obj info" ><p>To use the Check Cells method, pick a cell, then check the cells in the same box, row, or column as 
+        that cell to see if they contain a number. Any number in the same box, row, or column as the cell can be eliminated as a candidate. 
+        If there is only one candidate remaining for that cell, the cell can be filled in with that number.
+    </p></div>
+    
+        <br>
+        <div class="obj beginnerborder imgborder">
+            <img src="{{ url_for('static', filename='checkboxesexample.png')}}" style="height:95%;width:95%"></img></div>
+        </div>
+        <div id="cbhead"class="heading beginner"><p><b>Check Boxes (hidden singles in boxes)</b></p></div>
+    <div class="obj info"><p>To use the Check Boxes method, choose a box, then pick a number that is missing from that box.
+        If there is only one cell in the box that could contain that number, that cell can be filled in with the missing number.
+   </p></div>
+   
+        <br>
+        <div id="checkrowhead"class="heading beginner" style="height:110px"><p><b>Check Rows/Check Columns (hidden singles in rows and columns)</b></p></div></div>
+        <div id="checkrowinfo"class="obj info" style="height:fit-content"><p>To use the Check Rows method, choose a row, then pick a missing number from that row.
+            If there is only one possible cell that could contain the missing number, the cell
+            is filled in with the missing number. The Check Columns method does the exact same thing,
+            except with a column instead of a row.</p></div>
+            <div class="obj beginnerborder imgborder" style="left:25vw;width:25vw">
+                <img src="{{ url_for('static', filename='checkcolsexample.png')}}" style="height:95%;width:95%"></img></div>
+            <div class="obj beginnerborder imgborder" style="position:static;margin-left:65vw;width:25vw">
+                <img src="{{ url_for('static', filename='checkrowsexample.png')}}" style="height:95%;width:95%"></img></div></div>
+        <br>
+        <div id="intermediate" style="display:flex;justify-content:center;font-size:24px;background-color:#51cba4;width:100%"><p><b>Intermediate Solving Methods:</b></p></div>
+        <br>
+        <div class="obj intermediateborder imgborder">
+            <img src="{{ url_for('static', filename='nakedpairsexample.png')}}" style="height:95%;width:95%"></img>
+        </div>    
+        <div id="nphead"class="heading intermediate"><p><b>Naked Pairs</b></p></div>
+        <div class="obj info" ><p>The Naked Pairs method can be used when two unfilled adjacent cells have the same set of candidates, and each cell only has two candidates.
+            Since the cells can't contain the same number, each of the candidates must go in one of these two cells, so these numbers can be
+            eliminated as a candidate from any cell that is adjacent to both of the unfilled cells. For example, if the cells
+            are in the same box, all other cells in that box can not contain the two candidates, so those numbers can be removed as a candidate from every other cell in the box.
+        </p></div>
+        <br>
+        <div class="obj intermediateborder imgborder">
+            <img src="{{ url_for('static', filename='nakedtripleexample.png')}}" style="height:95%;width:95%"></img>
+            </div>
+            <div id="nthead"class="heading intermediate"><p><b>Naked Triples</b></p></div>
+        <div class="obj info"><p>The Naked Triples method can be used if three cells in the same row, column, or box collectively have only three candidates.
+            Those three cells must therefore contain these three numbers in some permutation, so any other unfilled cells in this row, column, or box
+            cannot contain any of these three numbers. Therefore, these three numbers can be eliminated as a candidate for those unfilled cells.
+        </p></div>
+        
+        <br>
+        <div class="obj intermediateborder imgborder">
+            <img src="{{ url_for('static', filename='hiddenpairsexample.png')}}" style="height:95%;width:95%"></img>
+            </div>
+        <div id="hphead"class="heading intermediate"><p><b>Hidden Pairs</b></p></div>
+        </div>
+        <div class="obj info"><p>The Hidden Pairs method is similar to the Naked Pairs method. To use the Hidden Pairs method, begin by choosing a box, row, or column in the sudoku. If there are two missing numbers
+            in the box/row/column that could only be put in the same two cells, any other candidates that could go in those two cells can be eliminated, because those cells must contain the two numbers that could only go in those cells.</p></div>
+                <br>
+                <div class="obj intermediateborder imgborder">
+                    <img src="{{ url_for('static', filename='boxreductionexample.png')}}" style="height:95%;width:95%"></img>
+                    </div>
+        <div id="boxreductionhead" class="heading intermediate"><p><b>Box Reduction</b></p></div>
+        <div class="obj info" ><p>To use the Box Reduction method, begin by choosing a box in the sudoku, and then picking a number that is missing from the box.
+            In that box, if every cell that could contain the missing number is in the same row or column, other cells in that row or column
+            that are in different boxes cannot contain that particular number, because the missing number must be in the box you chose.
+            Therefore, that candidate can be eliminated from other cells in the row or column.</p></div>
+           
+            <br>
+            <div id="rowreductionhead"class="heading intermediate" ><p><b>Row Reduction and Column Reduction</b></p>
+            </div>
+                <div id="rowreductioninfo" class="obj info" style="height:fit-content"><p>The Row Reduction and Column Reduction methods are similar to the Check Rows and Check Columns methods. 
+                    To use the Row Reduction method, pick a row, and then pick a number that is missing from that row. Then, test that number in all unfilled cells in that row to see if it is a candidate.
+                     If all of the possible cells for the missing number are in the same box, cells in that box that are not in the row cannot
+                     contain that particular number, and that candidate can be eliminated as a candidate. The same logic is used for Column Reduction, except that a missing number is tested along a column instead of a row.
+                 </p></div>
+            <div class="obj intermediateborder imgborder" style="left:25vw;width:25vw">
+                <img src="{{ url_for('static', filename='colreductionexample.png')}}" style="height:95%;width:95%"></img></div>
+            <div class="obj intermediateborder imgborder" style="position:static;margin-left:65vw;width:25vw">
+                <img src="{{ url_for('static', filename='rowreductionexample.png')}}" style="height:95%;width:95%"></img></div>
+        </div>
+        <br>
+        <div id="advanced" style="display:flex;justify-content:center;font-size:24px;background-color:rgb(237, 237, 14);width:100%"><p><b>Advanced solving methods:</b></p></div>
+        <br>
+        <div class="obj advancedborder imgborder">
+            <img src="{{ url_for('static', filename='xwingexample.png')}}" style="height:95%;width:95%"></img>
+            </div>
+        <div id="xwinghead"class="heading advanced"><p><b>x-wing</b></p></div>
+        <div class="obj info"><p>The x-wing method can be used if two rows or columns have only two cells that can contain a particular unknown number.
+            For instance, if only two cells in row A could contain a 2, and only two cells in row B could contain a 2, and both rows could only have a 2 in columns 4 and 5,
+            then all cells in columns 4 and 5 not in rows A or B could not contain a 2, because one of rows A and B
+            definitely has a 2 in columns 4 and 5. This logic applies to two columns with the same situation, with only two rows possibly containing a certain value in both columns.
+        </p></div>
+        
+        <br>
+        <div class="obj advancedborder imgborder" style="height:480px">
+            <img src="{{ url_for('static', filename='xywingexample.png')}}" style="height:95%;width:95%"></img></div>
+        </div>
+        <div id="xywinghead"class="heading advanced"><p><b>xy-wing</b></p></div>
+            <div class="obj info" style="height:fit-content"><p>The xy-wing method can be used if there are three cells in a "L" shape that make up a naked triple (the three cells collectively have three total possible candidates). These cells must all have only two candidates, and all three of the collective candidates must be possibilities in exactly two of the cells. 
+                If all of these conditions are met, the xy-wing method can be used. One of the cells is the "pivot" cell, and the two other cells must be in the same row, column or box as that cell. 
+                 Any cell that is adjacent to the non-pivot cells (shares a row, column, or box with both of the non-pivot cells) can eliminate the number that is an candidate for both of the non-pivot cells, because one of those cells must contain that number. 
+                 
+            </p></div>
+        
+        <br>
+        <div class="obj advancedborder imgborder">
+            <img src="{{ url_for('static', filename='swordfishexample.png')}}" style="height:95%;width:95%"></img></div>
+            </div>
+        <div id="swordhead"class="heading advanced"><p><b>Swordfish</b></p></div>
+        <div class="obj info"><p>The swordfish method is similar to the x-wing method, except with three columns or rows instead of two. It is used if there are three columns (or rows) that contain only two possible cells for the same number.  
+        </p></div>
+        <br>
+        
+        <div id="diabolical" style="display:flex;justify-content:center;font-size:24px;background-color:rgb(227,138,12); width:100%"><p><b>Diabolical solving methods:</b></p></div>
+        <br>
+        <div id="guesshead"class="heading diabolical"><p><b>Guess and Check</b></p></div></div>
+        <div class="obj info"><p>The Guess and Check method is incredibly time-consuming and complicated, and should only be tried once all other methods have been tried.
+          In the Guess and Check method, you guess the value of a cell with exactly two candidates. Next, use other solving methods
+          to solve more cells in the sudoku. If you produce an error in the sudoku (e.g. a cell with no candidates), you know that the other candidate is correct. If no error is produced, try the other candidate, and use the same procedure to try and eliminate it.
+        </p></div>
+        {% endblock %}
+    </body>
+</html>
+
+    

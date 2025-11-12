@@ -1,0 +1,365 @@
+
+.obj{
+    padding:10px;
+    border-radius:12px;
+    border: 3px rgb(87, 78, 78) solid;
+    margin-bottom: 8px;
+}
+#lets{
+    display:flex;
+    flex-flow:column wrap;
+    justify-content:space-between;
+    grid-row:2/3;
+    grid-column:1/2;
+}
+#title{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size:35px;
+    text-align:center;
+    grid-column:2/3;
+  }
+  .button{
+    text-decoration:none;
+    color:black;
+    margin-left:5px;
+    margin-right:5px;
+    padding:5px;
+    border: 3px black solid;
+    border-radius: 5px;
+    background-color:#eee089;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin:5px;
+  }
+  .bluedif{
+    background-color:#6ea3df;
+  }
+  .button:hover{
+    color:white;
+    background-color:black;
+  }
+.methodbox{
+padding:20px;
+max-width:80vw;
+display:flex;
+justify-content:center;
+border-radius:15px;
+font-family:Arial, Helvetica, sans-serif;
+margin:auto;
+border:2px black solid;
+background-color:#a1dde3;
+text-align:center;
+grid-column:2/3;
+font-size:max(12px, 2vw);
+}
+#contentcontainer{
+    display:grid;
+    grid-template-columns: 2.5vw 95vw 2.5vw;
+    grid-template-rows:auto;
+    font-family:sans-serif;
+  }
+  #buttons{
+    grid-column:2/3;
+    font-size:3vw;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    width:fit-content;
+    margin:auto;
+    flex-wrap:wrap;
+    padding:5px;
+    background-color:#fa8072;
+    height:fit-content;
+    border: 3px black solid;
+    border-bottom-left-radius:10px;
+    border-bottom-right-radius:10px;
+    border-top:0;
+  }
+  #example{
+    z-index:0; 
+    font-size:20px;
+    width:300px; 
+    background-color:#fa8072;
+    display:flex;
+    justify-content:center;
+    height:fit-content;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+    grid-column:2/3;
+    margin:auto;
+    margin-bottom:0;
+  }
+  #options{
+    z-index:0; 
+    font-size:2vw;
+    width:30vw; 
+    background-color:rgb(227, 128, 243); 
+    height:fit-content;
+    border-bottom-right-radius:10px;
+    border-top-right-radius:10px;
+    margin:auto;
+    display:flex;
+    justify-content:center;
+    grid-column:2/3;
+  }
+  #image{
+    margin:auto;
+    display:flex;
+    justify-content:center;
+    grid-column:2/3;
+    width:300px;
+  }
+  #prompt{
+    width:90vw;
+    margin:auto;
+    display:flex;
+    justify-content:left;
+    flex-wrap:wrap;
+    grid-column:2/3;
+    margin-top:10px;
+  }
+  #message{
+    margin:auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    grid-column:2/3;
+  }
+  #newpuzzle{
+    margin:auto;
+    grid-column:2/3;
+    width:100%;
+    font-size:15px;
+    align-self:center;
+  }
+  #buttons2{
+    grid-column:2/3;
+    font-size:3vw;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    width:fit-content;
+    margin: 0.5vw auto;
+    flex-wrap:wrap;
+    padding:5px;
+    background-color:#fa8072;
+    height:fit-content;
+    border: 3px black solid;
+    border-radius:1vw;
+  }
+#sudokucontainer{
+    display:grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto;
+    margin:auto;
+    font-size:3vw;
+    padding:0;
+    grid-column:2/3;
+  }
+#sudoku{
+    display:flex;
+    flex-wrap:wrap;
+    font-size:6vw;
+    padding:0;
+    grid-row:2/3;
+    grid-column:2/3;
+    caret-color:black;
+  }
+  .searchbar {
+    border:0.25vw gray solid;
+    background-color: #fff;
+    width:9vw;
+    height:9vw;
+    font-size: auto;
+    text-align: center;
+    pointer-events:none;
+    }
+#correction,#correct,#incorrect{
+    width:100%;
+}
+@media screen and (min-width:900px){
+    #title{
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size:35px;
+        text-align:center;
+        grid-column:3/4;
+        grid-row:1/2;
+      }
+      #example{
+        z-index:0; 
+        font-size:2vw;
+        width:24vw;
+        height:50px;
+        margin-left:3vw; 
+        background-color:#fa8072;
+        display:flex;
+        justify-content:center;
+        height:fit-content;
+        border-top-left-radius:10px;
+        border-top-right-radius:10px;
+        grid-column:4/5;
+        grid-row:1/2;
+        margin:auto;
+        margin-bottom:0;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      }
+    #image{
+        margin:auto;
+        display:flex;
+        justify-content:center;
+        grid-column:4/5;
+        grid-row:2/4;
+        margin-left:3vw;
+        margin-top:0;
+        width:24vw;
+      }
+      #prompt{
+        width:90%;
+        margin:auto;
+        display:flex;
+        justify-content:left;
+        grid-column:3/4;
+        grid-row:3/4;
+        margin-top:10px;
+      }
+      #message{
+        margin:auto;
+        display:flex;
+        justify-content:center;
+        grid-column:3/4;
+        grid-row:3/4;
+      }
+      #newpuzzle{
+        margin:auto;
+        grid-column:3/4;
+        grid-row:4/5;
+        font-size:1.5vw;
+        align-self:center;
+      }
+      #buttons2{
+        margin: 0.5vw auto;
+        display:flex;
+        justify-content:space-around;
+        grid-column:3/4;
+        font-size:1.3vw;
+        grid-row:4/5;
+        grid-column:3/4;
+      }
+    .methodbox{
+        padding:20px;
+        max-width:60vw;
+        display:flex;
+        justify-content:center;
+        border-radius:15px;
+        font-family:Arial, Helvetica, sans-serif;
+        margin:auto 1vw;
+        border:2px black solid;
+        background-color:#a1dde3;
+        text-align:center;
+        grid-column:2/3;
+        grid-row:2/4;
+        font-size:18px;
+        margin-top:10px;
+        }
+    #buttons{
+        grid-column:2/3;
+        grid-row:1/2;
+        font-size:1.2vw;
+        display:flex;
+        align-items:center;
+        justify-content:space-around;
+        width:fit-content;
+        margin:auto;
+        margin-top:0;
+        flex-wrap:wrap;
+        padding:5px;
+        background-color:#fa8072;
+        height:fit-content;
+        border: 3px black solid;
+        border-bottom-left-radius:1vw;
+        border-bottom-right-radius:1vw;
+        border-top:0;
+        margin-bottom:10px;
+      }
+    #sudoku{
+        display:flex;
+        flex-wrap:wrap;
+        font-size:2vw;
+        font-family:sans-serif;
+      }
+      .searchbar {
+        border:0.25vw gray solid;
+        background-color: #fff; 
+        text-align: center;
+        caret-color:black;
+        width:3.34vw;
+        height:3.34vw;
+      }
+      #contentcontainer{
+        display:grid;
+        grid-template-columns: 2.5vw 30vw 35vw 30vw 2.5vw;
+        grid-template-rows:auto;
+        font-family:sans-serif;
+      }
+      #sudokucontainer{
+        display:grid;
+        grid-template-rows: auto;
+        grid-template-columns: auto;
+        margin:auto;
+        font-size:1.5vw;
+        padding:0;
+        grid-column:3/4;
+        grid-row:2/3;
+      }
+}
+.box img{
+display: block;
+object-fit:contain;
+width: 30vw;
+height:auto;
+}
+
+.collapsible {
+width:20vw;
+position:absolute;
+height:3vw;
+text-align:center;
+background-color: white;
+}
+.content {
+padding: 0 18px;
+border: 0.5vw black solid;
+display: none;
+overflow: hidden;
+background-color: white;
+width:20vw;
+}
+#playlink:hover{
+  color:#fa8072;
+  border-bottom: 2px #fa8072 solid;
+}
+nav{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size:1.25em;
+}
+#solverlink:hover{
+  color:#51cba4;
+  border-bottom: 2px #51cba4 solid;
+}
+#methodlink:hover{
+  color:#6ea3df;
+  border-bottom: 2px #6ea3df solid;
+}
+#puzzlelink:hover{
+  color:#eee089;
+  border-bottom: 2px #eee089 solid;
+}
+.dropdown-item:hover{
+  background-color:#eee089;
+}
+@keyframes change-size{
+            50%{transform: scale(1.1)}
+            100%{transform: scale(1)}
+}
+#homepage:hover{
+animation: change-size 2s ease-in-out forwards;
+}

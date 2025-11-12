@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}
+Homepage
+{% endblock %}
+{% block content %}
+<br>
+<div align="center" style= "background-color:rgb(227, 128, 243); width:100%;height:40px;margin-bottom:5px;border-bottom-right-radius:10px;border-top-right-radius:10px"><h3>Pages:</h3></div>
+<div id="sudokusolver" class="obj" align="center" style = "background-color:#51cba4;display:block;font-family:helvetica;height:450px;position:absolute"><p>The Sudoku Solver page provides an empty grid to type in an unsolved sudoku, then solves the sudoku and displays the steps used to solve the sudoku.</p><a href="/sudoku"><image src="{{ url_for('static', filename='grid.png')}}" width="315"></image></a></div>
+<div id="methods" class="obj" align="center" style = "background-color:#a1dde3;font-family:helvetica; display:block;height:450px;position:absolute;left:455px"><p>The Methods page explains all the methods used by the solver to solve the sudoku, and gives advice on how to use the methods in an efficient and humanly feasible way.</p><a href="/methods"><image src="{{ url_for('static', filename='book.png')}}" width="300"></image></a></div>
+<div id="puzzles" class="obj" align="center" style = "background-color:#eee089;font-family:helvetica; display:block;height:450px;position:absolute;left:890px"><p>The Puzzles pages allow the user to practice the methods employed by the solver, with unique puzzles for each method.</p><br><a href="/puzzles/checkcells/easy"><image src="{{ url_for('static', filename='puzzle.png')}}" width="325" height="310"></image></a></div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div align="center" style= "background-color:rgb(227, 128, 243); width:100%;height:40px;margin-bottom:5px;border-bottom-right-radius:10px;border-top-right-radius:10px"><h3>More Information:</h3></div>
+<a href="/tictactoe"><div style="position:absolute; left:50vw"><image width="3" src="{{ url_for('static', filename='ttt.png')}}"></image></div></a> 
+<div style="background-color:rgb(227, 128, 243); width:500px;position:absolute;left:750px;height:40px;margin-bottom:5px;border-bottom-left-radius:10px;border-top-left-radius:10px"><h4>   Sudoku Solver:</h4></div>
+<div align="right" style= "background-color:rgb(227, 128, 243); width:500px;height:40px;margin-bottom:5px;border-bottom-right-radius:10px;border-top-right-radius:10px"><h4>Sudoku Basics:</h4></div>
+<div id="sud1" class="obj" style = "font-family:helvetica;background-color:#51cba4;width:500px;height:fit-content;position:absolute;left:750px"><p>The Sudoku Solver uses a human-like method to solve the sudoku. Instead of using a brute-force algorithm, which would try every possible combination of numbers until the right one is found, several humanly feasible solving methods are used to solve the puzzle. The goal of each method is to narrow down the options for each cell, and if there is only one option left, to fill in that cell with the correct value. This human-like approach allows the solver is able to show a human how to solve the puzzle in a humanly feasible way. This allows the user to follow along in their own puzzle, and apply the same logic to future puzzles.</p></div>
+<div id="sud" class="obj" style = "font-family:helvetica;background-color:#51cba4;width:500px"><p>Sudoku is a puzzle played on a 9x9 grid. There are nine 3x3 boxes within the grid, separated by the blue lines in the grid. Each row, column, and box within the grid must contain the numbers 1-9 once the puzzle is completed. At the beginning of the puzzle, some of the cells contain a number, and some are left blank for the player to deduce. Using logic, a player must solve every unfilled cell to solve the puzzle. To solve a cell, there must be only one number that could possibly go in that cell.</p></div>
+<br>
+<br>
+<div style= "background-color:rgb(227, 128, 243); width:500px;height:40px;position:absolute;left:750px;margin-bottom:5px;border-bottom-left-radius:10px;border-top-left-radius:10px"><h4>   Puzzles:</h4></div>
+<div align="right" style= "background-color:rgb(227, 128, 243); width:500px;height:40px;margin-bottom:5px;border-bottom-right-radius:10px;border-top-right-radius:10px"><h4>Sudoku Solving Methods:</h4></div>
+<div class="obj" style = "font-family:helvetica;background-color:#eee089;width:500px;height:fit-content;position:absolute;left:750px"><p>The puzzles section is designed to practice the solving methods that are described in the methods section. Puzzles implore you to solve one cell of a sudoku by using a specific method. If the incorrect answer is given, it will then show the correct answer. Each empty cell can be used to type in the options for that cell. There are three difficulty levels for each type of puzzle. The easy level asks you to fill in a cell with correct number. The medium and hard levels ask you to deduce which cell can be filled in. The easy levels are designed to teach the method to the puzzler, while the medium and hard levels are designed to train the puzzler's vision to find appropriate uses of the method. Currently, puzzles for the basic and intermediate solving methods are available.</p></div>
+<div class="obj" style="font-family:helvetica;background-color:#a1dde3;margin-bottom:5px;border: 2px black solid; height:fit-content;width:500px"><p>The sudoku solver uses several methods to solve sudokus. It is designed to solve sudokus similarly to a human, so these methods can feasibly be implemented by humans. The methods are displayed below.</p></div>
+<div id="1" class="obj" style = "font-family:helvetica;background-color:#a1dde3;display:block;height:fit-content;width:500px"><p>The checkCells method checks any cell in the same box, row, or column as the cell that is being evaluated. Any number in those cells can be eliminated as a possibility for the cell that is being evaluated.</p></div>
+<div id="2" class="obj" style = "font-family:helvetica;background-color:#a1dde3;display:none;height:fit-content;width:500px"><p>The checkBoxes method takes all the missing numbers from a box and tests all unfilled cells in that box to see if there is only one possible location for a given number. The checkColumns and checkRows methods do the same thing, but they evaluate all unfilled cells in a particular row or column.</p></div>
+<div id="3" class="obj" style = "font-family:helvetica;background-color:#a1dde3;display:none;height:fit-content;width:500px"><p>The nakedPairs method is used when two unfilled cells in the same row, column, or box have the same set of possible numbers, and each cell only has two possibilities.Since the cells can't contain the same number, both of the possible numbers must be in one of these cells, so these numbers can beeliminated as a possibility from any cell in the same row/column/box as both of the unfilled cells. For instance, if the cells with an identical set of optionsare in the same box, all other cells in that box can not contain the two possible numbers, so we can remove those numbers as a possibility.</p></div>
+<div id="4" class="obj" style = "font-family:helvetica;background-color:#a1dde3;display:none;height:fit-content;width:500px"><p>The boxElimination method takes all the missing numbers in a box and tests all unfilled cells in that box. If all possible boxes for an unknown number are in the same row or column, other cells in that row or column that are in different boxes cannot contain that particular number, because it must be in a different spot in that row or column. Therefore, that option can be eliminated from cells in the same row or column but different boxes.</p></div>
+<div id="5" class="obj" style = "font-family:helvetica;background-color:#a1dde3;display:none;height:fit-content;width:500px"><p>The rowElimination and colElimination methods are similar. For example, in rowElimination, all missing numbers in a particular row are tested in all unfilled cells in that row. If all of these cells are in the same box, cells in that box that are not in the row cannot contain that particular number, and that option can be eliminated as a possibility. The same logic applies for colElimination.</p></div>
+<div id="6" class="obj" style = "font-family:helvetica;background-color:#a1dde3;display:none;height:fit-content;width:500px"><p>The nakedTriples method is only used if three cells in the same row, column, or box have only two possible numbers, and there are only three possible numbers that can go in any of these cells. These three cells must therefore contain these three numbers in some permutation, so any other unfilled cells in this row, column, or box cannot contain any of these three numbers. Therefore, these numbers can be eliminated as a option for those unfilled cells.</p></div>
+<div id="7" class="obj" style = "font-family:helvetica;background-color:#a1dde3;display:none;height:fit-content;width:500px"><p>The x-wing method is used if two rows or columns have only two cells that can contain a particular unknown number. For instance, if only two cells in row A could contain a 2, and only two cells in row B could contain a 2, and both rows could only have a 2 in columns 4 and 5, then all cells in columns 4 and 5 not in rows A or B could not contain a 2, because one of rows A and B definitely has a 2 in columns 4 and 5. This logic applies to two columns with the same situation, with only two rows possibly containing a certain value in both columns.</p></div>
+<div id="8" class="obj" style = "font-family:helvetica;background-color:#a1dde3;display:none;height:fit-content;width:500px"><p>The xy-wing method is used if there are three cells in a L shape (with two of the cells in the same row and two of the cells in the same column). These cells must have only two possible options, and these options must form a naked triple (only three possible options can fill any of the cells). In this case, the cell diagonally opposite from the pivot cell of the L (in the same row as one of the points of the L and in the same column as the other point of the L) cannot contain the number that is an option for both of the points of the L, so it can be eliminated as an option from that cell.</p></div>
+<div id="9" class="obj" style = "font-family:helvetica;background-color:#a1dde3;display:none;height:fit-content;width:500px"><p>The swordfish method is similar to the x-wing method, except with three columns or rows instead of two. It is used if there are three columns (or rows) that contain only two possible cells for the same number.</p></div>
+<div id="10" class="obj" style = "font-family:helvetica;background-color:#a1dde3;display:none;height:fit-content;width:500px"><p>The guessAndCheck method is only used once all other methods fail to solve any cells. In the guessAndCheck method, an unsolved cell with exactly two possible options is filled with one of the options. Next, all other methods are performed, and if these methods produce an error, the cell is filled in with the other option. If no error is produced, the cell is cleared, and the other options is tried. If neither option produces an error after several iterations of the other methods, the cell remains unfilled.</p></div>
+<div id="11" class="obj" style = "font-family:helvetica;background-color:#a1dde3;display:none;height:fit-content;width:500px"><p>The guessNakedSets method is similar to the guessAndCheck method, except two unfilled cells in are filled in instead of one. These cells must be in the same box, row, or column, and they must have the same set of exactly two possible numbers. First, one possible combination (option A in one cell, option B in the other) will be filled in, and then other methods will be performed to see if this combination produces an error. If it does, the tried combination is eliminated, so the other combination must be correct. If no error is produced, the other combination is tried to check for an error. If neither produces an error, the cells remain unfilled.</p></div>
+<div id="d1" class="circle" style = "opacity:1; position:absolute; left:20px"></div>
+<div id="d2" class="circle" style = "opacity:.4; position:absolute; left:40px"></div>
+<div id="d3" class="circle" style = "opacity:.4; position:absolute; left:60px"></div>
+<div id="d4" class="circle" style = "opacity:.4; position:absolute; left:80px"></div>
+<div id="d5" class="circle" style = "opacity:.4; position:absolute; left:100px"></div>
+<div id="d6" class="circle" style = "opacity:.4; position:absolute; left:120px"></div>
+<div id="d7" class="circle" style = "opacity:.4; position:absolute; left:140px"></div>
+<div id="d8" class="circle" style = "opacity:.4; position:absolute; left:160px"></div>
+<div id="d9" class="circle" style = "opacity:.4; position:absolute; left:180px"></div>
+<div id="d10" class="circle" style = "opacity:.4; position:absolute; left:200px"></div>
+<div id="d11" class="circle" style = "opacity:.4; position:absolute; left:220px"></div>
+<br>
+<button style="width:6vw;height:3vw; font-size:large;background-color:#a1dde3; border-radius: 1vw" onclick="switchMethods()">Next</button>
+{% endblock %}

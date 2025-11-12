@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="/static/gridicon.jpg">
+        <link rel="stylesheet" href="/static/css/relistyles.css"/>
+    </head>
+    <body style="background-color:tan">
+        <div class="topbar">
+            <div class="navbar" style="z-index:100;">
+                <a href="/finalproject">Homepage</a>
+                <a href="/finalproject/content">Content</a>
+                <a href="/finalproject/quiz">Quiz</a>
+                <a href="/finalproject/sources">Sources</a>
+            </div>
+        </div>
+        <div class="title"><h1>Borderlands Geography Quiz</h1></div>
+        <div id="quizlink"><img id="qrcode"src="/static/qrcode.png"></div>
+        <div id="instructions"><p><h2>How to play:</h2></p>
+            <p>Each round, you will have five chances to find a location in the borderlands. Click on the map in the place where you think it is. You will get points based on how close you are to the actual location.</p>
+            </div>
+        <div id="score">Score: 0</div>
+            {% if loc != "none" %} 
+            <div id="target">Location: {{loc}}</div>
+            {% endif %}
+            <div id="map">
+            <div id="topcover"></div>
+            <div id="bottomcover"></div>
+            <div class="dot"style="background-color:limegreen" id="greendot"></div>
+            <div class="pole" style="height:30px;border:2px black solid"id="greenpole"></div>
+            <div class="dot"style="background-color:red"id="reddot"></div>
+            <div class="pole" style="height:50px;border:2px black solid" id="redpole"></div>
+            <div class="flag" id="greenflag"style="background-color:limegreen"></div>
+            <div class="flag" id="redflag"style="background-color:red"></div>
+            <div id="distance"style="position:absolute;padding:5px;border-radius:5px;top:40vh;left:45vw;width:150px;height:fit-content;display:none;background-color:orange;border:3px black solid"></div>
+            <img style="width:100%; height:100%"src="{{ url_for('static', filename='usmexicomap.jpg')}}"></div>
+            {% if loc == "none" %}
+            <form id="startform"action="/finalproject/quiz" method="post">
+            <div style="display:flex;justify-content: center"><input style="margin-bottom:20px"id="start"class="button"type="submit" value="Start"></div>
+            <div id="round"></div>
+            </form>
+            {% endif %}
+            {% if loc != "none" %} 
+            <form action="#" method="post">
+                <div style="display:flex;margin-bottom:20px;justify-content:center"><input class="button"type="submit" value="Next"></div>
+            </form>
+            {% endif %}
+    <br>
+    <br>
+    <br>
+    <div id="quizfooter"class="footer"></div>
+    <script>
+        const roundnumbers = [0,5,5,5]
+        var target = document.getElementById('target')
+        var map = document.getElementById('map')
+        var distancepopup = document.getElementById('distance')
+        var score = document.getElementById('score')
+        var reddot = document.getElementById('reddot')
+        var greendot = document.getElementById('greendot')
+        var start = document.getElementById('start')
+        var feedback = document.getElementById('round')
+        var startform = document.getElementById('startform')
+        let scoretext = score.innerHTML.slice(0,7)
+        var loc = "{{loc}}"
+        var locx = {{x}}
+        var locy = {{y}}
+        var locmobilex = {{mobx}}
+        var locmobiley = {{moby}}
+        var minimum = {{m}}
+        var s = {{s}}
+        var round = {{round}}
+        var index = {{i}}
+        console.log(round)
+        let nexttext = "{{n}}"
+        if(score.innerHTML === "Score: 0"){
+            console.log('0')
+            score.innerHTML = "Score: 0/" + s.toString()
+        }
+        if(document.cookie){
+        var num = parseInt(document.cookie.slice(6))
+        console.log('num:')
+        console.log(num)
+        if(locx === 0){
+        document.cookie = "score= ; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        }
+        }
+        if(minimum === 0){
+            target.innerHTML = 'Round ' + round.toString() + ', ' + 'Location ' + index.toString() + '/' + roundnumbers[round].toString() + ": " + loc
+        }
+        if(minimum !== 0){
+            var min = Math.floor(minimum - 10000)
+            console.log(min)
+            if(num < min){
+                console.log('less than')
+                feedback.style.display = 'flex'
+                feedback.style.justifyContent = 'center'
+                feedback.innerHTML = 'Round failed, game over :('
+                start.value = 'Play again'
+                startform.method = 'get'
+                document.cookie = "score= 0/20000"
+                console.log(document.cookie)
+            } else {
+                if(round === 99){
+                feedback.style.display = 'flex'
+                feedback.style.justifyContent = 'center'
+                feedback.innerHTML = 'You won, congratulations!'
+                start.value = 'Play again'
+                startform.method = 'get'
+                document.cookie = "score= 0/20000"
+                } else {
+                feedback.style.display = 'flex'
+                feedback.style.justifyContent = 'center'
+                feedback.innerHTML = 'On to the next round!'
+                start.value = 'Round ' + round.toString()
+                document.cookie = "score= 0/" + minimum.toString()
+                console.log(document.cookie)
+                }
+            }
+        } else {
+            if(feedback){
+           feedback.style.display = 'none'
+            feedback.innerHTML = ""
+        }
+        }
+        var clicked = false
+        if(document.cookie) {
+        score.innerHTML = scoretext + document.cookie.slice(6)
+        }
+        map.addEventListener('click', function(event) {
+            var width = window.innerWidth;
+            var height = window.innerHeight;
+            let scroll = window.pageYOffset
+            let rect = map.getBoundingClientRect();
+            let x = event.clientX - rect.left;
+          let y = event.clientY - rect.top;
+        if(clicked === false && locx !== 0){
+          clicked = true
+          let truex = event.clientX
+          let truey = event.clientY
+          document.getElementById('greendot').style.display = 'block'
+          document.getElementById('reddot').style.display = 'block'
+          var dotwidth = document.getElementById('greendot').offsetWidth;
+          document.getElementById('greendot').style.left = (locx + rect.left - Math.floor(dotwidth/2)).toString() + 'px'
+          document.getElementById('greendot').style.top = (locy + rect.top + scroll - Math.floor(dotwidth/2)).toString() + 'px'
+          document.getElementById('reddot').style.left = (truex - Math.floor(dotwidth/2)).toString() + 'px'
+          document.getElementById('reddot').style.top = (truey + scroll- Math.floor(dotwidth/2)).toString() + 'px'
+          document.getElementById('greenpole').style.display = 'block'
+          document.getElementById('redpole').style.display = 'block'
+          document.getElementById('greenflag').style.display = 'block'
+          document.getElementById('redflag').style.display = 'block'
+          document.getElementById('greenpole').style.left = (locx + rect.left + 2 - Math.floor(dotwidth/2)).toString() + 'px'
+          document.getElementById('greenpole').style.top = (locy + rect.top + scroll - 29 - Math.floor(dotwidth/2)).toString() + 'px'
+          document.getElementById('redpole').style.left = (truex + 2 - Math.floor(dotwidth/2)).toString() + 'px'
+          document.getElementById('redpole').style.top = (truey - 49 - Math.floor(dotwidth/2) + scroll).toString() + 'px'
+          var flagwidth = document.getElementById('greenflag').offsetWidth
+          if(locx + rect.left >= truex){
+            document.getElementById('greenflag').style.left = (locx + rect.left + 6 - Math.floor(dotwidth/2)).toString() + 'px'
+          } else {
+            document.getElementById('greenflag').style.left = (locx + rect.left + 2 - Math.floor(dotwidth/2) - flagwidth).toString() + 'px'
+          }
+          document.getElementById('greenflag').style.top = (locy + rect.top + scroll - 29 - Math.floor(dotwidth/2)).toString() + 'px'
+          document.getElementById('redflag').style.left = (truex + 6 - Math.floor(dotwidth/2)).toString() + 'px'
+          document.getElementById('redflag').style.top = (truey - 49 - Math.floor(dotwidth/2) + scroll).toString() + 'px'
+          console.log(event.clientX)
+          console.log(document.getElementById('reddot').style.left)
+          if(width < 900){
+          let deltax = Math.abs(x - locmobilex)
+          console.log(deltax)
+          let deltay = Math.abs(y - locmobiley)
+          console.log(deltay)
+          console.log("Clicked at x: " + x + ", y: " + y);
+          console.log("Actual location:" + locmobilex + "," + locmobiley);
+          document.getElementById('greendot').style.left = (locmobilex + rect.left - 5).toString() + 'px'
+          document.getElementById('greendot').style.top = (locmobiley + rect.top + scroll - 5).toString() + 'px'
+          document.getElementById('greenpole').style.display = 'block'
+          document.getElementById('greenflag').style.display = 'block'
+          document.getElementById('greenpole').style.left = (locmobilex + rect.left - 3).toString() + 'px'
+          document.getElementById('greenpole').style.top = (locmobiley + rect.top + scroll - 34).toString() + 'px'
+          var flagwidth = document.getElementById('greenflag').offsetWidth
+          if(locmobilex + rect.left >= truex){
+            document.getElementById('greenflag').style.left = (locmobilex + rect.left + 1).toString() + 'px'
+          } else {
+            document.getElementById('greenflag').style.left = (locmobilex + rect.left - 3 - flagwidth).toString() + 'px'
+          }
+          document.getElementById('greenflag').style.top = (locmobiley + rect.top + scroll - 34).toString() + 'px'
+          if(!document.cookie){
+            console.log('no')
+            var value = 0
+          } else {
+            var value = parseInt(document.cookie.slice(6))
+            console.log(value)
+          }
+          value += Math.floor(25000 * (Math.E**(-0.08 * Math.sqrt((deltax)**2 + deltay**2))))
+        var distance = Math.floor(22*Math.sqrt(deltax**2 + deltay**2))
+        distancepopup.style.display = 'flex'
+        distancepopup.style.backgroundColor = 'rgb(42, 18, 89)'
+        distancepopup.style.color = 'white'
+        distancepopup.style.position = 'absolute'
+        distancepopup.style.left = (truex + 30).toString() + 'px'
+        if(x > 660){
+            distancepopup.style.left = (truex - 50).toString() + 'px'
+        }
+        distancepopup.style.top = (rect.top + locmobiley + scroll - 150).toString() + 'px'
+        distancepopup.innerHTML = 'Your guess was ' + distance.toString() + ' km away. Points earned: ' + Math.floor(25000 * (Math.E**(-0.08 * Math.sqrt(deltax**2 + deltay**2)))).toString()
+        score.innerHTML = scoretext + value.toString() + "/" + s.toString()
+        document.cookie = "score= " + value.toString() + "/" + s.toString()
+        console.log(document.cookie)
+          } else {
+            let deltax = Math.abs(x - locx)
+          console.log(deltax)
+          let deltay = Math.abs(y - locy)
+          console.log(deltay)
+          console.log("Clicked at x: " + x + ", y: " + y);
+          console.log("Actual location:" + locx + "," + locy);
+          if(!document.cookie){
+            console.log('no')
+            var value = 0
+          } else {
+            var value = parseInt(document.cookie.slice(6))
+            console.log(value)
+          }
+          value += Math.floor(25000 * (Math.E**(-0.03 * Math.sqrt(deltax**2 + deltay**2))))
+        var distance = Math.floor(8*Math.sqrt(deltax**2 + deltay**2))
+        distancepopup.style.display = 'flex'
+        distancepopup.style.backgroundColor = 'rgb(42, 18, 89)'
+        distancepopup.style.color = 'white'
+        distancepopup.style.position = 'absolute'
+        distancepopup.style.left = (truex + 30).toString() + 'px'
+        if(x > 660){
+            distancepopup.style.left = (truex - 50).toString() + 'px'
+        }
+        distancepopup.style.top = (rect.top + locy + scroll - 150).toString() + 'px'
+        distancepopup.innerHTML = 'Your guess was ' + distance.toString() + ' km away. Points earned: ' + Math.floor(25000 * (Math.E**(-0.03 * Math.sqrt(deltax**2 + deltay**2)))).toString()
+        score.innerHTML = scoretext + value.toString() + "/" + s.toString()
+        document.cookie = "score= " + value.toString() + "/" + s.toString()
+        console.log(document.cookie)
+          }
+        }
+        });
+        </script>
+</body>
+</html>

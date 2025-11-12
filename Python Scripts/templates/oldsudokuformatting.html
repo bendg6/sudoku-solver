@@ -1,0 +1,585 @@
+{% extends "base.html" %}
+    <head>
+      {% block css %} 
+        <link rel="stylesheet" href="/static/css/solverstyles.css"/>
+        {% endblock %}
+        {% block title %}
+          Sudoku Solver
+          {% endblock %}
+    </head>
+        {% block content %}
+        <div id="title" style="width:100%"><h1><b>Sudoku Solver</b></h1></div>
+        <div id="nums" style="font-size:1.25vw;display:flex;position:absolute;width:36vw;justify-content:space-around;top:10vw;left:32vw">
+            <b>1</b>
+            <b>2</b>
+            <b>3</b>
+            <b>4</b>
+            <b>5</b>
+            <b>6</b>
+            <b>7</b>
+            <b>8</b>
+            <b>9</b>
+                            </div>
+                            <div id="lets" style="font-size:1.25vw;display:flex;flex-wrap:wrap;position:absolute;height:36vw;justify-content:space-around;top:13vw;left:30vw">
+                            <div style="width:100%"><b>A</b></div>
+                            <div style="width:100%"><b>B</b></div> 
+                            <div style="width:100%"><b>C</b></div> 
+                            <div style="width:100%"><b>D</b></div> 
+                            <div style="width:100%"><b>E</b></div> 
+                            <div style="width:100%"><b>F</b></div> 
+                            <div style="width:100%"><b>G</b></div> 
+                            <div style="width:100%"><b>H</b></div> 
+                            <div style="width:100%"><b>I</b></div> 
+                            </div>
+      <a id="backbutton" href="/solver"></a>
+    <div id="sudoku" style="display:flex;flex-direction:row;flex-wrap:wrap;position:absolute;height:36vw;width:36vw;left:32vw;top:12vw">
+        <div ><input class="searchbar" type="text" id="A1" name="A1" autocomplete="off"/></div>
+        <div ><input class="searchbar" type="text" id="A2" name="A2" autocomplete="off"/></div>
+        <div ><input class="searchbar" type="text" id="A3"style="border-right:blue 0.25vw solid" name="A3" autocomplete="off"/></div>
+        <div ><input class="searchbar" type="text" id="A4" style="border-left:blue 0.25vw solid"name="A4" autocomplete="off"/></div>
+        <div ><input class="searchbar" type="text" id="A5" name="A5" autocomplete="off"/></div>
+        <div ><input class="searchbar" type="text" id="A6" style="border-right:blue 0.25vw solid"name="A6" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="A7"  type="text" style="border-left:blue 0.25vw solid"name="A7" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="A8"  type="text" name="A8" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="A9" type="text" name="A9" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="B1" type="text" name="B1" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="B2" type="text" name="B2" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="B3" type="text"  style="border-right:blue 0.25vw solid"name="B3" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="B4" type="text" name="B4"style="border-left:blue 0.25vw solid" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="B5" type="text" name="B5" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="B6"  type="text" style="border-right:blue 0.25vw solid" name="B6" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="B7" type="text" name="B7"style="border-left:blue 0.25vw solid" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="B8" type="text" name="B8" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="B9" type="text" name="B9" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="C1" style="border-bottom:blue 0.25vw solid" type="text" name="C1" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="C2"style="border-bottom:blue 0.25vw solid" type="text" name="C2" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="C3" style="border-bottom:blue 0.25vw solid;border-right:blue 0.25vw solid" type="text" name="C3" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="C4" style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="C4" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="C5" style="border-bottom:blue 0.25vw solid" type="text" name="C5" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="C6" style="border-bottom:blue 0.25vw solid;border-right:blue 0.25vw solid"type="text" name="C6" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="C7" style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="C7" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="C8" style="border-bottom:blue 0.25vw solid" type="text" name="C8" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="C9" style="border-bottom:blue 0.25vw solid" type="text" name="C9" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="D1" style="border-top:blue 0.25vw solid" type="text" name="D1" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="D2" style="border-top:blue 0.25vw solid"  type="text" name="D2" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="D3" style="border-top:blue 0.25vw solid;border-right:blue 0.25vw solid" type="text" name="D3" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="D4" style="border-top: blue 0.25vw solid;border-left:0.25vw blue solid" type="text" name="D4" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="D5" style="border-top:blue 0.25vw solid" type="text" name="D5" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="D6"style="border-top:blue 0.25vw solid; border-right:blue 0.25vw solid"type="text" name="D6" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="D7"style="border-top:blue 0.25vw solid;border-left:0.25vw blue solid" type="text" name="D7" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="D8" style="border-top:blue 0.25vw solid" type="text" name="D8" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="D9"style="border-top:blue 0.25vw solid"type="text" name="D9" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="E1"  type="text" name="E1" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="E2"  type="text" name="E2" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="E3"  style="border-right:blue 0.25vw solid"type="text" name="E3" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="E4" style="border-left:blue 0.25vw solid"type="text" name="E4" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="E5" type="text" name="E5" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="E6"  style="border-right:blue 0.25vw solid"type="text" name="E6" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="E7" style="border-left:blue 0.25vw solid"type="text" name="E7" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="E8"type="text" name="E8" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="E9" type="text" name="E9" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="F1"style="border-bottom:blue 0.25vw solid" type="text" name="F1" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="F2"style="border-bottom:blue 0.25vw solid" type="text" name="F2" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="F3" style="border-right:blue 0.25vw solid;border-bottom:blue 0.25vw solid" type="text" name="F3" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="F4"style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="F4" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="F5"style="border-bottom:blue 0.25vw solid" type="text" name="F5" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="F6" style="border-right:blue 0.25vw solid;border-bottom:blue 0.25vw solid" type="text" name="F6" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="F7"style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="F7" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="F8"style="border-bottom:blue 0.25vw solid" type="text" name="F8" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="F9"style="border-bottom:blue 0.25vw solid" type="text" name="F9" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="G1" style="border-top:0.25vw blue solid"type="text" name="G1" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="G2" style="border-top:0.25vw blue solid"type="text" name="G2" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="G3" style="border-top:0.25vw blue solid;border-right:blue 0.25vw solid"type="text" name="G3" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="G4" style="border-top:0.25vw blue solid;border-left:blue 0.25vw solid"type="text" name="G4" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="G5" style="border-top:0.25vw blue solid"type="text" name="G5" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="G6" style="border-top:0.25vw blue solid;border-right:blue 0.25vw solid"type="text" name="G6" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="G7" style="border-top:0.25vw blue solid;border-left:blue 0.25vw solid"type="text" name="G7" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="G8" style="border-top:0.25vw blue solid"type="text" name="G8" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="G9" style="border-top:0.25vw blue solid"type="text" name="G9" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="H1" type="text" name="H1" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="H2" type="text" name="H2" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="H3"  style="border-right:blue 0.25vw solid"type="text" name="H3" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="H4" style="border-left:blue 0.25vw solid"type="text" name="H4" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="H5" type="text" name="H5" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="H6"  style="border-right:blue 0.25vw solid"type="text" name="H6" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="H7"style="border-left:blue 0.25vw solid" type="text" name="H7" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="H8" type="text" name="H8" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="H9" type="text" name="H9" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="I1" type="text" name="I1" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="I2"   type="text" name="I2" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="I3" style="border-right:blue 0.25vw solid"type="text" name="I3" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="I4"style="border-left:blue 0.25vw solid"type="text" name="I4" autocomplete="off"/></div>
+        <div ><input class="searchbar"id="I5"  type="text" name="I5" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="I6" style="border-right:blue 0.25vw solid" type="text" name="I6" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="I7" style="border-left:blue 0.25vw solid"type="text" name="I7" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="I8" type="text" name="I8" autocomplete="off"/></div>
+        <div ><input class="searchbar" id="I9" type="text" name="I9" autocomplete="off"/></div>
+    </div>
+        <div class="obj"id="buttons" style="display:flex;flex-wrap:wrap;font-size:1.25vw;background-color:#eee089;position:absolute;left:3vw;top:12vw;width:25vw;height:fit-content">
+          <form action="/solver/solve" method="post">
+            <input class="button"type="submit"  value="Solve completely">
+        </form>
+        <form action="/solver/onestep" method="post">
+            <input class="button"type="submit" value="Next step">
+        </form>
+        <form action="/solver/backone" method="post">
+            <input class="button"type="submit" value="Back one step">
+        </form>
+        <form action="/solver/clear" method="post">
+            <input class="button"type="submit" value="Clear grid">
+        </form>
+        <form action="/solver/solvecell" method="post">
+        <input id="cell"type="text" name="cell" size="10" value="Solve cell"/>
+        </form>
+        </div>
+        <div id="features" class="obj" style="background-color:#eee089;display:flex;flex-wrap:wrap;justify-content:space-between;font-size:12.5px;position:absolute;left:30vw;max-width:80vw">
+          <div style="width:100%"><p><h3>Features:</h3></p></div>
+          <div style="width:100%"><p><b>Solve completely:</b> Solves the whole sudoku.</p></div>
+          <div style="width:100%"><p><b>Next step:</b> Solves the sudoku one step at a time,
+          in the same order that the sudoku solver solved the puzzle.</p></div>
+          <div style="width:100%"><p><b>Back one step:</b> Goes back one step.</p></div>
+          <div style="width:100%"><p><b>Clear grid:</b> Deletes all solved numbers.</p></div>
+          <div style="width:100%"><p><b>Solve another sudoku:</b> Returns to the sudoku input page.</p></div>
+          <div style="width:100%"><p><b>Solve cell:</b> Solver will solve a certain cell. Example: User types in "H2", and the solver reveals the number in cell H2.</p></div></div>
+        </div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %} 
+            {% for msg in messages %} 
+                <div style = "position:absolute; left:45vw; top:40vh; color:red">{{msg}}</div>
+            {% endfor %}
+        {% endif %} 
+    {% endwith %} 
+        <div id="methodsguide" style = "color:white;display:flex;position:absolute;justify-content:center;left:78vw;top:7vw;font-size:1.25vw;width:20vw;height:2vw;background-color: black">Methods Guide </div>
+        <button id="checkcells" type="button" class="collapsible" style = "left:78vw;top:10vw;font-size:1.25vw;background-color: #6ea3df">Check Cells</button>
+        <div class="content" style="font-size:1.25vw;background-color: #6ea3df" >
+        <p>Filled cell by eliminating candidates found in the same row, box, and column as the solved cell.</p>
+        
+        </div>
+        
+        <button id="checkboxes"type="button" class="collapsible" style = "left:78vw;top:13vw;font-size:1.25vw;background-color: #6ea3df">Check Boxes</button>
+        <div class="content" style="font-size:1.25vw;background-color: #6ea3df" >
+        <p>This cell was the only cell in its box that could contain a particular number.</p>
+        
+        </div>
+        
+        <button id="checkrows"type="button" class="collapsible" style = "left:78vw;top:16vw;font-size:1.25vw;background-color: #6ea3df">Check Rows/Columns</button>
+        <div class="content" style="font-size:1.25vw;background-color: #6ea3df" >
+        <p>This cell was the only cell in its row (or column) that could contain a particular number.</p>
+        
+        </div>
+        
+        <button id="nakedpairs"type="button" class="collapsible" style = "left:78vw;top:19vw;font-size:1.25vw;background-color: rgb(237, 237, 14)">Naked Pairs</button>
+        <div class="content" style="font-size:1.25vw;background-color: rgb(237, 237, 14)"  >
+        <p>Eliminated options by creating a naked pair in the same row, column, or box (two cells that collectively had only two candidates).</p>
+        
+        </div>
+        
+        <button id="nakedtriples"type="button" class="collapsible" style = "left:78vw;top:22vw;font-size:1.25vw;background-color: rgb(237, 237, 14)">Naked Triples</button>
+        <div class="content" style="font-size:1.25vw;background-color: rgb(237, 237, 14)" >
+        <p>Eliminated options by creating a naked triple in the same row, column, or box (three cells that collectively had only three candidates).</p>
+        
+        </div>
+        
+            <button id="hiddenpairs"type="button" class="collapsible" style = "left:78vw;top:25vw;font-size:1.25vw;background-color: rgb(237, 237, 14)">Hidden Pairs</button>
+            <div class="content" style="font-size:1.25vw;background-color: rgb(237, 237, 14)" >
+            <p>Reduced a hidden pair to a naked pair (the two cells in the naked pair were the only two options for two candidates), then eliminating those candidates from other cells that are adjacent to both of the naked pair cells.</p>
+            
+            </div>
+        
+        <button id="boxreduction"type="button" class="collapsible" style = "left:78vw;top:28vw;font-size:1.25vw;background-color: rgb(237, 237, 14)">Box Reduction</button>
+        <div class="content" style="font-size:1.25vw;background-color: rgb(237, 237, 14)" >
+        <p>Eliminated options of cells in a row or column because a candidate must go in a particular row or column of a box.</p>
+        
+        </div>
+        
+        <button id="rowreduction" type="button" class="collapsible" style= "left:78vw;top:31vw;font-size:1.25vw;background-color: rgb(237, 237, 14)">Row/Column Reduction</button>
+        <div class="content" style="font-size:1.25vw;background-color: rgb(237, 237, 14)" >
+        <p>Eliminated candidates of cells in a box because a candidate in a row or column could only go in a particular box.</p>
+        
+        </div>
+        
+        <button id="xwing"type="button" class="collapsible" style= "left:78vw;top:34vw;font-size:1.25vw;background-color:rgb(227, 138, 12)">x-wing</button>
+        <div class="content" style="font-size:1.25vw;background-color:rgb(227, 138, 12)" >
+        <p>Eliminated candidates by x-wing method (see methods page for more details).</p>
+        
+        </div>
+        
+        <button id="xywing"type="button" class="collapsible" style= "left:78vw;top:37vw;font-size:1.25vw;background-color:rgb(227, 138, 12)">xy-wing</button>
+        <div class="content" style="font-size:1.25vw;background-color:rgb(227, 138, 12)" >
+        <p>Eliminated candidates by xy-wing method (see methods page for more details).
+             </p>
+        
+        </div>
+        
+        <button id="swordfish"type="button" class="collapsible" style= "left:78vw;top:40vw;font-size:1.25vw;background-color:rgb(227, 138, 12)">swordfish</button>
+        <div class="content" style="font-size:1.25vw;background-color:rgb(227, 138, 12)" >
+        <p>Eliminated candidates by swordfish method (see methods page for more details).</p>
+        
+        </div>
+            <button id="guessandcheck"type="button" class="collapsible" style="left:78vw;top:46vw;font-size:1.25vw;background-color: rgb(243, 67, 36)">Guess and Check</button>
+            <div class="content" style="font-size:1.25vw;background-color: rgb(243, 67, 36)" >
+            <p>Eliminated candidates by guess and check method (see methods page for more details).</p>
+            
+            </div>
+        {% if steps > 1 %}
+        {% if methods[0] != "no" %}
+    <div class="obj" id="steps" style = "background-color:#eee089;overflow-x: hidden;overflow-y: auto;display:flex;flex-wrap:wrap;justify-content:center;position:absolute;left:40vw;height:150px;top:55vw;border: 3px black solid">
+        <div style="font-size:1.25em;width:100%" align="center"><p><b>Steps (scroll down):</b></p></div>
+        {% for x in range(methods|length)%}
+        <div style="text-align:center;width:100%"><p>{{methods[x]}}</p></div>
+        <div style="width:100%;text-align:center"><p><b>Explanation:</b></p></div><div style="width:100%;text-align:center"><p>{{explain[x]}}</p></div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endif %}
+        {% if steps == 1 %}
+        <div class="obj" id="steps" align="center" style = "overflow-x: hidden;overflow-y: auto;font-size:1.25vw;display:flex;flex-wrap:wrap;background-color:#eee089;left:40vw;position:absolute;height:150px;top:55vw;border: 3px black solid">
+          <div style="width:100%;text-align:center"><p><b>Next step:</b></p></div>  
+          <div style="width:100%;text-align: center"><p>{{methods[0]}}</p></div>
+          <div style="text-align:center;width:100%"><p><b>Explanation:</b></p></div><div style="text-align:center;width:100%"><p>{{explain[0]}}</p></div>
+         </div>
+         {% endif %}
+         {% if steps == 0 %} 
+         <div class="obj" id="steps" align="center" style = "overflow-x: hidden;overflow-y: auto;font-size:1.25vw;display:flex;flex-wrap:wrap;background-color:#eee089;left:40vw;position:absolute;height:150px;top:55vw;border: 3px black solid">
+          <div style="width:100%;text-align:center"><p><b>Steps (click Next step or Solve completely to reveal steps):</b></p></div>  
+         </div>
+         {% endif %}
+         <script>
+          var solvecell = document.getElementById('cell')
+            solvecell.addEventListener('click', function(){
+                solvecell.value = ""
+            })
+                // Check if the width is less than the height
+                var width = window.innerWidth;
+                var height = window.innerHeight;
+                document.getElementById('buttons').style.fontSize = (8 + .005*width).toString() + 'px'
+                document.getElementById('backbutton').style.top = document.getElementById('title').offsetTop.toString() + 'px'
+                console.log(screen.width)
+                console.log(screen.height)
+                console.log(width)
+                console.log(height)
+                if (width < height) {
+                  // Width is less than height, so execute the query
+                  if(screen.width < 800){
+                    width = screen.width
+                    height = screen.height
+                  }
+                  console.log('Width is less than height');
+                  document.getElementById('methodsguide').style.display = 'none'
+                  var t = document.getElementById('title')
+                var tbot = t.offsetHeight + t.offsetTop
+                document.getElementById('nums').style.top = (tbot + 0.01*height).toString() + 'px'
+                  document.getElementById('nums').style.fontSize = '3vw'
+                  document.getElementById('nums').style.left = '14vw'
+                  document.getElementById('nums').style.width = '72vw'
+                  var n = document.getElementById('nums')
+                var nbot = n.offsetHeight + n.offsetTop
+                  document.getElementById('sudoku').style.width = '72vw'
+                  document.getElementById('sudoku').style.height = '72vw'
+                  document.getElementById('sudoku').style.left = '14vw'
+                  document.getElementById('sudoku').style.fontSize = '3vw'
+                  document.getElementById('sudoku').style.top = (nbot + 0.01*height).toString() + 'px'
+                  var sud = document.getElementById('sudoku')
+                var sudbot = sud.offsetHeight + sud.offsetTop
+                var sudleft = sud.offsetLeft
+                  document.getElementById('lets').style.top = (nbot + 0.01*height + 0.01*width).toString() + 'px'
+                  document.getElementById('lets').style.height = '72vw'
+                  document.getElementById('lets').style.left = (sudleft - 0.04*width).toString() + 'px'
+                  document.getElementById('lets').style.fontSize = '3vw'
+                  document.getElementById('buttons').style.left = '10vw'
+                  document.getElementById('buttons').style.top = (sudbot + 0.02*height).toString() + 'px'
+                  document.getElementById('buttons').style.width = '80vw'
+                  var but = document.getElementById('buttons')
+                  var butbot = but.offsetHeight + but.offsetTop
+                var butleft = but.offsetLeft
+                  document.getElementById('features').style.left = '10vw'
+                  document.getElementById('features').style.top = (butbot + 0.03*height).toString() + 'px'
+                  document.getElementById('features').style.width = '80vw'
+                  document.getElementById('features').style.fontSize = '3vw'
+                  var cells = document.getElementsByClassName('searchbar')
+                  for(let i=0;i < cells.length;i++){
+                      cells[i].style.width = '8vw'
+                      cells[i].style.height = '8vw'
+                  }
+                  var colls = document.getElementsByClassName('collapsible')
+                  for(let i=0;i < colls.length;i++){
+                      colls[i].style.display = 'none'
+                      colls[i].style.left = '0vw'                        
+                  }
+                  if(document.getElementById('steps')){
+                  document.getElementById('steps').style.top = (butbot + 0.03*height).toString() + 'px'
+                  document.getElementById('steps').style.left = '9.5vw'
+                  document.getElementById('steps').style.width = '81vw'
+                  document.getElementById('steps').style.fontSize = '3vw'
+                  var steps = document.getElementById('steps')
+                  var stepsbot = steps.offsetHeight + steps.offsetTop
+                  document.getElementById('features').style.top = (stepsbot + 0.03*width).toString() + 'px'
+                  document.getElementById('features').style.left = '20vw'
+                  document.getElementById('features').style.width = '60vw'
+                  }
+                } else {
+                  console.log('Width is greater than or equal to height');
+                  const width = window.innerWidth;
+                const height = window.innerHeight;
+                document.getElementById('methodsguide').style.display = 'flex'
+                var t = document.getElementById('title')
+                var tbot = t.offsetHeight + t.offsetTop
+                document.getElementById('nums').style.top = (tbot + 0.01*height).toString() + 'px'
+                  document.getElementById('nums').style.left = '36.5vw'
+                  document.getElementById('nums').style.width = '27vw'
+                  document.getElementById('nums').style.fontSize = '1.25vw'
+                  var n = document.getElementById('nums')
+                var nbot = n.offsetHeight + n.offsetTop
+                  document.getElementById('sudoku').style.width = '27vw'
+                  document.getElementById('sudoku').style.height = '27vw'
+                  document.getElementById('sudoku').style.left = '36.5vw'
+                  document.getElementById('sudoku').style.fontSize = '1.75vw'
+                  document.getElementById('sudoku').style.top = (nbot + 0.01*height).toString() + 'px'
+                  document.getElementById('lets').style.top = (nbot + 0.01*width).toString() + 'px'
+                  document.getElementById('lets').style.height = '27vw'
+                  document.getElementById('lets').style.left = '34.5vw'
+                  document.getElementById('lets').style.fontSize = '1.25vw'
+                  var sud = document.getElementById('sudoku')
+                var sudbot = sud.offsetHeight + sud.offsetTop
+                document.getElementById('buttons').style.left = (75-(100*(620/width))).toString() + 'vw'
+                  document.getElementById('buttons').style.width = 100*(620/width).toString() + 'vw'
+                  document.getElementById('buttons').style.top = (sudbot + 0.02*height).toString() + 'px'
+                  var but = document.getElementById('buttons')
+                var butbot = but.offsetHeight + but.offsetTop
+                document.getElementById('features').style.left = but.offsetLeft + 'px'
+                  document.getElementById('features').style.top = (butbot + 0.02*width).toString() + 'px'
+                  document.getElementById('features').style.width = but.offsetWidth + 'px'
+                  document.getElementById('features').style.fontSize = '1.25vw'
+                  document.getElementById('methodsguide').style.top = (tbot + 0.01*height - 0.02*width).toString() + 'px'
+                  document.getElementById('checkcells').style.top = (tbot + 0.01*height).toString() + 'px'
+                  document.getElementById('checkboxes').style.top = (tbot + 0.01*height + 0.03*width).toString() + 'px'
+                  document.getElementById('checkrows').style.top = (tbot + 0.01*height + 0.06*width).toString() + 'px'
+                  document.getElementById('nakedpairs').style.top = (tbot + 0.01*height + 0.09*width).toString() + 'px'
+                  document.getElementById('nakedtriples').style.top = (tbot + 0.01*height + 0.12*width).toString() + 'px'
+                  document.getElementById('hiddenpairs').style.top = (tbot + 0.01*height + 0.15*width).toString() + 'px'
+                  document.getElementById('boxreduction').style.top = (tbot + 0.01*height + 0.18*width).toString() + 'px'
+                  document.getElementById('rowreduction').style.top = (tbot + 0.01*height + 0.21*width).toString() + 'px'
+                  document.getElementById('xwing').style.top = (tbot + 0.01*height + 0.24*width).toString() + 'px'
+                  document.getElementById('xywing').style.top = (tbot + 0.01*height + 0.27*width).toString() + 'px'
+                  document.getElementById('swordfish').style.top = (tbot + 0.01*height + 0.30*width).toString() + 'px'
+                  document.getElementById('guessandcheck').style.top = (tbot + 0.01*height + 0.33*width).toString() + 'px'
+                  var cells = document.getElementsByClassName('searchbar')
+                  for(let i=0;i < cells.length;i++){
+                      cells[i].style.width = '3vw'
+                      cells[i].style.height = '3vw'
+                  }
+                  var colls = document.getElementsByClassName('collapsible')
+                  for(let i=0;i < colls.length;i++){
+                      colls[i].style.display = 'block'
+                      colls[i].style.left = '78vw'
+
+                  }
+                  if(document.getElementById('steps')){
+                    document.getElementById('steps').style.top = (nbot + 0.01*height + 0.045*width).toString() + 'px'
+                  document.getElementById('steps').style.left = '5vw'
+                  document.getElementById('steps').style.width = '25vw'
+                  document.getElementById('steps').style.fontSize = '1.25vw'
+                  }
+                }
+                </script>
+        <script>
+            // Define a function to execute the query
+            function executeQuery() {
+              // Get the window width and height
+              // Check if the width is less than the height
+              var width = window.innerWidth;
+                var height = window.innerHeight;
+                document.getElementById('buttons').style.fontSize = (8 + .005*width).toString() + 'px'
+                console.log(screen.width)
+                console.log(screen.height)
+                console.log(width)
+                console.log(height)
+              if (width < 800) {
+                if(screen.width < 500){
+                    width = screen.width
+                    height = screen.height
+                  }
+                // Width is less than height, so execute the query
+                console.log('Width is less than height');
+                document.getElementById('methodsguide').style.display = 'none'
+                var t = document.getElementById('title')
+                var tbot = t.offsetHeight + t.offsetTop
+                document.getElementById('nums').style.top = (tbot + 0.01*height).toString() + 'px'
+                  document.getElementById('nums').style.fontSize = '3vw'
+                  document.getElementById('nums').style.left = '14vw'
+                  document.getElementById('nums').style.width = '72vw'
+                  var n = document.getElementById('nums')
+                var nbot = n.offsetHeight + n.offsetTop
+                  document.getElementById('sudoku').style.width = '72vw'
+                  document.getElementById('sudoku').style.height = '72vw'
+                  document.getElementById('sudoku').style.left = '14vw'
+                  document.getElementById('sudoku').style.top = (nbot + 0.01*height).toString() + 'px'
+                  document.getElementById('sudoku').style.fontSize = '3vw'
+                  var sud = document.getElementById('sudoku')
+                var sudbot = sud.offsetHeight + sud.offsetTop
+                var sudleft = sud.offsetLeft
+                  document.getElementById('lets').style.top = (nbot + 0.01*height + 0.01*width).toString() + 'px'
+                  document.getElementById('lets').style.height = '72vw'
+                  document.getElementById('lets').style.left = (sudleft - 0.04*width).toString() + 'px'
+                  document.getElementById('lets').style.fontSize = '3vw'
+                  document.getElementById('buttons').style.left = '10vw'
+                  document.getElementById('buttons').style.top = (sudbot + 0.02*height).toString() + 'px'
+                  document.getElementById('buttons').style.width = '80vw'
+                  var but = document.getElementById('buttons')
+                  var butbot = but.offsetHeight + but.offsetTop
+                var butleft = but.offsetLeft
+                  document.getElementById('features').style.left = '10vw'
+                  document.getElementById('features').style.top = (butbot + 0.03*height).toString() + 'px'
+                  document.getElementById('features').style.width = '80vw'
+                  document.getElementById('features').style.fontSize = '3vw'
+                  var cells = document.getElementsByClassName('searchbar')
+                  for(let i=0;i < cells.length;i++){
+                      cells[i].style.width = '8vw'
+                      cells[i].style.height = '8vw'
+                  }
+                  var colls = document.getElementsByClassName('collapsible')
+                  for(let i=0;i < colls.length;i++){
+                      colls[i].style.display = 'none'
+                      colls[i].style.left = '0vw'
+
+                  }
+                  if(document.getElementById('steps')){
+                    document.getElementById('steps').style.top = (butbot + 0.03*height).toString() + 'px'
+                  document.getElementById('steps').style.left = '9.5vw'
+                  document.getElementById('steps').style.width = '81vw'
+                  document.getElementById('steps').style.fontSize = '3vw'
+                  var steps = document.getElementById('steps')
+                  var stepsbot = steps.offsetHeight + steps.offsetTop
+                  document.getElementById('features').style.top = (stepsbot + 0.03*width).toString() + 'px'
+                  document.getElementById('features').style.left = '20vw'
+                  document.getElementById('features').style.width = '60vw'
+                  }
+                } else {
+                  console.log('Width is greater than or equal to height');
+                  const width = window.innerWidth;
+                const height = window.innerHeight;
+                document.getElementById('methodsguide').style.display = 'flex'
+                var t = document.getElementById('title')
+                var tbot = t.offsetHeight + t.offsetTop
+                document.getElementById('nums').style.top = (tbot + 0.01*height).toString() + 'px'
+                  document.getElementById('nums').style.left = '36.5vw'
+                  document.getElementById('nums').style.width = '27vw'
+                  document.getElementById('nums').style.fontSize = '1.25vw'
+                  var n = document.getElementById('nums')
+                var nbot = n.offsetHeight + n.offsetTop
+                  document.getElementById('sudoku').style.width = '27vw'
+                  document.getElementById('sudoku').style.height = '27vw'
+                  document.getElementById('sudoku').style.left = '36.5vw'
+                  document.getElementById('sudoku').style.fontSize = '1.75vw'
+                  document.getElementById('sudoku').style.top = (nbot + 0.01*height).toString() + 'px'
+                  document.getElementById('lets').style.top = (nbot + 0.01*width).toString() + 'px'
+                  document.getElementById('lets').style.height = '27vw'
+                  document.getElementById('lets').style.left = '34.5vw'
+                  document.getElementById('lets').style.fontSize = '1.25vw'
+                  var sud = document.getElementById('sudoku')
+                var sudbot = sud.offsetHeight + sud.offsetTop
+                document.getElementById('buttons').style.left = (75-(100*(620/width))).toString() + 'vw'
+                  document.getElementById('buttons').style.width = 100*(620/width).toString() + 'vw'
+                  document.getElementById('buttons').style.top = (sudbot + 0.02*height).toString() + 'px'
+                  var but = document.getElementById('buttons')
+                var butbot = but.offsetHeight + but.offsetTop
+                document.getElementById('features').style.left = but.offsetLeft + 'px'
+                  document.getElementById('features').style.top = (butbot + 0.02*width).toString() + 'px'
+                  document.getElementById('features').style.width = but.offsetWidth + 'px'
+                  document.getElementById('features').style.fontSize = '1.25vw'
+                  document.getElementById('methodsguide').style.top = (tbot + 0.01*height - 0.02*width).toString() + 'px'
+                  document.getElementById('checkcells').style.top = (tbot + 0.01*height).toString() + 'px'
+                  document.getElementById('checkboxes').style.top = (tbot + 0.01*height + 0.03*width).toString() + 'px'
+                  document.getElementById('checkrows').style.top = (tbot + 0.01*height + 0.06*width).toString() + 'px'
+                  document.getElementById('nakedpairs').style.top = (tbot + 0.01*height + 0.09*width).toString() + 'px'
+                  document.getElementById('nakedtriples').style.top = (tbot + 0.01*height + 0.12*width).toString() + 'px'
+                  document.getElementById('hiddenpairs').style.top = (tbot + 0.01*height + 0.15*width).toString() + 'px'
+                  document.getElementById('boxreduction').style.top = (tbot + 0.01*height + 0.18*width).toString() + 'px'
+                  document.getElementById('rowreduction').style.top = (tbot + 0.01*height + 0.21*width).toString() + 'px'
+                  document.getElementById('xwing').style.top = (tbot + 0.01*height + 0.24*width).toString() + 'px'
+                  document.getElementById('xywing').style.top = (tbot + 0.01*height + 0.27*width).toString() + 'px'
+                  document.getElementById('swordfish').style.top = (tbot + 0.01*height + 0.30*width).toString() + 'px'
+                  document.getElementById('guessandcheck').style.top = (tbot + 0.01*height + 0.33*width).toString() + 'px'
+                  var cells = document.getElementsByClassName('searchbar')
+                  for(let i=0;i < cells.length;i++){
+                      cells[i].style.width = '3vw'
+                      cells[i].style.height = '3vw'
+                  }
+                  var colls = document.getElementsByClassName('collapsible')
+                  for(let i=0;i < colls.length;i++){
+                      colls[i].style.display = 'block'
+                      colls[i].style.left = '78vw'
+
+                  }
+                  if(document.getElementById('steps')){
+                  document.getElementById('steps').style.top = (nbot + 0.01*height + 0.045*width).toString() + 'px'
+                  document.getElementById('steps').style.left = '5vw'
+                  document.getElementById('steps').style.width = '25vw'
+                  document.getElementById('steps').style.fontSize = '1.25vw'
+                  }
+            }
+          }
+            // Attach the event listener to the window resize event
+            window.addEventListener('resize', executeQuery);
+          </script>
+          <script>
+            var solvecell = document.getElementById('cell')
+            solvecell.addEventListener('click', function(){
+                solvecell.value = ""
+            })
+            var coll = document.getElementsByClassName("collapsible");
+            var i;
+            for (i = 0; i < coll.length; i++) {
+                var a = coll[i]
+              coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                  content.style.display = "none";
+                } else {
+                  content.style.display = "block";
+                  content.style.position = "absolute";
+                  content.style.left = "78vw";
+                  content.style.zIndex = 1
+                  var t = document.getElementById('title')
+                  var tbot = t.offsetHeight + t.offsetTop
+                  var j;
+                  for (j=0; j < coll.length; j++) {
+                    var b = coll[j];
+                    if(content.previousElementSibling === coll[j]) {
+                        content.style.top = (tbot + (.03*(j+1))*width + .01*height).toString() + 'px'
+                        content.style.backgroundColor = b.backgroundColor;
+                    }
+                    }
+                  }
+                  })
+                }
+            
+            </script>
+         <script>
+            let bluesjs = {{ blues }}
+            let graysjs = {{ grays }}
+            let numsjs = {{ nums }}
+            const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
+            for (let i=0; i < 81; i++){
+              let j = i%9 + 1
+              document.getElementById(letters[Math.floor(i/9)] + j.toString()).readOnly = 'true'
+                console.log(numsjs[i])
+      
+                if(bluesjs.includes(i)){
+                    console.log('blue')
+                    document.getElementById(letters[Math.floor(i/9)] + j.toString()).style.color = "blue"
+                    document.getElementById(letters[Math.floor(i/9)] +j.toString()).value = numsjs[i]
+            
+                    }
+                    if(graysjs.includes(i)){
+                        console.log('gray')
+                        document.getElementById(letters[Math.floor(i/9)] + j.toString()).style.color = "gray"
+                        document.getElementById(letters[Math.floor(i/9)] + j.toString()).value = numsjs[i]
+                
+                        }
+            }
+            </script>
+        {% endblock %}

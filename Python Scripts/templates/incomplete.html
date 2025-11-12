@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+    <head>
+      {% block title %}
+        Sudoku Solver
+        {% endblock %}
+    </head>
+    <body>
+      {% block content %}
+      <a id="backbutton" href="/solver"></a>
+      <div id="title" style="width:100%"><h1><b>Sudoku Solver</b></h1></div>
+        <div class="obj" style="margin:auto;margin-top:40px;width:min(75vw, 400px);background-color:rgb(205,205,205);border:3px black solid"><p><b style="font-size:1.1em">Error:</b> Solver was unable to solve the puzzle. Press the back button to try again.</p></div>
+      {% endblock %}
+    </body>

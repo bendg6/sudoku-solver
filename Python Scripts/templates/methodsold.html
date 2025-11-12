@@ -1,0 +1,282 @@
+{% extends "base.html" %}
+    <head>
+        {% block css %} 
+        <link rel="stylesheet" href="/static/css/methodstyles.css"/>
+        {% endblock %}
+        {% block title %}
+        SolveSudokus Methods
+        {% endblock %}
+    </head>
+    <body>
+        {% block content %}
+        <div id="title"style="margin-left:8vw;border:3px black solid;border-radius:0px 0px 1vw 1vw;margin-bottom:5px;text-align:center;background-color:#a1dde3;font-size:2rem;width:84%;justify-content:center"><b>Solving Methods:</b></div>
+        <div id="simple" style="display:flex;justify-content:center;font-size:1.5rem;background-color:#6ea3df;width:100%"><p><b>Simple Solving Methods:</b></p></div>
+        <div class="methodtitlecontainer">
+        <div class="obj methodtitle"><p><b>Check Cells (finding naked singles)</b></p></div>
+        </div>
+        <div class="methodcontainer">
+        <div class="obj methodexplain"><p>To use the Check Cells method, pick a cell, then check every cell in the same box, row, or column as 
+            that cell to see if it contains a number. Any number in the same box, row, or column as the cell can be eliminated as a candidate. 
+            If there is only one candidate remaining for that cell, the cell can be filled in with that number.
+        </p></div>
+        <div class="obj imgborder">
+            <img src="{{ url_for('static', filename='checkcellsexample.png')}}" style="height:95%;width:95%"></img></div>
+    </div>
+        <br>
+        <div class="methodtitlecontainer">
+        <div class="obj methodtitle"><p><b>Check Boxes (finding hidden singles in boxes)</b></p></div>
+    </div>
+        <div class="methodcontainer">    
+        <div class="obj methodexplain"><p>To use the Check Boxes method, choose a box, then pick a number that is missing from that box.
+             If there is only one cell that could contain that number, that cell can be filled in with the missing number.
+        </p></div>
+        <div class="obj imgborder">
+            <img src="{{ url_for('static', filename='checkboxesexample.png')}}" style="height:95%;width:95%"></img></div>    
+        </div>
+        <br>
+        <div class="methodtitlecontainer">
+        <div class="obj methodtitle"><p><b>Check Rows/Check Columns (finding hidden singles in rows and columns)</b></p></div></div>
+        <div class="methodcontainer">
+        <div class="obj" style = "width:80%;border:1vw orange solid;font-size:1rem;font-family:helvetica;background-color:white;margin:auto"><p>To use the Check Rows method, choose a row, then pick a missing number from that row.
+            If there is only one possible cell that could contain the missing number, the cell
+            is filled in with the missing number. The Check Columns method does the exact same thing,
+            except with all the columns instead of the rows.</p></div>
+            <div class="obj imgborder">
+                <img src="{{ url_for('static', filename='checkcolsexample.png')}}" style="height:95%;width:95%"></img></div>
+            <div class="obj imgborder">
+                <img src="{{ url_for('static', filename='checkrowsexample.png')}}" style="height:95%;width:95%"></img></div></div>
+        <br>
+        <div id="intermediate" style="display:flex;justify-content:center;font-size:2vw;background-color:rgb(237, 237, 14);width:100%"><p><b>Intermediate Solving Methods:</b></p></div>
+        <div class="methodtitlecontainer">
+            <div class="obj methodtitle"><p><b>Naked Pairs</b></p></div></div>
+        <div class="methodcontainer">
+        <div class="obj methodexplain" ><p>The Naked Pairs method can be used when two unfilled adjacent cells (adjacent means in the same row, column, or box as one another) have the same set of candidates, and each cell only has two possibilities.
+            Since the cells can't contain the same number, both of the candidates must be in one of these cells, so these numbers can be
+            eliminated as a candidate from any cell that is in the same row, column, or box as both of the unfilled cells. For example, if the cells
+            are in the same box, all other cells in that box can not contain the two candidates, so those numbers can be removed as a candidate from every other cell in the box.
+        </p></div>
+        <div class="obj imgborder">
+            <img src="{{ url_for('static', filename='nakedpairsexample.png')}}" style="height:95%;width:95%"></img></div>
+        </div>
+        <br>
+        <div class="methodtitlecontainer">
+            <div class="obj methodtitle"><p><b>Naked Triples</b></p></div></div>
+        <div class="methodcontainer">
+        
+        <div class="obj methodexplain"><p>The Naked Triples method can be used if three cells in the same row, column, or box collectively have only three candidates.
+            Those three cells must therefore contain these three numbers in some permutation, so any other unfilled cells in this row, column, or box
+            cannot contain any of these three numbers. Therefore, these three numbers can be eliminated as a candidate for those unfilled cells.
+        </p></div>
+        <div class="obj imgborder">
+        <img src="{{ url_for('static', filename='nakedtripleexample.png')}}" style="height:95%;width:95%"></img>
+        </div></div>
+        <br>
+        <div class="methodtitlecontainer">
+        <div class="obj methodtitle"><p><b>Hidden Pairs</b></p></div>
+        </div>
+        <div class="methodcontainer">
+        <div class="obj methodexplain"><p>The Hidden Pairs method is similar to the Naked Pairs method. To use the Hidden Pairs method, begin by choosing a box, row, or column in the sudoku. If there are two missing numbers
+            in the box/row/column that could only be put in the same two cells, any other candidates that could go in those two cells can be eliminated, because those cells must contain the two numbers that could only go in those cells.</p></div>
+            <div class="obj imgborder">
+            <img src="{{ url_for('static', filename='hiddenpairsexample.png')}}" style="height:95%;width:95%"></img>
+            </div></div>
+                <br>
+        <div class="methodtitlecontainer">
+        <div class="obj methodtitle"><p><b>Box Reduction</b></p></div>
+        </div>
+        <div class="methodcontainer">
+        <div class="obj methodexplain" ><p>To use the Box Reduction method, begin by choosing a box in the sudoku, and then picking a number that is missing from the box.
+            In that box, if every cell that could contain the missing number is in the same row or column, other cells in that row or column
+            that are in different boxes cannot contain that particular number, because the missing number must be in the box you chose.
+            Therefore, that candidate can be eliminated from other cells in the row or column.</p></div>
+            <div class="obj imgborder">
+                <img src="{{ url_for('static', filename='boxreductionexample.png')}}" style="height:95%;width:95%"></img>
+                </div></div>
+            <br>
+            <div class="methodtitlecontainer">
+            <div class="obj methodtitle"><p><b>Row Reduction and Column Reduction</b></p></div>
+            </div>
+            <div class="methodcontainer">
+                <div class="obj" style = "width:100%;border:1vw orange solid;font-size:1rem;font-family:helvetica;background-color:white"><p>The Row Reduction and Column Reduction methods are similar to the Check Rows and Check Columns methods. 
+                    To use the Row Reduction method, pick a row, and then pick a number that is missing from that row. Then, test that number in all unfilled cells in that row to see if it is a candidate.
+                     If all of the possible cells for the missing number are in the same box, cells in that box that are not in the row cannot
+                     contain that particular number, and that candidate can be eliminated as a candidate. The same logic is used for Column Reduction, except that a missing number is tested along a column instead of a row.
+                 </p></div>
+            <div class="obj imgborder">
+                <img src="{{ url_for('static', filename='colreductionexample.png')}}" style="height:95%;width:95%"></img></div>
+            <div class="obj imgborder">
+                <img src="{{ url_for('static', filename='rowreductionexample.png')}}" style="height:95%;width:95%"></img></div>
+        </div>
+        <br>
+        <div id="advanced" style="display:flex;justify-content:center;font-size:2vw;background-color:rgb(227,138,12);width:100%"><p><b>Advanced solving methods:</b></p></div>
+        
+        <div class="methodtitlecontainer">
+        <div class="obj methodtitle"><p><b>x-wing</b></p></div></div>
+        <div class="methodcontainer">
+        <div class="obj methodexplaingreen"><p>The x-wing method can be used if two rows or columns have only two cells that can contain a particular unknown number.
+            For instance, if only two cells in row A could contain a 2, and only two cells in row B could contain a 2, and both rows could only have a 2 in columns 4 and 5,
+            then all cells in columns 4 and 5 not in rows A or B could not contain a 2, because one of rows A and B
+            definitely has a 2 in columns 4 and 5. This logic applies to two columns with the same situation, with only two rows possibly containing a certain value in both columns.
+        </p></div>
+        <div class="obj imgbordergreen">
+            <img src="{{ url_for('static', filename='xwingexample.png')}}" style="height:95%;width:95%"></img>
+            </div></div>
+        <br>
+        <div class="methodtitlecontainer">
+        <div class="obj methodtitle"><p><b>xy-wing</b></p></div></div>
+        <div class="methodcontainer">
+            <div class="obj methodexplaingreen"><p>The xy-wing method can be used if there are three cells in a "L" shape that make up a naked triple (the three cells collectively have three total possible candidates). These cells must all have only two candidates, and all three of the collective candidates must be possibilities in exactly two of the cells. 
+                If all of these conditions are met, the xy-wing method can be used. One of the cells is the "pivot" cell, and the two other cells must be in the same row, column or box as that cell. 
+                 Any cell that is adjacent to the non-pivot cells (shares a row, column, or box with both of the non-pivot cells) can eliminate the number that is an candidate for both of the non-pivot cells, because one of those cells must contain that number. 
+                 
+            </p></div>
+        <div class="obj imgbordergreen">
+            <img src="{{ url_for('static', filename='xywingexample.png')}}" style="height:95%;width:95%"></img></div>
+        </div>
+        <br>
+        <div class="methodtitlecontainer">
+        <div class="obj methodtitle"><p><b>Swordfish</b></p></div></div>
+        <div class="methodcontainer">
+        <div class="obj methodexplaingreen"><p>The swordfish method is similar to the x-wing method, except with three columns or rows instead of two. It is used if there are three columns (or rows) that contain only two possible cells for the same number.  
+        </p></div>
+        <div class="obj imgbordergreen">
+        <img src="{{ url_for('static', filename='swordfishexample.png')}}" style="height:95%;width:95%"></img></div>
+        </div>
+        <br>
+        <div class="methodtitlecontainer">
+        <div class="obj methodtitle"><p><b>Skyscraper</b></p></div></div>
+        <div class="methodcontainer">
+        <div class="obj methodexplaingreen"><p>The skyscraper method is similar to the x-wing method. To use the skyscraper method, you must find two columns with only two cells that could contain a number that is missing from those columns. Of those four cells, if two of those cells are in the same row, only one of those cells could contain the missing number, so one of the other two cells must contain it. This is true because both columns must contain the missing number. Therefore, if there is a cell that is adjacent to both of the other two cells, it cannot contain the number, so that number can be eliminated as a candidate from that cell. This method can also be used on two rows with only two possible locations for a missing number.
+        </p></div></div>
+        <br>
+        <div id="diabolical" style="display:flex;justify-content:center;font-size:2vw;background-color:rgb(243,67,36); width:100%"><p><b>Diabolical solving methods:</b></p></div>
+        <div class="methodtitlecontainer">
+        <div class="obj methodtitle"><p><b>Guess and Check</b></p></div></div>
+        <div class="methodcontainer">
+        <div class="obj methodexplaingreen"><p>The Guess and Check method should only be tried once all other methods fail to solve any cells.
+          In the Guess and Check method, an unsolved cell with exactly two candidates is filled with one of those candidates. Next, all other methods listed on this page are used,
+          and if these methods produce an error, the cell is filled in with the other number. If no error is produced, the cell is cleared, and the other number is tried.
+          If neither candidate produces an error after several iterations of the other methods, the cell remains unfilled.
+        </p></div></div>
+          <script>
+            window.addEventListener('scroll', function() {
+              let scroll = window.scrollY;
+              var intermed = document.getElementById('intermediate')
+            var yellowheight = intermed.offsetTop - 20
+            console.log(yellowheight)
+            var advanced = document.getElementById('advanced')
+            var orangeheight = advanced.offsetTop - 20
+            console.log(orangeheight)
+              if (scroll > yellowheight) {
+                if(scroll > orangeheight) {
+                    document.body.style.backgroundColor = 'rgb(227,138,12)';
+                } else {
+                document.body.style.backgroundColor = 'rgb(237, 237, 14)';
+            }
+              } else {
+                document.body.style.backgroundColor = '#6ea3df';
+              }
+            });
+          </script>
+          <script>
+          let scroll = window.scrollY;
+          var intermed = document.getElementById('intermediate')
+        var yellowheight = intermed.offsetTop
+        console.log(yellowheight)
+        var advanced = document.getElementById('advanced')
+        var orangeheight = advanced.offsetTop
+        console.log(orangeheight)
+          if (scroll > yellowheight) {
+            if(scroll > orangeheight) {
+                document.body.style.backgroundColor = 'rgb(227,138,12)';
+            } else {
+            document.body.style.backgroundColor = 'rgb(237, 237, 14)';
+        }
+          } else {
+            document.body.style.backgroundColor = '#6ea3df';
+          }
+      </script>
+      <script>
+        var width = window.innerWidth
+        if(width < 700){
+            var contents = document.getElementsByClassName('obj methodexplain')
+            for (let i=0; i < contents.length; i++){
+                contents[i].style.width = '100%'
+            }
+            var greencontents = document.getElementsByClassName('obj methodexplaingreen')
+            for (let i=0; i < greencontents.length; i++){
+                greencontents[i].style.width = '100%'
+            }
+            var images = document.getElementsByClassName('obj imgborder')
+            for (let i=0; i < images.length; i++){
+                images[i].style.width = '80%'
+            }
+            var greenimages = document.getElementsByClassName('obj imgbordergreen')
+            for (let i=0; i < greenimages.length; i++){
+                greenimages[i].style.width = '80%'
+            }
+        } else {
+            var contents = document.getElementsByClassName('obj methodexplain')
+            for (let i=0; i < contents.length; i++){
+                contents[i].style.width = '40%'
+            }
+            var greencontents = document.getElementsByClassName('obj methodexplaingreen')
+            for (let i=0; i < greencontents.length; i++){
+                greencontents[i].style.width = '40%'
+            }
+            var images = document.getElementsByClassName('obj imgborder')
+            for (let i=0; i < images.length; i++){
+                images[i].style.width = '30%'
+            }
+            var greenimages = document.getElementsByClassName('obj imgbordergreen')
+            for (let i=0; i < greenimages.length; i++){
+                greenimages[i].style.width = '30%'
+            }
+        }
+      </script>
+      <script>
+        function resize() {
+        var width = window.innerWidth
+        if(width < 700){
+            var contents = document.getElementsByClassName('obj methodexplain')
+            for (let i=0; i < contents.length; i++){
+                contents[i].style.width = '100%'
+            }
+            var greencontents = document.getElementsByClassName('obj methodexplaingreen')
+            for (let i=0; i < greencontents.length; i++){
+                greencontents[i].style.width = '100%'
+            }
+            var images = document.getElementsByClassName('obj imgborder')
+            for (let i=0; i < images.length; i++){
+                images[i].style.width = '80%'
+            }
+            var greenimages = document.getElementsByClassName('obj imgbordergreen')
+            for (let i=0; i < greenimages.length; i++){
+                greenimages[i].style.width = '80%'
+            }
+        } else {
+            var contents = document.getElementsByClassName('obj methodexplain')
+            for (let i=0; i < contents.length; i++){
+                contents[i].style.width = '40%'
+            }
+            var greencontents = document.getElementsByClassName('obj methodexplaingreen')
+            for (let i=0; i < greencontents.length; i++){
+                greencontents[i].style.width = '40%'
+            }
+            var images = document.getElementsByClassName('obj imgborder')
+            for (let i=0; i < images.length; i++){
+                images[i].style.width = '30%'
+            }
+            var greenimages = document.getElementsByClassName('obj imgbordergreen')
+            for (let i=0; i < greenimages.length; i++){
+                greenimages[i].style.width = '30%'
+            }
+        }
+        }
+        window.addEventListener('resize', resize);
+      </script>
+        {% endblock %}
+    </body>
+</html>
+
+    

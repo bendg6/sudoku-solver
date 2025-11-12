@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="/static/script.js"></script>
+        <link rel="icon" type="image/x-icon" href="/static/gridicon.jpg">
+        <link rel="stylesheet" href="/static/css/puzzlestyles.css">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body onLoad="backgroundColor()">
+  <nav class="navbar navbar-expand-md sticky-top navbar-dark" style="background-color: #000000;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/home"><image class="growimage"src="{{ url_for('static', filename='homepage.png')}}" width="35" height="35"></image></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a id="playlink"class="nav-link active" aria-current="page" href="/playsudoku">Play Sudoku</a>
+          </li>
+          <li class="nav-item">
+            <a id="solverlink"class="nav-link active" aria-current="page" href="/solver">Sudoku Solver</a>
+          </li>
+          <li class="nav-item">
+            <a id="methodlink"class="nav-link active" aria-current="page" href="/methods">Methods</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a id="puzzlelink"class="nav-link dropdown-toggle" href="/puzzles" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Puzzles
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="/puzzles/checkcells/easy">Check Cells</a></li>
+      <li><a class="dropdown-item" href="/puzzles/checkboxes/easy">Check Boxes</a></li>
+      <li><a class="dropdown-item" href="/puzzles/checkrows/easy">Check Rows</a></li>
+      <li><a class="dropdown-item" href="/puzzles/checkcols/easy">Check Columns</a></li>
+      <li><a class="dropdown-item" href="/puzzles/nakedpairs/easy">Naked Pairs</a></li>
+      <li><a class="dropdown-item" href="/puzzles/nakedtriples/easy">Naked Triples</a></li>
+      <li><a class="dropdown-item" href="/puzzles/boxreduction/easy">Box Reduction</a></li>
+      <li><a class="dropdown-item" href="/puzzles/rowreduction/easy">Row Reduction</a></li>
+      <li><a class="dropdown-item" href="/puzzles/colreduction/easy">Column Reduction</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="contentcontainer">
+      {% block header %} {% endblock %}
+      {% block method %}{% endblock %}
+      {% block buttons %} {% endblock %}
+      <div id="sudokucontainer">
+                            {% if length == 27 %}
+                            <div id="lets">
+                              <div style="width:100%"><b>A</b></div>
+                              <div style="width:100%"><b>B</b></div>
+                              <div style="width:100%"><b>C</b></div>
+                              <div style="width:100%"><b>D</b></div>
+                              <div style="width:100%"><b>E</b></div>
+                              <div style="width:100%"><b>F</b></div>
+                              <div style="width:100%"><b>G</b></div>
+                              <div style="width:100%"><b>H</b></div>
+                              <div style="width:100%"><b>I</b></div>
+                              </div>
+                              <div id="nums" style="display:flex;grid-row:1/2;grid-column:2/3;justify-content:space-around">
+                                <b>1</b>
+                                <b>2</b>
+                                <b>3</b>
+                                    </div>
+                            <div id="sudoku" style="height:10vw;width:30vw;">
+                          <input class="searchbar" type="text" id="A1" name="A1" autocomplete="off"/>
+                          <input class="searchbar" type="text" id="A2" name="A2" autocomplete="off"/>
+                          <input class="searchbar" type="text" id="A3" name="A3" autocomplete="off"/>
+                          <input class="searchbar"id="B1" type="text" name="B1" autocomplete="off"/>
+                          <input class="searchbar"id="B2" type="text" name="B2" autocomplete="off"/>
+                          <input class="searchbar"id="B3" type="text"  name="B3" autocomplete="off"/>
+                          <input class="searchbar"id="C1"  style="border-bottom:blue 0.25vw solid"type="text" name="C1" autocomplete="off"/>
+                          <input class="searchbar" id="C2" style="border-bottom:blue 0.25vw solid"type="text" name="C2" autocomplete="off"/>
+                          <input class="searchbar"id="C3"  style="border-bottom:blue 0.25vw solid"type="text" name="C3" autocomplete="off"/>
+                          <input class="searchbar"id="D1" style="border-top:blue 0.25vw solid" type="text" name="D1" autocomplete="off"/>
+                                <input class="searchbar"id="D2" style="border-top:blue 0.25vw solid"  type="text" name="D2" autocomplete="off"/>
+                                <input class="searchbar"id="D3" style="border-top:blue 0.25vw solid" type="text" name="D3" autocomplete="off"/>
+                                <input class="searchbar"id="E1"  type="text" name="E1" autocomplete="off"/>
+                                <input class="searchbar"id="E2"  type="text" name="E2" autocomplete="off"/>
+                                <input class="searchbar" id="E3"  type="text" name="E3" autocomplete="off"/>
+                                <input class="searchbar" id="F1"style="border-bottom:blue 0.25vw solid" type="text" name="F1" autocomplete="off"/>
+                                <input class="searchbar" id="F2"style="border-bottom:blue 0.25vw solid" type="text" name="F2" autocomplete="off"/>
+                                <input class="searchbar" id="F3" type="text" name="F3" autocomplete="off"/>
+                                <input class="searchbar" id="G1" style="border-top:0.25vw blue solid"type="text" name="G1" autocomplete="off"/>
+                                <input class="searchbar" id="G2" style="border-top:0.25vw blue solid"type="text" name="G2" autocomplete="off"/>
+                                <input class="searchbar" id="G3" style="border-top:0.25vw blue solid"type="text" name="G3" autocomplete="off"/>
+                                <input class="searchbar" id="H1" type="text" name="H1" autocomplete="off"/>
+                                <input class="searchbar" id="H2" type="text" name="H2" autocomplete="off"/>
+                                <input class="searchbar" id="H3"  type="text" name="H3" autocomplete="off"/>
+                                <input class="searchbar"id="I1" type="text" name="I1" autocomplete="off"/>
+                                <input class="searchbar"id="I2"   type="text" name="I2" autocomplete="off"/>
+                                <input class="searchbar" id="I3" type="text" name="I3" autocomplete="off"/>
+                                </div>
+                                              {% elif length == 54 %}
+                                              <div id="nums" style="display:flex;grid-row:1/2;grid-column:2/3;justify-content:space-around">
+                                                <b>1</b>
+                                                <b>2</b>
+                                                <b>3</b>
+                                                <b>4</b>
+                                                <b>5</b>
+                                                <b>6</b>
+                                                    </div>
+                                              <div id="sudoku" style="height:20vw;width:30vw">
+                                                <input class="searchbar" type="text" id="A1" name="A1" autocomplete="off"/>
+          <input class="searchbar" type="text" id="A2" name="A2" autocomplete="off"/>
+          <input class="searchbar" type="text" id="A3"style="border-right:blue 0.25vw solid" name="A3" autocomplete="off"/>
+          <input class="searchbar" type="text" id="A4" style="border-left:blue 0.25vw solid"name="A4" autocomplete="off"/>
+          <input class="searchbar" type="text" id="A5" name="A5" autocomplete="off"/>
+          <input class="searchbar" type="text" id="A6" name="A6" autocomplete="off"/>
+          <input class="searchbar"id="B1" type="text" name="B1" autocomplete="off"/>
+          <input class="searchbar"id="B2" type="text" name="B2" autocomplete="off"/>
+          <input class="searchbar"id="B3" type="text"  style="border-right:blue 0.25vw solid"name="B3" autocomplete="off"/>
+          <input class="searchbar"id="B4" type="text" name="B4"style="border-left:blue 0.25vw solid" autocomplete="off"/>
+          <input class="searchbar"id="B5" type="text" name="B5" autocomplete="off"/>
+          <input class="searchbar"id="B6"  type="text"  name="B6" autocomplete="off"/>
+          <input class="searchbar"id="C1" style="border-bottom:blue 0.25vw solid" type="text" name="C1" autocomplete="off"/>
+          <input class="searchbar" id="C2"style="border-bottom:blue 0.25vw solid" type="text" name="C2" autocomplete="off"/>
+          <input class="searchbar"id="C3" style="border-bottom:blue 0.25vw solid;border-right:blue 0.25vw solid" type="text" name="C3" autocomplete="off"/>
+          <input class="searchbar"id="C4" style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="C4" autocomplete="off"/>
+          <input class="searchbar"id="C5" style="border-bottom:blue 0.25vw solid" type="text" name="C5" autocomplete="off"/>
+          <input class="searchbar"id="C6" style="border-bottom:blue 0.25vw solid"type="text" name="C6" autocomplete="off"/>
+          <input class="searchbar"id="D1" style="border-top:blue 0.25vw solid" type="text" name="D1" autocomplete="off"/>
+          <input class="searchbar"id="D2" style="border-top:blue 0.25vw solid"  type="text" name="D2" autocomplete="off"/>
+          <input class="searchbar"id="D3" style="border-top:blue 0.25vw solid;border-right:blue 0.25vw solid" type="text" name="D3" autocomplete="off"/>
+          <input class="searchbar"id="D4" style="border-top: blue 0.25vw solid;border-left:0.25vw blue solid" type="text" name="D4" autocomplete="off"/>
+          <input class="searchbar"id="D5" style="border-top:blue 0.25vw solid" type="text" name="D5" autocomplete="off"/>
+          <input class="searchbar" id="D6"style="border-top:blue 0.25vw solid"type="text" name="D6" autocomplete="off"/>
+          <input class="searchbar"id="E1"  type="text" name="E1" autocomplete="off"/>
+          <input class="searchbar"id="E2"  type="text" name="E2" autocomplete="off"/>
+          <input class="searchbar" id="E3"  style="border-right:blue 0.25vw solid"type="text" name="E3" autocomplete="off"/>
+          <input class="searchbar" id="E4" style="border-left:blue 0.25vw solid"type="text" name="E4" autocomplete="off"/>
+          <input class="searchbar" id="E5" type="text" name="E5" autocomplete="off"/>
+          <input class="searchbar" id="E6"  type="text" name="E6" autocomplete="off"/>
+          <input class="searchbar" id="F1"style="border-bottom:blue 0.25vw solid" type="text" name="F1" autocomplete="off"/>
+          <input class="searchbar" id="F2"style="border-bottom:blue 0.25vw solid" type="text" name="F2" autocomplete="off"/>
+          <input class="searchbar" id="F3" style="border-right:blue 0.25vw solid;border-bottom:blue 0.25vw solid" type="text" name="F3" autocomplete="off"/>
+          <input class="searchbar" id="F4"style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="F4" autocomplete="off"/>
+          <input class="searchbar" id="F5"style="border-bottom:blue 0.25vw solid" type="text" name="F5" autocomplete="off"/>
+          <input class="searchbar" id="F6" style="border-bottom:blue 0.25vw solid" type="text" name="F6" autocomplete="off"/>
+          <input class="searchbar" id="G1" style="border-top:0.25vw blue solid"type="text" name="G1" autocomplete="off"/>
+          <input class="searchbar" id="G2" style="border-top:0.25vw blue solid"type="text" name="G2" autocomplete="off"/>
+          <input class="searchbar" id="G3" style="border-top:0.25vw blue solid;border-right:blue 0.25vw solid"type="text" name="G3" autocomplete="off"/>
+          <input class="searchbar" id="G4" style="border-top:0.25vw blue solid;border-left:blue 0.25vw solid"type="text" name="G4" autocomplete="off"/>
+          <input class="searchbar" id="G5" style="border-top:0.25vw blue solid"type="text" name="G5" autocomplete="off"/>
+          <input class="searchbar" id="G6" style="border-top:0.25vw blue solid"type="text" name="G6" autocomplete="off"/>
+          <input class="searchbar" id="H1" type="text" name="H1" autocomplete="off"/>
+          <input class="searchbar" id="H2" type="text" name="H2" autocomplete="off"/>
+          <input class="searchbar" id="H3"  style="border-right:blue 0.25vw solid"type="text" name="H3" autocomplete="off"/>
+          <input class="searchbar" id="H4" style="border-left:blue 0.25vw solid"type="text" name="H4" autocomplete="off"/>
+          <input class="searchbar" id="H5" type="text" name="H5" autocomplete="off"/>
+          <input class="searchbar" id="H6"  type="text" name="H6" autocomplete="off"/>
+          <input class="searchbar"id="I1" type="text" name="I1" autocomplete="off"/>
+          <input class="searchbar"id="I2"   type="text" name="I2" autocomplete="off"/>
+          <input class="searchbar" id="I3" style="border-right:blue 0.25vw solid"type="text" name="I3" autocomplete="off"/>
+          <input class="searchbar" id="I4"style="border-left:blue 0.25vw solid"type="text" name="I4" autocomplete="off"/>
+          <input class="searchbar"id="I5"  type="text" name="I5" autocomplete="off"/>
+          <input class="searchbar" id="I6"  type="text" name="I6" autocomplete="off"/>
+                                                </div>
+                                                <div id="lets" style="grid-row:2/3;grid-column:1/2">
+                                                  <div style="width:100%"><b>A</b></div>
+                                                  <div style="width:100%"><b>B</b></div>
+                                                  <div style="width:100%"><b>C</b></div>
+                                                  <div style="width:100%"><b>D</b></div>
+                                                  <div style="width:100%"><b>E</b></div>
+                                                  <div style="width:100%"><b>F</b></div>
+                                                  <div style="width:100%"><b>G</b></div>
+                                                  <div style="width:100%"><b>H</b></div>
+                                                  <div style="width:100%"><b>I</b></div>
+                                                    </div>
+                                              {% elif length == 81 %} 
+                                              <div id="nums" style="display:flex;grid-row:1/2;grid-column:2/3;justify-content:space-around">
+                                                <b>1</b>
+                                                <b>2</b>
+                                                <b>3</b>
+                                                <b>4</b>
+                                                <b>5</b>
+                                                <b>6</b>
+                                                <b>7</b>
+                                                <b>8</b>
+                                                <b>9</b>
+                                                    </div>
+                                              <div id="sudoku" style="height:30vw;width:30vw;">
+                                                <input class="searchbar" type="text" id="A1" name="A1" autocomplete="off"/>
+                                                <input class="searchbar" type="text" id="A2" name="A2" autocomplete="off"/>
+                                                <input class="searchbar" type="text" id="A3"style="border-right:blue 0.25vw solid" name="A3" autocomplete="off"/>
+                                                <input class="searchbar" type="text" id="A4" style="border-left:blue 0.25vw solid"name="A4" autocomplete="off"/>
+                                                <input class="searchbar" type="text" id="A5" name="A5" autocomplete="off"/>
+                                                <input class="searchbar" type="text" id="A6" style="border-right:blue 0.25vw solid"name="A6" autocomplete="off"/>
+                                                <input class="searchbar" id="A7"  type="text" style="border-left:blue 0.25vw solid"name="A7" autocomplete="off"/>
+                                                <input class="searchbar" id="A8"  type="text" name="A8" autocomplete="off"/>
+                                                <input class="searchbar"id="A9" type="text" name="A9" autocomplete="off"/>
+                                                <input class="searchbar"id="B1" type="text" name="B1" autocomplete="off"/>
+                                                <input class="searchbar"id="B2" type="text" name="B2" autocomplete="off"/>
+                                                <input class="searchbar"id="B3" type="text"  style="border-right:blue 0.25vw solid"name="B3" autocomplete="off"/>
+                                                <input class="searchbar"id="B4" type="text" name="B4"style="border-left:blue 0.25vw solid" autocomplete="off"/>
+                                                <input class="searchbar"id="B5" type="text" name="B5" autocomplete="off"/>
+                                                <input class="searchbar"id="B6"  type="text" style="border-right:blue 0.25vw solid" name="B6" autocomplete="off"/>
+                                                <input class="searchbar" id="B7" type="text" name="B7"style="border-left:blue 0.25vw solid" autocomplete="off"/>
+                                                <input class="searchbar"id="B8" type="text" name="B8" autocomplete="off"/>
+                                                <input class="searchbar"id="B9" type="text" name="B9" autocomplete="off"/>
+                                                <input class="searchbar"id="C1" style="border-bottom:blue 0.25vw solid" type="text" name="C1" autocomplete="off"/>
+                                                <input class="searchbar" id="C2"style="border-bottom:blue 0.25vw solid" type="text" name="C2" autocomplete="off"/>
+                                                <input class="searchbar"id="C3" style="border-bottom:blue 0.25vw solid;border-right:blue 0.25vw solid" type="text" name="C3" autocomplete="off"/>
+                                                <input class="searchbar"id="C4" style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="C4" autocomplete="off"/>
+                                                <input class="searchbar"id="C5" style="border-bottom:blue 0.25vw solid" type="text" name="C5" autocomplete="off"/>
+                                                <input class="searchbar"id="C6" style="border-bottom:blue 0.25vw solid;border-right:blue 0.25vw solid"type="text" name="C6" autocomplete="off"/>
+                                                <input class="searchbar"id="C7" style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="C7" autocomplete="off"/>
+                                                <input class="searchbar"id="C8" style="border-bottom:blue 0.25vw solid" type="text" name="C8" autocomplete="off"/>
+                                                <input class="searchbar"id="C9" style="border-bottom:blue 0.25vw solid" type="text" name="C9" autocomplete="off"/>
+                                                <input class="searchbar"id="D1" style="border-top:blue 0.25vw solid" type="text" name="D1" autocomplete="off"/>
+                                                <input class="searchbar"id="D2" style="border-top:blue 0.25vw solid"  type="text" name="D2" autocomplete="off"/>
+                                                <input class="searchbar"id="D3" style="border-top:blue 0.25vw solid;border-right:blue 0.25vw solid" type="text" name="D3" autocomplete="off"/>
+                                                <input class="searchbar"id="D4" style="border-top: blue 0.25vw solid;border-left:0.25vw blue solid" type="text" name="D4" autocomplete="off"/>
+                                                <input class="searchbar"id="D5" style="border-top:blue 0.25vw solid" type="text" name="D5" autocomplete="off"/>
+                                                <input class="searchbar" id="D6"style="border-top:blue 0.25vw solid; border-right:blue 0.25vw solid"type="text" name="D6" autocomplete="off"/>
+                                                <input class="searchbar" id="D7"style="border-top:blue 0.25vw solid;border-left:0.25vw blue solid" type="text" name="D7" autocomplete="off"/>
+                                                <input class="searchbar"id="D8" style="border-top:blue 0.25vw solid" type="text" name="D8" autocomplete="off"/>
+                                                <input class="searchbar" id="D9"style="border-top:blue 0.25vw solid"type="text" name="D9" autocomplete="off"/>
+                                                <input class="searchbar"id="E1"  type="text" name="E1" autocomplete="off"/>
+                                                <input class="searchbar"id="E2"  type="text" name="E2" autocomplete="off"/>
+                                                <input class="searchbar" id="E3"  style="border-right:blue 0.25vw solid"type="text" name="E3" autocomplete="off"/>
+                                                <input class="searchbar" id="E4" style="border-left:blue 0.25vw solid"type="text" name="E4" autocomplete="off"/>
+                                                <input class="searchbar" id="E5" type="text" name="E5" autocomplete="off"/>
+                                                <input class="searchbar" id="E6"  style="border-right:blue 0.25vw solid"type="text" name="E6" autocomplete="off"/>
+                                                <input class="searchbar" id="E7" style="border-left:blue 0.25vw solid"type="text" name="E7" autocomplete="off"/>
+                                                <input class="searchbar" id="E8"type="text" name="E8" autocomplete="off"/>
+                                                <input class="searchbar" id="E9" type="text" name="E9" autocomplete="off"/>
+                                                <input class="searchbar" id="F1"style="border-bottom:blue 0.25vw solid" type="text" name="F1" autocomplete="off"/>
+                                                <input class="searchbar" id="F2"style="border-bottom:blue 0.25vw solid" type="text" name="F2" autocomplete="off"/>
+                                                <input class="searchbar" id="F3" style="border-right:blue 0.25vw solid;border-bottom:blue 0.25vw solid" type="text" name="F3" autocomplete="off"/>
+                                                <input class="searchbar" id="F4"style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="F4" autocomplete="off"/>
+                                                <input class="searchbar" id="F5"style="border-bottom:blue 0.25vw solid" type="text" name="F5" autocomplete="off"/>
+                                                <input class="searchbar" id="F6" style="border-right:blue 0.25vw solid;border-bottom:blue 0.25vw solid" type="text" name="F6" autocomplete="off"/>
+                                                <input class="searchbar" id="F7"style="border-bottom:blue 0.25vw solid;border-left:blue 0.25vw solid" type="text" name="F7" autocomplete="off"/>
+                                                <input class="searchbar" id="F8"style="border-bottom:blue 0.25vw solid" type="text" name="F8" autocomplete="off"/>
+                                                <input class="searchbar" id="F9"style="border-bottom:blue 0.25vw solid" type="text" name="F9" autocomplete="off"/>
+                                                <input class="searchbar" id="G1" style="border-top:0.25vw blue solid"type="text" name="G1" autocomplete="off"/>
+                                                <input class="searchbar" id="G2" style="border-top:0.25vw blue solid"type="text" name="G2" autocomplete="off"/>
+                                                <input class="searchbar" id="G3" style="border-top:0.25vw blue solid;border-right:blue 0.25vw solid"type="text" name="G3" autocomplete="off"/>
+                                                <input class="searchbar" id="G4" style="border-top:0.25vw blue solid;border-left:blue 0.25vw solid"type="text" name="G4" autocomplete="off"/>
+                                                <input class="searchbar" id="G5" style="border-top:0.25vw blue solid"type="text" name="G5" autocomplete="off"/>
+                                                <input class="searchbar" id="G6" style="border-top:0.25vw blue solid;border-right:blue 0.25vw solid"type="text" name="G6" autocomplete="off"/>
+                                                <input class="searchbar" id="G7" style="border-top:0.25vw blue solid;border-left:blue 0.25vw solid"type="text" name="G7" autocomplete="off"/>
+                                                <input class="searchbar" id="G8" style="border-top:0.25vw blue solid"type="text" name="G8" autocomplete="off"/>
+                                                <input class="searchbar" id="G9" style="border-top:0.25vw blue solid"type="text" name="G9" autocomplete="off"/>
+                                                <input class="searchbar" id="H1" type="text" name="H1" autocomplete="off"/>
+                                                <input class="searchbar" id="H2" type="text" name="H2" autocomplete="off"/>
+                                                <input class="searchbar" id="H3"  style="border-right:blue 0.25vw solid"type="text" name="H3" autocomplete="off"/>
+                                                <input class="searchbar" id="H4" style="border-left:blue 0.25vw solid"type="text" name="H4" autocomplete="off"/>
+                                                <input class="searchbar" id="H5" type="text" name="H5" autocomplete="off"/>
+                                                <input class="searchbar" id="H6"  style="border-right:blue 0.25vw solid"type="text" name="H6" autocomplete="off"/>
+                                                <input class="searchbar" id="H7"style="border-left:blue 0.25vw solid" type="text" name="H7" autocomplete="off"/>
+                                                <input class="searchbar" id="H8" type="text" name="H8" autocomplete="off"/>
+                                                <input class="searchbar" id="H9" type="text" name="H9" autocomplete="off"/>
+                                                <input class="searchbar"id="I1" type="text" name="I1" autocomplete="off"/>
+                                                <input class="searchbar"id="I2"   type="text" name="I2" autocomplete="off"/>
+                                                <input class="searchbar" id="I3" style="border-right:blue 0.25vw solid"type="text" name="I3" autocomplete="off"/>
+                                                <input class="searchbar" id="I4"style="border-left:blue 0.25vw solid"type="text" name="I4" autocomplete="off"/>
+                                                <input class="searchbar"id="I5"  type="text" name="I5" autocomplete="off"/>
+                                                <input class="searchbar" id="I6" style="border-right:blue 0.25vw solid" type="text" name="I6" autocomplete="off"/>
+                                                <input class="searchbar" id="I7" style="border-left:blue 0.25vw solid"type="text" name="I7" autocomplete="off"/>
+                                                <input class="searchbar" id="I8" type="text" name="I8" autocomplete="off"/>
+                                                <input class="searchbar" id="I9" type="text" name="I9" autocomplete="off"/>
+                                                </div>
+                                                <div id="lets" style="grid-row:2/3;grid-column:1/2">
+                                                    <div style="width:100%"><b>A</b></div> 
+                                                    <div style="width:100%"><b>B</b></div> 
+                                                    <div style="width:100%"><b>C</b></div> 
+                                                    <div style="width:100%"><b>D</b></div> 
+                                                    <div style="width:100%"><b>E</b></div> 
+                                                    <div style="width:100%"><b>F</b></div> 
+                                                    <div style="width:100%"><b>G</b></div> 
+                                                    <div style="width:100%"><b>H</b></div> 
+                                                    <div style="width:100%"><b>I</b></div> 
+                                                    </div>
+                                              {% endif %}
+                                              </div>
+      {% block results %} {% endblock %}
+      </div>
+      <script>
+        // Check if the width is less than the height
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+        console.log(screen.width)
+        console.log(screen.height)
+        console.log(width)
+        console.log(height)
+        s = document.getElementById('sudoku')
+        if (width < 900) {
+          // Width is less than height, so execute the query
+          if(screen.width < 500){
+            width = screen.width
+          }
+          console.log('Width is less than height');
+          document.getElementById('sudoku').style.height = '81vw'
+          document.getElementById('sudokucontainer').style.height = '86vw'
+          document.getElementById('sudoku').style.width = (s.children.length).toString() + 'vw'
+          document.getElementById('sudokucontainer').style.width = (s.children.length + 5).toString() + 'vw'
+          document.getElementById('sudokucontainer').style.gridTemplateRows = '5vw 81vw'
+          document.getElementById('sudokucontainer').style.gridTemplateColumns = '5vw ' + (s.children.length).toString() + 'vw'
+        } else {
+          console.log('Width is greater than or equal to height');
+          document.getElementById('sudoku').style.height = '30.06vw'
+          document.getElementById('sudokucontainer').style.height = '32.56vw'
+          document.getElementById('sudoku').style.width = (s.children.length*30.06/81).toString() + 'vw'
+          document.getElementById('sudokucontainer').style.width = (s.children.length*30.06/81 + 2.5).toString() + 'vw'
+          document.getElementById('sudokucontainer').style.gridTemplateRows = '2.5vw 30.06vw'
+          document.getElementById('sudokucontainer').style.gridTemplateColumns = '2.5vw ' + (s.children.length*30.06/81).toString() + 'vw'
+        }
+        </script>
+<script>
+    // Define a function to execute the query
+    function executeQuery() {
+      // Get the window width and height
+      // Check if the width is less than the height
+      var width = window.innerWidth;
+        var height = window.innerHeight;
+        console.log(screen.width)
+        console.log(screen.height)
+        console.log(width)
+        console.log(height)
+        s = document.getElementById('sudoku')
+        if (width < 900) {
+          // Width is less than height, so execute the query
+          if(screen.width < 500){
+            width = screen.width
+          }
+          console.log('Width is less than height');
+          document.getElementById('sudoku').style.height = '81vw'
+          document.getElementById('sudokucontainer').style.height = '86vw'
+          document.getElementById('sudoku').style.width = (s.children.length).toString() + 'vw'
+          document.getElementById('sudokucontainer').style.width = (s.children.length + 5).toString() + 'vw'
+          document.getElementById('sudokucontainer').style.gridTemplateRows = '5vw 81vw'
+          document.getElementById('sudokucontainer').style.gridTemplateColumns = '5vw ' + (s.children.length).toString() + 'vw'
+        } else {
+          console.log('Width is greater than or equal to height');
+          document.getElementById('sudoku').style.height = '30.06vw'
+          document.getElementById('sudokucontainer').style.height = '32.56vw'
+          document.getElementById('sudoku').style.width = (s.children.length*30.06/81).toString() + 'vw'
+          document.getElementById('sudokucontainer').style.width = (s.children.length*30.06/81 + 2.5).toString() + 'vw'
+          document.getElementById('sudokucontainer').style.gridTemplateRows = '2.5vw 30.06vw'
+          document.getElementById('sudokucontainer').style.gridTemplateColumns = '2.5vw ' + (s.children.length*30.06/81).toString() + 'vw'
+        }
+      }
+      window.addEventListener('resize', executeQuery);
+  </script>
+    <script>
+      let bluesjs = {{ blues }}
+      let redsjs = {{ reds }}
+      let graysjs = {{ grays }}
+      let numsjs = {{ nums }}
+      let difficulty = "{{ dif }}"
+      const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
+      if(difficulty !== 'none'){
+      document.getElementById(difficulty).classList.add('bluedif')
+      }
+      for (let i=0; i < numsjs.length; i++){
+        let wid = Math.floor(numsjs.length/9)
+          console.log(numsjs[i])
+          let j = (i%wid) + 1
+          if(bluesjs.includes(i)){
+              console.log('blue')
+              document.getElementById(letters[Math.floor(i/wid)] + j.toString()).style.color = "blue"
+              document.getElementById(letters[Math.floor(i/wid)] +j.toString()).value = numsjs[i]
+              if(numsjs[i] > 9){
+                document.getElementById(letters[Math.floor(i/wid)] +j.toString()).style.fontSize = 'small'
+              }
+      
+              }
+              if(graysjs.includes(i)){
+                  console.log('gray')
+                  document.getElementById(letters[Math.floor(i/wid)] + j.toString()).style.color = "gray"
+                  document.getElementById(letters[Math.floor(i/wid)] + j.toString()).value = numsjs[i]
+          
+                  }
+                  if(redsjs.includes(i)){
+                  console.log('red')
+                  document.getElementById(letters[Math.floor(i/wid)] + j.toString()).style.color = "red"
+                  document.getElementById(letters[Math.floor(i/wid)] + j.toString()).value = numsjs[i]
+          
+                  }
+      }
+      </script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+
+</html>
